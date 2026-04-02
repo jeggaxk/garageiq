@@ -3,6 +3,7 @@ import { runDailyAutomations } from '@/lib/automation'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization')
