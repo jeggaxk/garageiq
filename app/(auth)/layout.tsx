@@ -4,7 +4,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-2">
-            <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-12 w-auto" />
+            <img src="/garageiq-logo-white.svg" alt="GarageIQ" className="h-14 w-auto" />
           </div>
         </div>
         <div className="bg-white rounded-2xl p-8 shadow-2xl">

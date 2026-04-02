@@ -98,7 +98,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <div className="flex items-center">
-            <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="w-40 h-auto" />
+            <img src="/garageiq-logo.svg" alt="GarageIQ" className="w-40 h-auto" />
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">Features</a>
@@ -619,7 +619,7 @@ export default function LandingPage() {
       <footer className="bg-navy-900 border-t border-navy-800 py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center">
-            <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-7 w-auto brightness-0 invert opacity-80" />
+            <img src="/garageiq-logo-white.svg" alt="GarageIQ" className="h-10 w-auto" />
           </div>
           <p className="text-navy-400 text-xs">© 2026 GarageIQ. Built for independent UK garages.</p>
           <div className="flex gap-6">
