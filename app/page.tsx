@@ -97,11 +97,8 @@ export default function LandingPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
-              <span className="text-navy-900 font-bold text-sm">G</span>
-            </div>
-            <span className="font-bold text-navy-900 text-lg tracking-tight">GarageIQ</span>
+          <div className="flex items-center">
+            <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-9 w-auto" />
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">Features</a>
@@ -621,11 +618,8 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="bg-navy-900 border-t border-navy-800 py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-amber-500 rounded-md flex items-center justify-center">
-              <span className="text-navy-900 font-bold text-xs">G</span>
-            </div>
-            <span className="text-white font-bold text-sm">GarageIQ</span>
+          <div className="flex items-center">
+            <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-7 w-auto brightness-0 invert" />
           </div>
           <p className="text-navy-400 text-xs">© 2026 GarageIQ. Built for independent UK garages.</p>
           <div className="flex gap-6">

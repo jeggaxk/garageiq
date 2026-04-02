@@ -42,13 +42,8 @@ export default function Sidebar({ garage }: { garage: Garage }) {
       {/* Logo */}
       <div className="px-6 py-5 border-b border-navy-800">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-navy-900 font-bold text-sm">G</span>
-          </div>
-          <div>
-            <span className="text-white font-bold text-base tracking-tight leading-none">GarageIQ</span>
-            <p className="text-navy-300 text-xs mt-0.5 truncate max-w-[140px]">{garage.name}</p>
-          </div>
+          <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-8 w-auto flex-shrink-0" />
+          <p className="text-navy-300 text-xs truncate max-w-[140px]">{garage.name}</p>
         </div>
       </div>
 
@@ -108,10 +103,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
       {/* Mobile top bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-navy-900 flex items-center justify-between px-4 py-3 border-b border-navy-800">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-amber-500 rounded-md flex items-center justify-center">
-            <span className="text-navy-900 font-bold text-xs">G</span>
-          </div>
-          <span className="text-white font-bold text-sm">GarageIQ</span>
+          <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-7 w-auto" />
         </div>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
