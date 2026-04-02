@@ -1,14 +1,16 @@
 import Stripe from 'stripe'
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-02-24.acacia',
-  typescript: true,
-})
+export function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2025-02-24.acacia',
+    typescript: true,
+  })
+}
 
 export const PLANS = {
   solo: {
     name: 'Solo',
-    price: 4900, // pence
+    price: 4900,
     priceId: process.env.STRIPE_SOLO_PRICE_ID || '',
     description: 'Perfect for single-bay garages',
     features: ['Up to 500 customers', 'SMS + email reminders', 'All 4 automations', 'Google review requests'],
