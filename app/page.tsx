@@ -80,7 +80,7 @@ function ROICalculator() {
         </div>
         <Link
           href="/signup"
-          className="flex-shrink-0 bg-amber-500 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-amber-400 transition-colors"
+          className="flex-shrink-0 bg-cta-500 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-cta-400 transition-colors"
         >
           Start free →
         </Link>
@@ -109,7 +109,7 @@ export default function LandingPage() {
             <Link href="/login" className="text-sm text-gray-600 hover:text-navy-900 font-medium transition-colors">Sign in</Link>
             <Link
               href="/signup"
-              className="bg-amber-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-amber-400 transition-colors"
+              className="bg-cta-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-cta-400 transition-colors"
             >
               Start free trial
             </Link>
@@ -128,7 +128,7 @@ export default function LandingPage() {
             <Link href="/login" className="block text-sm text-gray-600 font-medium">Sign in</Link>
             <Link
               href="/signup"
-              className="block text-center bg-amber-500 text-white text-sm font-semibold px-4 py-2.5 rounded-lg"
+              className="block text-center bg-cta-500 text-white text-sm font-semibold px-4 py-2.5 rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               Start free trial
@@ -159,7 +159,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href="/signup"
-                  className="inline-flex items-center justify-center gap-2 bg-amber-500 text-white font-bold px-6 py-3.5 rounded-xl hover:bg-amber-400 transition-colors text-base"
+                  className="inline-flex items-center justify-center gap-2 bg-cta-500 text-white font-bold px-6 py-3.5 rounded-xl hover:bg-cta-400 transition-colors text-base"
                 >
                   Start free 60-day trial <ArrowRight size={18} />
                 </Link>
@@ -539,7 +539,7 @@ export default function LandingPage() {
                   href="/signup"
                   className={`block text-center font-semibold px-4 py-2.5 rounded-xl transition-colors ${
                     plan.popular
-                      ? 'bg-amber-500 text-white hover:bg-amber-400'
+                      ? 'bg-cta-500 text-white hover:bg-cta-400'
                       : 'bg-navy-900 text-white hover:bg-navy-800'
                   }`}
                 >
@@ -607,7 +607,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 bg-amber-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-amber-400 transition-colors text-lg"
+            className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
           >
             Start your free 60-day trial <ArrowRight size={20} />
           </Link>

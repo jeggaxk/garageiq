@@ -9,6 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        cta: {
+          400: '#fb923c',
+          500: '#f97316',
+          600: '#ea6c0a',
+        },
         navy: {
           50: '#f0f4fa',
           100: '#dce6f4',
