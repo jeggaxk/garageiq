@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         cta: {
+          50: '#fff8eb',
           400: '#f7b731',
           500: '#F5A01A',
           600: '#d9880f',

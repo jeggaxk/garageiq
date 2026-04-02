@@ -42,7 +42,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
       {/* Logo */}
       <div className="px-6 py-5 border-b border-navy-800">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-amber-500 rounded-md flex items-center justify-center flex-shrink-0">
+          <div className="w-7 h-7 bg-cta-500 rounded-md flex items-center justify-center flex-shrink-0">
             <span className="text-white font-bold text-xs">G</span>
           </div>
           <div>
@@ -54,9 +54,9 @@ export default function Sidebar({ garage }: { garage: Garage }) {
 
       {/* Trial banner */}
       {garage.plan === 'trial' && garage.trial_ends_at && (
-        <div className="mx-4 mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-          <p className="text-amber-400 text-xs font-medium">Free trial active</p>
-          <p className="text-amber-500/70 text-xs mt-0.5">
+        <div className="mx-4 mt-4 p-3 bg-cta-500/10 border border-cta-500/20 rounded-lg">
+          <p className="text-cta-500 text-xs font-medium">Free trial active</p>
+          <p className="text-cta-500/70 text-xs mt-0.5">
             {Math.max(0, Math.ceil((new Date(garage.trial_ends_at).getTime() - Date.now()) / 86400000))} days remaining
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-amber-500 text-white'
+                  ? 'bg-cta-500 text-white'
                   : 'text-navy-300 hover:text-white hover:bg-navy-800'
               )}
             >
@@ -108,7 +108,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
       {/* Mobile top bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-navy-900 flex items-center justify-between px-4 py-3 border-b border-navy-800">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-amber-500 rounded flex items-center justify-center">
+          <div className="w-6 h-6 bg-cta-500 rounded flex items-center justify-center">
             <span className="text-white font-bold text-xs">G</span>
           </div>
           <span className="text-white font-bold text-sm">GarageIQ</span>

@@ -61,9 +61,9 @@ function ROICalculator() {
           <p className="text-xs text-red-500 mt-1 font-medium">Lapsed per year</p>
           <p className="text-xs text-gray-400 mt-0.5">(40% average)</p>
         </div>
-        <div className="text-center p-4 bg-amber-50 rounded-xl">
-          <p className="text-3xl font-bold text-amber-600">{recovered}</p>
-          <p className="text-xs text-amber-600 mt-1 font-medium">Recovered</p>
+        <div className="text-center p-4 bg-cta-50 rounded-xl">
+          <p className="text-3xl font-bold text-cta-500">{recovered}</p>
+          <p className="text-xs text-cta-500 mt-1 font-medium">Recovered</p>
           <p className="text-xs text-gray-400 mt-0.5">with GarageIQ</p>
         </div>
         <div className="text-center p-4 bg-green-50 rounded-xl">
@@ -76,7 +76,7 @@ function ROICalculator() {
       <div className="p-4 bg-navy-900 rounded-xl flex items-center justify-between">
         <div>
           <p className="text-white font-semibold">GarageIQ costs £49–199/mo</p>
-          <p className="text-navy-300 text-sm">Your ROI: <span className="text-amber-400 font-bold">{Math.round(revenue / (49 * 12) * 100)}% return</span> on the Solo plan</p>
+          <p className="text-navy-300 text-sm">Your ROI: <span className="text-cta-500 font-bold">{Math.round(revenue / (49 * 12) * 100)}% return</span> on the Solo plan</p>
         </div>
         <Link
           href="/signup"
@@ -98,7 +98,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <div className="flex items-center">
-            <img src="/garageiq-logo.svg" alt="GarageIQ" className="h-12 w-auto" />
+            <img src="/garageiq-logo.svg" alt="GarageIQ" className="h-16 w-auto" />
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">Features</a>
@@ -142,13 +142,13 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-6">
-                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
-                <span className="text-amber-400 text-xs font-medium">60-day free trial · No card required</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cta-500/10 border border-cta-500/20 rounded-full mb-6">
+                <span className="w-1.5 h-1.5 bg-cta-500 rounded-full" />
+                <span className="text-cta-500 text-xs font-medium">60-day free trial · No card required</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 Stop losing customers to garages{' '}
-                <span className="text-amber-500">down the road</span>
+                <span className="text-cta-500">down the road</span>
               </h1>
               <p className="text-navy-300 text-lg mb-4 leading-relaxed">
                 Independent UK garages lose <span className="text-white font-semibold">40% of customers every year</span> — not because of bad service, but because no one followed up.
@@ -183,11 +183,11 @@ export default function LandingPage() {
                   <div className="flex">
                     <div className="w-44 bg-navy-900 p-3 min-h-64">
                       <div className="flex items-center gap-2 mb-4 px-1">
-                        <div className="w-5 h-5 bg-amber-500 rounded" />
+                        <div className="w-5 h-5 bg-cta-500 rounded" />
                         <span className="text-white text-xs font-bold">GarageIQ</span>
                       </div>
                       {['Dashboard', 'Customers', 'Automations', 'Messages', 'Settings'].map((item, i) => (
-                        <div key={item} className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs mb-0.5 ${i === 0 ? 'bg-amber-500 text-white font-semibold' : 'text-navy-400'}`}>
+                        <div key={item} className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs mb-0.5 ${i === 0 ? 'bg-cta-500 text-white font-semibold' : 'text-navy-400'}`}>
                           <div className="w-2.5 h-2.5 rounded bg-current opacity-60" />
                           {item}
                         </div>
@@ -208,8 +208,8 @@ export default function LandingPage() {
                           </div>
                         ))}
                       </div>
-                      <div className="bg-amber-50 rounded-lg p-2">
-                        <p className="text-xs font-semibold text-amber-800 mb-1.5">MOTs due this month</p>
+                      <div className="bg-cta-50 rounded-lg p-2">
+                        <p className="text-xs font-semibold text-cta-600 mb-1.5">MOTs due this month</p>
                         {[
                           { name: 'J. Smith', reg: 'AB12 CDE', days: '3d' },
                           { name: 'P. Jones', reg: 'XY23 FGH', days: '7d' },
@@ -218,7 +218,7 @@ export default function LandingPage() {
                           <div key={c.reg} className="flex items-center justify-between text-xs text-gray-600 py-0.5">
                             <span>{c.name}</span>
                             <span className="font-mono bg-gray-100 px-1 rounded text-xs">{c.reg}</span>
-                            <span className="text-amber-600 font-medium">{c.days}</span>
+                            <span className="text-cta-500 font-medium">{c.days}</span>
                           </div>
                         ))}
                       </div>
@@ -275,7 +275,7 @@ export default function LandingPage() {
                 stat: '£0',
                 title: 'Most garages spend on retention',
                 description: 'While franchises invest heavily in CRM and reminder systems, most independents have nothing in place.',
-                color: 'text-amber-500 bg-amber-50',
+                color: 'text-cta-500 bg-cta-50',
               },
               {
                 icon: TrendingUp,
@@ -330,7 +330,7 @@ export default function LandingPage() {
               },
               {
                 icon: Star,
-                color: 'bg-amber-500',
+                color: 'bg-cta-500',
                 title: 'Google review requests',
                 description: 'Sent 24 hours after every visit. More reviews mean higher ranking in local search — more customers finding you first.',
                 example: '"Hi James, thanks for visiting Smith\'s Auto today. If you\'re happy, a quick Google review would mean a lot: [link]"',
@@ -392,7 +392,7 @@ export default function LandingPage() {
               const Icon = step.icon
               return (
                 <div key={step.step} className="text-center">
-                  <div className="w-14 h-14 bg-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-200">
+                  <div className="w-14 h-14 bg-cta-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-200">
                     <span className="text-navy-900 font-bold text-xl">{step.step}</span>
                   </div>
                   <h3 className="text-lg font-bold text-navy-900 mb-2">{step.title}</h3>
@@ -503,7 +503,7 @@ export default function LandingPage() {
                 }`}
               >
                 {plan.popular && (
-                  <span className="inline-block bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">
+                  <span className="inline-block bg-cta-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">
                     Most popular
                   </span>
                 )}
@@ -525,9 +525,9 @@ export default function LandingPage() {
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2.5">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        plan.popular ? 'bg-amber-500/20' : 'bg-green-100'
+                        plan.popular ? 'bg-cta-500/20' : 'bg-green-100'
                       }`}>
-                        <Check size={10} className={plan.popular ? 'text-amber-400' : 'text-green-600'} />
+                        <Check size={10} className={plan.popular ? 'text-cta-500' : 'text-green-600'} />
                       </div>
                       <span className={`text-sm ${plan.popular ? 'text-navy-200' : 'text-gray-600'}`}>
                         {feature}
@@ -582,7 +582,7 @@ export default function LandingPage() {
               <div key={testimonial.name} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
                 <div className="flex gap-0.5 mb-3">
                   {[...Array(testimonial.stars)].map((_, i) => (
-                    <Star key={i} size={14} className="text-amber-500 fill-amber-500" />
+                    <Star key={i} size={14} className="text-cta-500 fill-cta-500" />
                   ))}
                 </div>
                 <p className="text-gray-700 text-sm leading-relaxed mb-4 italic">"{testimonial.quote}"</p>
