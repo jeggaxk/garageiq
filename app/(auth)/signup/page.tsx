@@ -16,7 +16,6 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
-  const supabase = createClient()
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault()
@@ -45,6 +44,7 @@ export default function SignupPage() {
     }
 
     // Now sign in on the client to get a session
+    const supabase = createClient()
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
