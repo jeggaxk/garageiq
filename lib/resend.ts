@@ -1,7 +1,5 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY!)
-
 export async function sendEmail({
   to,
   subject,
@@ -14,6 +12,7 @@ export async function sendEmail({
   from?: string
 }): Promise<{ success: boolean; id?: string; error?: string }> {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY!)
     const { data, error } = await resend.emails.send({
       from,
       to,
