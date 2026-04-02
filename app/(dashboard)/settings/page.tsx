@@ -194,7 +194,7 @@ export default function SettingsPage() {
                   <div className="flex items-center gap-2">
                     <p className="font-semibold text-navy-900">{p.name}</p>
                     {p.popular && (
-                      <span className="text-xs bg-amber-500 text-navy-900 font-semibold px-2 py-0.5 rounded-full">Popular</span>
+                      <span className="text-xs bg-amber-500 text-white font-semibold px-2 py-0.5 rounded-full">Popular</span>
                     )}
                   </div>
                   <p className="text-xs text-gray-400 mt-0.5">{p.features.join(' · ')}</p>

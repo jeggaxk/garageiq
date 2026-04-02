@@ -69,7 +69,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-amber-500 text-navy-900'
+                  ? 'bg-amber-500 text-white'
                   : 'text-navy-300 hover:text-white hover:bg-navy-800'
               )}
             >

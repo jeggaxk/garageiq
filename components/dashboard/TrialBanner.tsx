@@ -48,7 +48,7 @@ export default function TrialBanner({ trialEndsAt }: TrialBannerProps) {
         className={`flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors ${
           isUrgent
             ? 'bg-red-600 text-white hover:bg-red-700'
-            : 'bg-amber-500 text-navy-900 hover:bg-amber-400'
+            : 'bg-amber-500 text-white hover:bg-amber-400'
         }`}
       >
         Upgrade now
