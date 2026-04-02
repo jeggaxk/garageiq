@@ -41,10 +41,8 @@ export default function Sidebar({ garage }: { garage: Garage }) {
     <>
       {/* Logo */}
       <div className="px-6 py-5 border-b border-navy-800">
-        <div className="flex items-center gap-2.5">
-          <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-8 w-auto flex-shrink-0" />
-          <p className="text-navy-300 text-xs truncate max-w-[140px]">{garage.name}</p>
-        </div>
+        <img src="/garageiq-logo-transparent.png" alt="GarageIQ" className="h-8 w-auto brightness-0 invert mb-1" />
+        <p className="text-navy-300 text-xs truncate">{garage.name}</p>
       </div>
 
       {/* Trial banner */}
