@@ -10,7 +10,7 @@ export async function GET() {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { data: garage } = await supabase
-    .from('garages').select('id').eq('owner_id', user.id).single()
+    .from('garages').select('id, phone').eq('owner_id', user.id).single()
   if (!garage) return NextResponse.json({ error: 'Garage not found' }, { status: 404 })
 
   const today = startOfDay(new Date())
@@ -59,6 +59,18 @@ export async function GET() {
   // Estimate revenue protected: avg MOT value ~£55, service ~£150
   const estimatedRevenueProtected = ((motsDueNext30Days || 0) * 55 + (messagesSentThisMonth || 0) * 25) * 100
 
+  // Onboarding checks
+  const { count: enabledAutomations } = await supabase
+    .from('automations')
+    .select('id', { count: 'exact', head: true })
+    .eq('garage_id', garage.id)
+    .eq('enabled', true)
+
+  const { count: customTemplates } = await supabase
+    .from('message_templates')
+    .select('id', { count: 'exact', head: true })
+    .eq('garage_id', garage.id)
+
   return NextResponse.json({
     stats: {
       totalCustomers: totalCustomers || 0,
@@ -68,5 +80,11 @@ export async function GET() {
     },
     upcomingMOTs: upcomingMOTs || [],
     recentMessages: recentMessages || [],
+    onboarding: {
+      hasCustomers: (totalCustomers || 0) > 0,
+      hasAutomations: (enabledAutomations || 0) > 0,
+      hasTemplates: (customTemplates || 0) > 0,
+      hasProfile: !!garage.phone,
+    },
   })
 }

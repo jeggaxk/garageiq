@@ -15,6 +15,14 @@ import {
   Mail,
   Phone,
 } from 'lucide-react'
+import OnboardingChecklist from '@/components/dashboard/OnboardingChecklist'
+
+interface OnboardingData {
+  hasCustomers: boolean
+  hasAutomations: boolean
+  hasTemplates: boolean
+  hasProfile: boolean
+}
 
 interface DashboardData {
   stats: {
@@ -23,6 +31,7 @@ interface DashboardData {
     motsDueNext30Days: number
     estimatedRevenueProtected: number
   }
+  onboarding: OnboardingData
   upcomingMOTs: Array<{
     id: string
     name: string
@@ -83,8 +92,9 @@ export default function DashboardPage() {
     )
   }
 
-  const { stats, upcomingMOTs, recentMessages } = data || {
+  const { stats, upcomingMOTs, recentMessages, onboarding } = data || {
     stats: { totalCustomers: 0, messagesSentThisMonth: 0, motsDueNext30Days: 0, estimatedRevenueProtected: 0 },
+    onboarding: { hasCustomers: false, hasAutomations: false, hasTemplates: false, hasProfile: false },
     upcomingMOTs: [],
     recentMessages: [],
   }
@@ -95,6 +105,8 @@ export default function DashboardPage() {
         title="Dashboard"
         description="Your garage performance at a glance"
       />
+
+      <OnboardingChecklist data={onboarding} />
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
