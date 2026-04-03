@@ -8,7 +8,7 @@ export async function GET() {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { data: garage } = await supabase
-    .from('garages').select('id').eq('owner_id', user.id).single()
+    .from('garages').select('id, plan').eq('owner_id', user.id).single()
   if (!garage) return NextResponse.json({ error: 'Garage not found' }, { status: 404 })
 
   const { data: templates, error } = await supabase
@@ -18,7 +18,7 @@ export async function GET() {
     .order('type')
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ templates })
+  return NextResponse.json({ templates, plan: garage.plan })
 }
 
 export async function PATCH(request: Request) {
@@ -27,8 +27,12 @@ export async function PATCH(request: Request) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { data: garage } = await supabase
-    .from('garages').select('id').eq('owner_id', user.id).single()
+    .from('garages').select('id, plan').eq('owner_id', user.id).single()
   if (!garage) return NextResponse.json({ error: 'Garage not found' }, { status: 404 })
+
+  if (!['pro', 'multi'].includes(garage.plan)) {
+    return NextResponse.json({ error: 'Custom templates require a Pro or Multi plan' }, { status: 403 })
+  }
 
   const { id, body, subject } = await request.json()
 

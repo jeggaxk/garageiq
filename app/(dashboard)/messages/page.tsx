@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button'
 import Modal from '@/components/ui/Modal'
 import { formatDate } from '@/lib/utils'
 import type { Message, MessageTemplate, AutomationType, MessageChannel } from '@/types'
-import { Mail, Phone, MessageSquare, Edit3 } from 'lucide-react'
+import { Mail, Phone, MessageSquare, Edit3, Lock } from 'lucide-react'
 
 const typeLabels: Record<string, string> = {
   mot_reminder: 'MOT Reminder',
@@ -37,7 +37,9 @@ export default function MessagesPage() {
   const [activeTab, setActiveTab] = useState<'log' | 'templates'>('log')
   const [messages, setMessages] = useState<Message[]>([])
   const [templates, setTemplates] = useState<MessageTemplate[]>([])
+  const [plan, setPlan] = useState<string>('solo')
   const [loading, setLoading] = useState(true)
+  const canEditTemplates = ['pro', 'multi'].includes(plan)
   const [editingTemplate, setEditingTemplate] = useState<MessageTemplate | null>(null)
   const [editBody, setEditBody] = useState('')
   const [editSubject, setEditSubject] = useState('')
@@ -52,7 +54,7 @@ export default function MessagesPage() {
     } else {
       fetch('/api/messages/templates')
         .then((r) => r.json())
-        .then((d) => setTemplates(d.templates || []))
+        .then((d) => { setTemplates(d.templates || []); setPlan(d.plan || 'solo') })
         .finally(() => setLoading(false))
     }
   }, [activeTab])
@@ -184,9 +186,24 @@ export default function MessagesPage() {
 
       {activeTab === 'templates' && (
         <div className="space-y-6">
-          <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
-            <p className="text-sm text-amber-800 font-medium mb-1">Dynamic variables</p>
-            <p className="text-xs text-amber-700 font-mono">[FirstName] [VehicleReg] [VehicleMake] [GarageName] [GaragePhone] [GoogleReviewLink]</p>
+          {!canEditTemplates && (
+            <div className="p-4 bg-navy-900 border border-navy-700 rounded-xl flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <Lock size={18} className="text-cta-500 flex-shrink-0" />
+                <div>
+                  <p className="text-white font-semibold text-sm">Custom templates are a Pro feature</p>
+                  <p className="text-navy-300 text-xs mt-0.5">Upgrade to Pro to edit message templates and make them sound like your garage.</p>
+                </div>
+              </div>
+              <a href="/settings" className="flex-shrink-0 bg-cta-500 hover:bg-cta-400 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors">
+                Upgrade
+              </a>
+            </div>
+          )}
+
+          <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl">
+            <p className="text-sm text-blue-800 font-medium mb-1">Dynamic variables</p>
+            <p className="text-xs text-blue-700 font-mono">[FirstName] [VehicleReg] [VehicleMake] [GarageName] [GaragePhone] [GoogleReviewLink]</p>
           </div>
 
           {/* SMS templates */}
@@ -209,9 +226,15 @@ export default function MessagesPage() {
                         {template.body.length} characters · {Math.ceil(template.body.length / 160)} SMS credit{Math.ceil(template.body.length / 160) !== 1 ? 's' : ''}
                       </p>
                     </div>
-                    <Button variant="secondary" size="sm" onClick={() => openEdit(template)}>
-                      <Edit3 size={13} /> Edit
-                    </Button>
+                    {canEditTemplates ? (
+                      <Button variant="secondary" size="sm" onClick={() => openEdit(template)}>
+                        <Edit3 size={13} /> Edit
+                      </Button>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 border border-gray-200 rounded-lg px-3 py-1.5 cursor-not-allowed">
+                        <Lock size={12} /> Pro
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -238,9 +261,15 @@ export default function MessagesPage() {
                         {template.body}
                       </p>
                     </div>
-                    <Button variant="secondary" size="sm" onClick={() => openEdit(template)}>
-                      <Edit3 size={13} /> Edit
-                    </Button>
+                    {canEditTemplates ? (
+                      <Button variant="secondary" size="sm" onClick={() => openEdit(template)}>
+                        <Edit3 size={13} /> Edit
+                      </Button>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 border border-gray-200 rounded-lg px-3 py-1.5 cursor-not-allowed">
+                        <Lock size={12} /> Pro
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}
