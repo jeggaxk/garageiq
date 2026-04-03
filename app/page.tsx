@@ -75,8 +75,8 @@ function ROICalculator() {
 
       <div className="p-4 bg-navy-900 rounded-xl flex items-center justify-between">
         <div>
-          <p className="text-white font-semibold">Corviz costs £49–199/mo</p>
-          <p className="text-navy-300 text-sm">Your ROI: <span className="text-cta-500 font-bold">{Math.round(revenue / (49 * 12) * 100)}% return</span> on the Solo plan</p>
+          <p className="text-white font-semibold">Corviz costs £79–249/mo</p>
+          <p className="text-navy-300 text-sm">Your ROI: <span className="text-cta-500 font-bold">{Math.round(revenue / (79 * 12) * 100)}% return</span> on the Solo plan</p>
         </div>
         <Link
           href="/signup"
@@ -91,6 +91,7 @@ function ROICalculator() {
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly')
 
   return (
     <div className="bg-white font-sans">
@@ -439,16 +440,31 @@ export default function LandingPage() {
       {/* Pricing */}
       <section id="pricing" className="py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Simple, transparent pricing</h2>
-            <p className="text-gray-500 text-lg">Start free for 60 days. Cancel anytime.</p>
+            <p className="text-gray-500 text-lg mb-6">Start free for 60 days. Cancel anytime.</p>
+            {/* Billing toggle */}
+            <div className="inline-flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'monthly' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod('annual')}
+                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'annual' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              >
+                Annual <span className="text-green-600 text-xs font-semibold ml-1">2 months free</span>
+              </button>
+            </div>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 name: 'Solo',
-                price: '£49',
-                period: '/month',
+                monthly: { price: '£79', period: '/month' },
+                annual: { price: '£790', period: '/year' },
                 description: 'Perfect for single-bay independents',
                 features: [
                   'Up to 500 customers',
@@ -463,8 +479,8 @@ export default function LandingPage() {
               },
               {
                 name: 'Pro',
-                price: '£99',
-                period: '/month',
+                monthly: { price: '£149', period: '/month' },
+                annual: { price: '£1,490', period: '/year' },
                 description: 'For established independent garages',
                 features: [
                   'Up to 2,000 customers',
@@ -479,8 +495,8 @@ export default function LandingPage() {
               },
               {
                 name: 'Multi-site',
-                price: '£199',
-                period: '/month',
+                monthly: { price: '£249', period: '/month' },
+                annual: { price: '£2,490', period: '/year' },
                 description: 'For groups and franchises',
                 features: [
                   'Unlimited customers',
@@ -493,7 +509,9 @@ export default function LandingPage() {
                 cta: 'Contact us',
                 popular: false,
               },
-            ].map((plan) => (
+            ].map((plan) => {
+              const pricing = billingPeriod === 'annual' ? plan.annual : plan.monthly
+              return (
               <div
                 key={plan.name}
                 className={`rounded-2xl p-6 border ${
@@ -513,14 +531,20 @@ export default function LandingPage() {
                 <p className={`text-sm mb-4 ${plan.popular ? 'text-navy-300' : 'text-gray-500'}`}>
                   {plan.description}
                 </p>
-                <div className="flex items-end gap-1 mb-6">
+                <div className="flex items-end gap-1 mb-1">
                   <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-navy-900'}`}>
-                    {plan.price}
+                    {pricing.price}
                   </span>
                   <span className={`text-sm mb-1.5 ${plan.popular ? 'text-navy-300' : 'text-gray-400'}`}>
-                    {plan.period}
+                    {pricing.period}
                   </span>
                 </div>
+                {billingPeriod === 'annual' && (
+                  <p className={`text-xs mb-5 ${plan.popular ? 'text-green-400' : 'text-green-600'}`}>
+                    Save 2 months vs monthly
+                  </p>
+                )}
+                {billingPeriod === 'monthly' && <div className="mb-5" />}
                 <ul className="space-y-2.5 mb-6">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2.5">
@@ -546,7 +570,7 @@ export default function LandingPage() {
                   {plan.cta}
                 </Link>
               </div>
-            ))}
+            )})}
           </div>
           <p className="text-center text-gray-400 text-sm mt-6">
             All plans include a 60-day free trial. No credit card required to start.

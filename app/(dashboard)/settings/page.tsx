@@ -10,9 +10,9 @@ import { Building2, CreditCard, CheckCircle, ExternalLink } from 'lucide-react'
 
 const planDetails = {
   trial: { label: 'Free trial', color: 'text-amber-600 bg-amber-50', price: 'Free for 60 days' },
-  solo: { label: 'Solo', color: 'text-blue-600 bg-blue-50', price: '£49/month' },
-  pro: { label: 'Pro', color: 'text-purple-600 bg-purple-50', price: '£99/month' },
-  multi: { label: 'Multi-site', color: 'text-green-600 bg-green-50', price: '£199/month' },
+  solo: { label: 'Solo', color: 'text-blue-600 bg-blue-50', price: '£79/month' },
+  pro: { label: 'Pro', color: 'text-purple-600 bg-purple-50', price: '£149/month' },
+  multi: { label: 'Multi-site', color: 'text-green-600 bg-green-50', price: '£249/month' },
 }
 
 export default function SettingsPage() {
@@ -21,6 +21,7 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [upgradingPlan, setUpgradingPlan] = useState<string | null>(null)
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly')
   const [openingPortal, setOpeningPortal] = useState(false)
   const [form, setForm] = useState({
     name: '', owner_name: '', phone: '', address: '', google_review_url: '',
@@ -66,7 +67,7 @@ export default function SettingsPage() {
     const res = await fetch('/api/stripe/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan }),
+      body: JSON.stringify({ plan, billing }),
     })
     const data = await res.json()
     if (data.url) {
@@ -178,12 +179,30 @@ export default function SettingsPage() {
             </div>
           )}
 
+          {/* Billing toggle */}
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <button
+              onClick={() => setBilling('monthly')}
+              className={`text-sm font-medium px-3 py-1.5 rounded-lg transition-colors ${billing === 'monthly' ? 'bg-navy-900 text-white' : 'text-gray-500 hover:text-gray-700'}`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBilling('annual')}
+              className={`text-sm font-medium px-3 py-1.5 rounded-lg transition-colors ${billing === 'annual' ? 'bg-navy-900 text-white' : 'text-gray-500 hover:text-gray-700'}`}
+            >
+              Annual <span className="text-green-600 text-xs font-semibold ml-1">2 months free</span>
+            </button>
+          </div>
+
           <div className="space-y-3">
             {[
-              { name: 'Solo', price: '£49/mo', features: ['500 customers', 'SMS + email', 'All 4 automations'], plan: 'solo' },
-              { name: 'Pro', price: '£99/mo', features: ['2,000 customers', 'Custom templates', 'Priority support'], plan: 'pro', popular: true },
-              { name: 'Multi-site', price: '£199/mo', features: ['Unlimited customers', 'Multiple locations', 'Dedicated manager'], plan: 'multi' },
-            ].map((p) => (
+              { name: 'Solo', monthly: '£79/mo', annual: '£790/yr', features: ['500 customers', 'SMS + email', 'All 4 automations'], plan: 'solo' },
+              { name: 'Pro', monthly: '£149/mo', annual: '£1,490/yr', features: ['2,000 customers', 'Custom templates', 'Priority support'], plan: 'pro', popular: true },
+              { name: 'Multi-site', monthly: '£249/mo', annual: '£2,490/yr', features: ['Unlimited customers', 'Multiple locations', 'Dedicated manager'], plan: 'multi' },
+            ].map((p) => {
+              const price = billing === 'annual' ? p.annual : p.monthly
+              return (
               <div
                 key={p.plan}
                 className={`border rounded-xl p-4 flex items-center justify-between ${
@@ -200,7 +219,7 @@ export default function SettingsPage() {
                   <p className="text-xs text-gray-400 mt-0.5">{p.features.join(' · ')}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-navy-900">{p.price}</span>
+                  <span className="font-bold text-navy-900">{price}</span>
                   {garage?.plan === p.plan ? (
                     <span className="text-xs text-amber-600 font-medium">Current plan</span>
                   ) : (
@@ -215,7 +234,7 @@ export default function SettingsPage() {
                   )}
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </div>

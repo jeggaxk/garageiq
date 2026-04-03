@@ -10,22 +10,25 @@ export function getStripe() {
 export const PLANS = {
   solo: {
     name: 'Solo',
-    price: 4900,
+    price: 7900,
     priceId: process.env.STRIPE_SOLO_PRICE_ID || '',
+    annualPriceId: process.env.STRIPE_SOLO_ANNUAL_PRICE_ID || '',
     description: 'Perfect for single-bay garages',
     features: ['Up to 500 customers', 'SMS + email reminders', 'All 4 automations', 'Google review requests'],
   },
   pro: {
     name: 'Pro',
-    price: 9900,
+    price: 14900,
     priceId: process.env.STRIPE_PRO_PRICE_ID || '',
+    annualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
     description: 'For established independent garages',
     features: ['Up to 2,000 customers', 'SMS + email reminders', 'All 4 automations', 'Custom message templates', 'Priority support'],
   },
   multi: {
     name: 'Multi-site',
-    price: 19900,
+    price: 24900,
     priceId: process.env.STRIPE_MULTI_PRICE_ID || '',
+    annualPriceId: process.env.STRIPE_MULTI_ANNUAL_PRICE_ID || '',
     description: 'For garage groups and franchises',
     features: ['Unlimited customers', 'Multiple garage locations', 'All Pro features', 'Dedicated account manager'],
   },

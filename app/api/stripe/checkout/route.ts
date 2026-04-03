@@ -10,10 +10,11 @@ export async function POST(request: Request) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { plan } = await request.json()
+  const { plan, billing } = await request.json()
   if (!plan || !(plan in PLANS)) {
     return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
   }
+  const isAnnual = billing === 'annual'
 
   const { data: garage } = await supabase
     .from('garages')
@@ -43,6 +44,7 @@ export async function POST(request: Request) {
   }
 
   const planConfig = PLANS[plan as keyof typeof PLANS]
+  const priceId = isAnnual ? planConfig.annualPriceId : planConfig.priceId
 
   const session = await stripe.checkout.sessions.create({
     customer: stripeCustomerId,
@@ -50,7 +52,7 @@ export async function POST(request: Request) {
     payment_method_types: ['card'],
     line_items: [
       {
-        price: planConfig.priceId,
+        price: priceId,
         quantity: 1,
       },
     ],
