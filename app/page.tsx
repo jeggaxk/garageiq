@@ -64,7 +64,7 @@ function ROICalculator() {
         <div className="text-center p-4 bg-cta-50 rounded-xl">
           <p className="text-3xl font-bold text-cta-500">{recovered}</p>
           <p className="text-xs text-cta-500 mt-1 font-medium">Recovered</p>
-          <p className="text-xs text-gray-400 mt-0.5">with GarageIQ</p>
+          <p className="text-xs text-gray-400 mt-0.5">with Corviz</p>
         </div>
         <div className="text-center p-4 bg-green-50 rounded-xl">
           <p className="text-xl font-bold text-green-600 whitespace-nowrap">£{revenue.toLocaleString()}</p>
@@ -75,7 +75,7 @@ function ROICalculator() {
 
       <div className="p-4 bg-navy-900 rounded-xl flex items-center justify-between">
         <div>
-          <p className="text-white font-semibold">GarageIQ costs £49–199/mo</p>
+          <p className="text-white font-semibold">Corviz costs £49–199/mo</p>
           <p className="text-navy-300 text-sm">Your ROI: <span className="text-cta-500 font-bold">{Math.round(revenue / (49 * 12) * 100)}% return</span> on the Solo plan</p>
         </div>
         <Link
@@ -98,7 +98,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <div className="flex items-center">
-            <img src="/garageiq-logo.svg" alt="GarageIQ" className="h-16 w-auto" />
+            <img src="/corviz-logo.svg" alt="Corviz" className="h-16 w-auto" />
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">Features</a>
@@ -154,7 +154,7 @@ export default function LandingPage() {
                 Independent UK garages lose <span className="text-white font-semibold">40% of customers every year</span> — not because of bad service, but because no one followed up.
               </p>
               <p className="text-navy-300 text-lg mb-8 leading-relaxed">
-                GarageIQ sends automated MOT reminders, service follow-ups, and Google review requests — so your customers book with <em>you</em>, not someone else.
+                Corviz sends automated MOT reminders, service follow-ups, and Google review requests — so your customers book with <em>you</em>, not someone else.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
@@ -184,7 +184,7 @@ export default function LandingPage() {
                     <div className="w-44 bg-navy-900 p-3 min-h-64">
                       <div className="flex items-center gap-2 mb-4 px-1">
                         <div className="w-5 h-5 bg-cta-500 rounded" />
-                        <span className="text-white text-xs font-bold">GarageIQ</span>
+                        <span className="text-white text-xs font-bold">Corviz</span>
                       </div>
                       {['Dashboard', 'Customers', 'Automations', 'Messages', 'Settings'].map((item, i) => (
                         <div key={item} className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs mb-0.5 ${i === 0 ? 'bg-cta-500 text-white font-semibold' : 'text-navy-400'}`}>
@@ -385,7 +385,7 @@ export default function LandingPage() {
               {
                 step: '3',
                 title: 'Watch customers return',
-                description: 'GarageIQ runs every morning. You\'ll see messages going out, customers booking, and revenue coming in.',
+                description: 'Corviz runs every morning. You\'ll see messages going out, customers booking, and revenue coming in.',
                 icon: TrendingUp,
               },
             ].map((step, i) => {
@@ -413,13 +413,13 @@ export default function LandingPage() {
                 What's your garage actually losing?
               </h2>
               <p className="text-gray-500 text-lg mb-6 leading-relaxed">
-                Most garages are sitting on hundreds of lapsed customers worth thousands of pounds. GarageIQ brings them back automatically.
+                Most garages are sitting on hundreds of lapsed customers worth thousands of pounds. Corviz brings them back automatically.
               </p>
               <ul className="space-y-3">
                 {[
                   'Average MOT booking value: £55',
                   'Average service booking value: £150',
-                  'Average recovery rate with GarageIQ: 35%',
+                  'Average recovery rate with Corviz: 35%',
                   'Setup time: under 10 minutes',
                 ].map((point) => (
                   <li key={point} className="flex items-center gap-3 text-gray-700">
@@ -567,7 +567,7 @@ export default function LandingPage() {
                 stars: 5,
               },
               {
-                quote: "I used to lose track of customers all the time. Now GarageIQ handles it — I just show up and the bookings are there.",
+                quote: "I used to lose track of customers all the time. Now Corviz handles it — I just show up and the bookings are there.",
                 name: "Raj P.",
                 garage: "Prestige Motors, Leicester",
                 stars: 5,
@@ -603,7 +603,7 @@ export default function LandingPage() {
             Start recovering customers today
           </h2>
           <p className="text-navy-300 text-lg mb-8">
-            Join 200+ independent UK garages using GarageIQ to retain more customers and grow revenue — automatically.
+            Join 200+ independent UK garages using Corviz to retain more customers and grow revenue — automatically.
           </p>
           <Link
             href="/signup"
@@ -619,13 +619,13 @@ export default function LandingPage() {
       <footer className="bg-navy-900 border-t border-navy-800 py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center">
-            <img src="/garageiq-logo-white.svg" alt="GarageIQ" className="h-10 w-auto" />
+            <img src="/corviz-logo-white.svg" alt="Corviz" className="h-10 w-auto" />
           </div>
-          <p className="text-navy-400 text-xs">© 2026 GarageIQ. Built for independent UK garages.</p>
+          <p className="text-navy-400 text-xs">© 2026 Corviz. Built for independent UK garages.</p>
           <div className="flex gap-6">
             <a href="#" className="text-navy-400 text-xs hover:text-white transition-colors">Privacy</a>
             <a href="#" className="text-navy-400 text-xs hover:text-white transition-colors">Terms</a>
-            <a href="mailto:hello@garageiq.co.uk" className="text-navy-400 text-xs hover:text-white transition-colors">Contact</a>
+            <a href="mailto:hello@corviz.co.uk" className="text-navy-400 text-xs hover:text-white transition-colors">Contact</a>
           </div>
         </div>
       </footer>

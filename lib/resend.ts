@@ -4,7 +4,7 @@ export async function sendEmail({
   to,
   subject,
   text,
-  from = process.env.RESEND_FROM_EMAIL || 'GarageIQ <onboarding@resend.dev>',
+  from = process.env.RESEND_FROM_EMAIL || 'Corviz <onboarding@resend.dev>',
 }: {
   to: string
   subject: string

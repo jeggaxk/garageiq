@@ -76,13 +76,13 @@ export async function POST(request: Request) {
   }
 
   // Send welcome email (non-blocking — don't fail signup if this errors)
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getcorviz.com'
   sendEmail({
     to: email,
-    subject: `Welcome to Revvia, ${ownerName || garageName}!`,
+    subject: `Welcome to Corviz, ${ownerName || garageName}!`,
     text: `Hi ${ownerName || 'there'},
 
-Welcome to Revvia — you're all set!
+Welcome to Corviz — you're all set!
 
 Your 60-day free trial has started. Here's how to get the most out of it:
 
@@ -99,7 +99,7 @@ Most garages are up and running within 10 minutes.
 
 If you have any questions just reply to this email.
 
-The Revvia team`,
+The Corviz team`,
   }).catch(() => {}) // fire and forget
 
   return NextResponse.json({ success: true })

@@ -30,7 +30,7 @@ const EXPIRY_THRESHOLDS: ExpiryThreshold[] = [
   {
     hours: 168, // 7 days
     windowHours: 12,
-    subject: 'Your Revvia trial ends in 7 days',
+    subject: 'Your Corviz trial ends in 7 days',
     body: (name, url) => `Hi ${name},
 
 Your free 60-day trial ends in 7 days.
@@ -42,12 +42,12 @@ ${url}/settings
 
 If you have any questions just reply to this email.
 
-The Revvia team`,
+The Corviz team`,
   },
   {
     hours: 48,
     windowHours: 12,
-    subject: 'Your Revvia trial ends in 48 hours',
+    subject: 'Your Corviz trial ends in 48 hours',
     body: (name, url) => `Hi ${name},
 
 Just a heads up — your trial ends in 48 hours.
@@ -55,12 +55,12 @@ Just a heads up — your trial ends in 48 hours.
 Upgrade before then to make sure your automations keep running without a gap:
 ${url}/settings
 
-The Revvia team`,
+The Corviz team`,
   },
   {
     hours: 24,
     windowHours: 12,
-    subject: 'Your Revvia trial ends tomorrow',
+    subject: 'Your Corviz trial ends tomorrow',
     body: (name, url) => `Hi ${name},
 
 Your trial ends tomorrow. After that your automations will stop and customers won't receive any reminders.
@@ -68,26 +68,26 @@ Your trial ends tomorrow. After that your automations will stop and customers wo
 Upgrade now — it takes less than a minute:
 ${url}/settings
 
-The Revvia team`,
+The Corviz team`,
   },
   {
     hours: 12,
     windowHours: 6,
-    subject: 'Last chance — your Revvia trial ends in 12 hours',
+    subject: 'Last chance — your Corviz trial ends in 12 hours',
     body: (name, url) => `Hi ${name},
 
 Your trial expires in 12 hours. This is your last chance to upgrade before your automations pause.
 
 ${url}/settings
 
-The Revvia team`,
+The Corviz team`,
   },
 ]
 
 export async function sendTrialExpiryEmails(thresholdHours: number[]): Promise<void> {
   const supabase = getAdminClient()
   const now = new Date()
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getcorviz.com'
 
   for (const hours of thresholdHours) {
     const threshold = EXPIRY_THRESHOLDS.find((t) => t.hours === hours)
@@ -283,13 +283,13 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
 
     // Daily digest email — only if messages were sent for this garage
     if (garageSent > 0 && garage.email) {
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getcorviz.com'
       await sendEmail({
         to: garage.email,
-        subject: `Revvia sent ${garageSent} message${garageSent !== 1 ? 's' : ''} for you today`,
+        subject: `Corviz sent ${garageSent} message${garageSent !== 1 ? 's' : ''} for you today`,
         text: `Hi ${garage.owner_name || 'there'},
 
-Here's what Revvia did for ${garage.name} this morning:
+Here's what Corviz did for ${garage.name} this morning:
 
 ✓ ${garageSent} message${garageSent !== 1 ? 's' : ''} sent automatically
 
@@ -297,7 +297,7 @@ Your customers are being kept warm without you lifting a finger. View the full l
 
 ${appUrl}/messages
 
-The Revvia team`,
+The Corviz team`,
       }).catch(() => {})
     }
   }

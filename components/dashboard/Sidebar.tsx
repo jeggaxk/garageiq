@@ -46,7 +46,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
             <span className="text-white font-bold text-xs">G</span>
           </div>
           <div>
-            <span className="text-white font-bold text-base tracking-tight leading-none">GarageIQ</span>
+            <span className="text-white font-bold text-base tracking-tight leading-none">Corviz</span>
             <p className="text-navy-300 text-xs mt-0.5 truncate max-w-[140px]">{garage.name}</p>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
           <div className="w-6 h-6 bg-cta-500 rounded flex items-center justify-center">
             <span className="text-white font-bold text-xs">G</span>
           </div>
-          <span className="text-white font-bold text-sm">GarageIQ</span>
+          <span className="text-white font-bold text-sm">Corviz</span>
         </div>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}

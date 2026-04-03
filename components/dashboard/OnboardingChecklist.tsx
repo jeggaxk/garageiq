@@ -65,7 +65,7 @@ export default function OnboardingChecklist({ data }: { data: OnboardingData }) 
     <div className="bg-white border border-gray-100 rounded-xl shadow-sm mb-6">
       <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
         <div>
-          <h2 className="font-semibold text-navy-900">Get started with Revvia</h2>
+          <h2 className="font-semibold text-navy-900">Get started with Corviz</h2>
           <p className="text-xs text-gray-500 mt-0.5">{completed} of {steps.length} steps complete</p>
         </div>
         <div className="flex items-center gap-3">

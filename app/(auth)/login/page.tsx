@@ -33,7 +33,7 @@ export default function LoginPage() {
   return (
     <>
       <h1 className="text-2xl font-bold text-navy-900 mb-1">Welcome back</h1>
-      <p className="text-gray-500 text-sm mb-6">Sign in to your GarageIQ account</p>
+      <p className="text-gray-500 text-sm mb-6">Sign in to your Corviz account</p>
 
       {error && (
         <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
