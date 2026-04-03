@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    await sendTrialExpiryEmails()
+    await sendTrialExpiryEmails([168, 48, 24])
     const result = await runDailyAutomations()
     return NextResponse.json({
       success: true,

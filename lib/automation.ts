@@ -2,7 +2,7 @@ import { createClient as createSupabaseAdminClient } from '@supabase/supabase-js
 import { sendSMS } from './twilio'
 import { sendEmail } from './resend'
 import { interpolateTemplate, formatPhoneForTwilio, getMotDueDate } from './utils'
-import { differenceInDays, subMonths, subYears, addDays, parseISO, startOfDay } from 'date-fns'
+import { differenceInDays, subMonths, subYears, addDays, addHours, parseISO, startOfDay } from 'date-fns'
 import type { AutomationType, Customer, Garage, MessageTemplate } from '@/types'
 
 function getAdminClient() {
@@ -19,39 +19,100 @@ interface SendResult {
   success: boolean
 }
 
-export async function sendTrialExpiryEmails(): Promise<void> {
-  const supabase = getAdminClient()
-  const today = startOfDay(new Date())
-  const in7Days = addDays(today, 7)
-  const in8Days = addDays(today, 8)
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+interface ExpiryThreshold {
+  hours: number          // target hours until expiry
+  windowHours: number    // ± window to catch it once per cron run
+  subject: string
+  body: (name: string, appUrl: string) => string
+}
 
-  const { data: garages } = await supabase
-    .from('garages')
-    .select('name, email, owner_name, trial_ends_at')
-    .eq('plan', 'trial')
-    .gte('trial_ends_at', in7Days.toISOString())
-    .lt('trial_ends_at', in8Days.toISOString())
+const EXPIRY_THRESHOLDS: ExpiryThreshold[] = [
+  {
+    hours: 168, // 7 days
+    windowHours: 12,
+    subject: 'Your Revvia trial ends in 7 days',
+    body: (name, url) => `Hi ${name},
 
-  if (!garages) return
+Your free 60-day trial ends in 7 days.
 
-  for (const garage of garages) {
-    if (!garage.email) continue
-    await sendEmail({
-      to: garage.email,
-      subject: `Your Revvia trial ends in 7 days`,
-      text: `Hi ${garage.owner_name || 'there'},
+Once it ends your automations will pause — no more MOT reminders, service follow-ups, or win-back messages going out. The customers you've been protecting will start slipping away.
 
-Your free trial ends in 7 days. Don't lose the customers you've been protecting.
-
-Upgrade now to keep your automations running and your customers coming back.
-
-${appUrl}/settings
+Upgrade now to keep everything running without interruption:
+${url}/settings
 
 If you have any questions just reply to this email.
 
 The Revvia team`,
-    })
+  },
+  {
+    hours: 48,
+    windowHours: 12,
+    subject: 'Your Revvia trial ends in 48 hours',
+    body: (name, url) => `Hi ${name},
+
+Just a heads up — your trial ends in 48 hours.
+
+Upgrade before then to make sure your automations keep running without a gap:
+${url}/settings
+
+The Revvia team`,
+  },
+  {
+    hours: 24,
+    windowHours: 12,
+    subject: 'Your Revvia trial ends tomorrow',
+    body: (name, url) => `Hi ${name},
+
+Your trial ends tomorrow. After that your automations will stop and customers won't receive any reminders.
+
+Upgrade now — it takes less than a minute:
+${url}/settings
+
+The Revvia team`,
+  },
+  {
+    hours: 12,
+    windowHours: 6,
+    subject: 'Last chance — your Revvia trial ends in 12 hours',
+    body: (name, url) => `Hi ${name},
+
+Your trial expires in 12 hours. This is your last chance to upgrade before your automations pause.
+
+${url}/settings
+
+The Revvia team`,
+  },
+]
+
+export async function sendTrialExpiryEmails(thresholdHours: number[]): Promise<void> {
+  const supabase = getAdminClient()
+  const now = new Date()
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+
+  for (const hours of thresholdHours) {
+    const threshold = EXPIRY_THRESHOLDS.find((t) => t.hours === hours)
+    if (!threshold) continue
+
+    const from = addHours(now, hours - threshold.windowHours)
+    const to = addHours(now, hours + threshold.windowHours)
+
+    const { data: garages } = await supabase
+      .from('garages')
+      .select('name, email, owner_name, trial_ends_at')
+      .eq('plan', 'trial')
+      .gte('trial_ends_at', from.toISOString())
+      .lt('trial_ends_at', to.toISOString())
+
+    if (!garages) continue
+
+    for (const garage of garages) {
+      if (!garage.email) continue
+      await sendEmail({
+        to: garage.email,
+        subject: threshold.subject,
+        text: threshold.body(garage.owner_name || 'there', appUrl),
+      }).catch(() => {})
+    }
   }
 }
 
