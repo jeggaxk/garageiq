@@ -114,6 +114,21 @@ export default function AutomationsPage() {
         </div>
       </div>
 
+      {/* Prompt when nothing is enabled */}
+      {automations.every((a) => !a.enabled) && (
+        <div className="bg-cta-50 border border-cta-500/20 rounded-xl px-5 py-4 flex items-start gap-4 mb-6">
+          <div className="w-9 h-9 bg-cta-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+            <Zap size={18} className="text-white" />
+          </div>
+          <div>
+            <p className="font-semibold text-navy-900 text-sm">No automations are active yet</p>
+            <p className="text-gray-500 text-sm mt-0.5">
+              Toggle on the automations below to start sending reminders. They run every morning at 9am — you don't need to do anything else.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Automation cards */}
       <div className="space-y-4">
         {(Object.keys(automationConfig) as AutomationType[]).map((type) => {

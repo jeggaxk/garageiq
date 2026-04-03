@@ -154,11 +154,37 @@ export default function CustomersPage() {
                 ))
               ) : customers.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-12 text-center">
-                    <Users size={32} className="mx-auto text-gray-200 mb-2" />
-                    <p className="text-gray-400">
-                      {search ? 'No customers match your search' : 'No customers yet — import a CSV or add manually'}
-                    </p>
+                  <td colSpan={6} className="px-4 py-16 text-center">
+                    {search ? (
+                      <>
+                        <Users size={32} className="mx-auto text-gray-200 mb-2" />
+                        <p className="text-gray-400">No customers match your search</p>
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-14 h-14 bg-cta-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                          <Users size={28} className="text-cta-500" />
+                        </div>
+                        <h3 className="text-navy-900 font-semibold text-base mb-1">Add your first customers</h3>
+                        <p className="text-gray-500 text-sm mb-6 max-w-sm mx-auto">
+                          Import a CSV export from your existing system, or add customers one by one. Your automations won't send until you have customers loaded.
+                        </p>
+                        <div className="flex items-center justify-center gap-3">
+                          <button
+                            onClick={() => setShowUploadModal(true)}
+                            className="inline-flex items-center gap-2 bg-cta-500 hover:bg-cta-400 text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition-colors"
+                          >
+                            <Upload size={16} /> Upload CSV
+                          </button>
+                          <button
+                            onClick={() => setShowAddModal(true)}
+                            className="inline-flex items-center gap-2 border border-gray-200 hover:bg-gray-50 text-navy-900 font-medium px-4 py-2.5 rounded-lg text-sm transition-colors"
+                          >
+                            <Plus size={16} /> Add manually
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </td>
                 </tr>
               ) : (

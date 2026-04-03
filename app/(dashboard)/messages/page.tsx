@@ -127,9 +127,20 @@ export default function MessagesPage() {
                   ))
                 ) : messages.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-4 py-12 text-center">
-                      <MessageSquare size={32} className="mx-auto text-gray-200 mb-2" />
-                      <p className="text-gray-400">No messages sent yet — automations will send here</p>
+                    <td colSpan={5} className="px-4 py-16 text-center">
+                      <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <MessageSquare size={28} className="text-blue-500" />
+                      </div>
+                      <h3 className="text-navy-900 font-semibold text-base mb-1">No messages sent yet</h3>
+                      <p className="text-gray-500 text-sm mb-6 max-w-sm mx-auto">
+                        Messages appear here once your automations start running. Enable at least one automation and they'll send automatically each morning.
+                      </p>
+                      <a
+                        href="/automations"
+                        className="inline-flex items-center gap-2 bg-cta-500 hover:bg-cta-400 text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition-colors"
+                      >
+                        Set up automations →
+                      </a>
                     </td>
                   </tr>
                 ) : (

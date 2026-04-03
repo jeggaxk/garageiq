@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server'
 import { createClient as createSupabaseAdminClient } from '@supabase/supabase-js'
+import { sendEmail } from '@/lib/resend'
 
 export async function POST(request: Request) {
   const adminClient = createSupabaseAdminClient(
@@ -73,6 +74,33 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Failed to set up garage. Please try again.' }, { status: 500 })
     }
   }
+
+  // Send welcome email (non-blocking — don't fail signup if this errors)
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+  sendEmail({
+    to: email,
+    subject: `Welcome to Revvia, ${ownerName || garageName}!`,
+    text: `Hi ${ownerName || 'there'},
+
+Welcome to Revvia — you're all set!
+
+Your 60-day free trial has started. Here's how to get the most out of it:
+
+1. Add your customers — upload a CSV export from your existing system, or add them manually.
+   ${appUrl}/customers
+
+2. Turn on your automations — MOT reminders, service follow-ups, and win-back messages run on autopilot once enabled.
+   ${appUrl}/automations
+
+3. Customise your message templates — make the messages sound like they come from your garage.
+   ${appUrl}/messages
+
+Most garages are up and running within 10 minutes.
+
+If you have any questions just reply to this email.
+
+The Revvia team`,
+  }).catch(() => {}) // fire and forget
 
   return NextResponse.json({ success: true })
 }
