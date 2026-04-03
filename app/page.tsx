@@ -643,7 +643,7 @@ export default function LandingPage() {
       <footer className="bg-navy-900 border-t border-navy-800 py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center">
-            <img src="/corviz-logo-white.svg" alt="Corviz" className="h-10 w-auto" />
+            <img src="/corviz-logo-white.png" alt="Corviz" className="h-10 w-auto" />
           </div>
           <p className="text-navy-400 text-xs">© 2026 Corviz. Built for independent UK garages.</p>
           <div className="flex gap-6">
