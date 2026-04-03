@@ -19,6 +19,42 @@ interface SendResult {
   success: boolean
 }
 
+export async function sendTrialExpiryEmails(): Promise<void> {
+  const supabase = getAdminClient()
+  const today = startOfDay(new Date())
+  const in7Days = addDays(today, 7)
+  const in8Days = addDays(today, 8)
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+
+  const { data: garages } = await supabase
+    .from('garages')
+    .select('name, email, owner_name, trial_ends_at')
+    .eq('plan', 'trial')
+    .gte('trial_ends_at', in7Days.toISOString())
+    .lt('trial_ends_at', in8Days.toISOString())
+
+  if (!garages) return
+
+  for (const garage of garages) {
+    if (!garage.email) continue
+    await sendEmail({
+      to: garage.email,
+      subject: `Your Revvia trial ends in 7 days`,
+      text: `Hi ${garage.owner_name || 'there'},
+
+Your free trial ends in 7 days. Don't lose the customers you've been protecting.
+
+Upgrade now to keep your automations running and your customers coming back.
+
+${appUrl}/settings
+
+If you have any questions just reply to this email.
+
+The Revvia team`,
+    })
+  }
+}
+
 export async function runDailyAutomations(): Promise<{ sent: number; errors: number }> {
   const supabase = getAdminClient()
   const today = startOfDay(new Date())
@@ -41,6 +77,8 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
       const trialEnd = new Date(garage.trial_ends_at)
       if (trialEnd < today) continue
     }
+
+    let garageSent = 0
 
     const automations = garage.automations || []
     const templates: MessageTemplate[] = garage.message_templates || []
@@ -73,7 +111,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
             templates
           )
           for (const r of results) {
-            if (r.success) totalSent++
+            if (r.success) { totalSent++; garageSent++ }
             else totalErrors++
             await logMessage(supabase, garage.id, customer.id, 'mot_reminder', r.channel as 'sms' | 'email', r.success)
           }
@@ -107,7 +145,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
             templates
           )
           for (const r of results) {
-            if (r.success) totalSent++
+            if (r.success) { totalSent++; garageSent++ }
             else totalErrors++
             await logMessage(supabase, garage.id, customer.id, 'service_reminder', r.channel as 'sms' | 'email', r.success)
           }
@@ -135,7 +173,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
             templates
           )
           for (const r of results) {
-            if (r.success) totalSent++
+            if (r.success) { totalSent++; garageSent++ }
             else totalErrors++
             await logMessage(supabase, garage.id, customer.id, 'review_request', r.channel as 'sms' | 'email', r.success)
           }
@@ -173,13 +211,33 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
               templates
             )
             for (const r of results) {
-              if (r.success) totalSent++
+              if (r.success) { totalSent++; garageSent++ }
               else totalErrors++
               await logMessage(supabase, garage.id, customer.id, 'win_back', r.channel as 'sms' | 'email', r.success)
             }
           }
         }
       }
+    }
+
+    // Daily digest email — only if messages were sent for this garage
+    if (garageSent > 0 && garage.email) {
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getrevvia.com'
+      await sendEmail({
+        to: garage.email,
+        subject: `Revvia sent ${garageSent} message${garageSent !== 1 ? 's' : ''} for you today`,
+        text: `Hi ${garage.owner_name || 'there'},
+
+Here's what Revvia did for ${garage.name} this morning:
+
+✓ ${garageSent} message${garageSent !== 1 ? 's' : ''} sent automatically
+
+Your customers are being kept warm without you lifting a finger. View the full log here:
+
+${appUrl}/messages
+
+The Revvia team`,
+      }).catch(() => {})
     }
   }
 

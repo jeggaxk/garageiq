@@ -16,6 +16,8 @@ import {
   Car,
   AlertCircle,
   Trash2,
+  Send,
+  Download,
 } from 'lucide-react'
 
 export default function CustomersPage() {
@@ -33,6 +35,12 @@ export default function CustomersPage() {
   })
   const [adding, setAdding] = useState(false)
   const [addError, setAddError] = useState('')
+  const [sendTarget, setSendTarget] = useState<Customer | null>(null)
+  const [sendChannel, setSendChannel] = useState<'sms' | 'email'>('sms')
+  const [sendBody, setSendBody] = useState('')
+  const [sendSubject, setSendSubject] = useState('')
+  const [sending, setSending] = useState(false)
+  const [sendResult, setSendResult] = useState<{ success?: boolean; error?: string } | null>(null)
 
   const fetchCustomers = useCallback(async () => {
     setLoading(true)
@@ -98,6 +106,24 @@ export default function CustomersPage() {
   const updateAdd = (field: string, value: string) =>
     setAddForm((prev) => ({ ...prev, [field]: value }))
 
+  async function handleSendMessage(e: React.FormEvent) {
+    e.preventDefault()
+    if (!sendTarget) return
+    setSending(true)
+    setSendResult(null)
+    const res = await fetch('/api/messages/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ customerId: sendTarget.id, channel: sendChannel, body: sendBody, subject: sendSubject }),
+    })
+    const data = await res.json()
+    setSendResult(data)
+    setSending(false)
+    if (data.success) {
+      setTimeout(() => { setSendTarget(null); setSendBody(''); setSendSubject(''); setSendResult(null) }, 1500)
+    }
+  }
+
   return (
     <div className="p-6 md:p-8 pt-16 md:pt-8">
       <PageHeader
@@ -105,6 +131,9 @@ export default function CustomersPage() {
         description={`${customers.length} customers`}
         action={
           <div className="flex gap-2">
+            <a href="/revvia-customers-template.csv" download className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-navy-900 border border-gray-200 hover:border-gray-300 px-3 py-1.5 rounded-lg transition-colors">
+              <Download size={13} /> CSV template
+            </a>
             <Button variant="secondary" size="sm" onClick={() => setShowUploadModal(true)}>
               <Upload size={15} /> Import CSV
             </Button>
@@ -212,12 +241,21 @@ export default function CustomersPage() {
                         <Badge label={status.label} color={status.color} />
                       </td>
                       <td className="px-4 py-3">
-                        <button
-                          onClick={() => handleDelete(customer.id)}
-                          className="p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 size={14} />
-                        </button>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => { setSendTarget(customer); setSendChannel('sms'); setSendBody(''); setSendSubject(''); setSendResult(null) }}
+                            className="p-1.5 rounded-lg hover:bg-blue-50 text-gray-300 hover:text-blue-500 transition-colors"
+                            title="Send message"
+                          >
+                            <Send size={14} />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(customer.id)}
+                            className="p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-500 transition-colors"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   )
@@ -289,6 +327,66 @@ export default function CustomersPage() {
             <Button onClick={handleUpload} disabled={!uploadFile} loading={uploading}>Import customers</Button>
           </div>
         </div>
+      </Modal>
+
+      {/* Send Message Modal */}
+      <Modal open={!!sendTarget} onClose={() => setSendTarget(null)} title={`Send message to ${sendTarget?.name}`} size="md">
+        <form onSubmit={handleSendMessage} className="space-y-4">
+          {/* Channel toggle */}
+          <div className="flex gap-1 p-1 bg-gray-100 rounded-lg w-fit">
+            {(['sms', 'email'] as const).map((ch) => (
+              <button
+                key={ch}
+                type="button"
+                onClick={() => setSendChannel(ch)}
+                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${sendChannel === ch ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+              >
+                {ch === 'sms' ? 'SMS' : 'Email'}
+              </button>
+            ))}
+          </div>
+
+          {sendChannel === 'email' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <input
+                type="text"
+                value={sendSubject}
+                onChange={(e) => setSendSubject(e.target.value)}
+                placeholder="e.g. Your MOT is coming up"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+              />
+            </div>
+          )}
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea
+              value={sendBody}
+              onChange={(e) => setSendBody(e.target.value)}
+              required
+              rows={4}
+              placeholder={sendChannel === 'sms' ? 'Type your SMS message…' : 'Type your email message…'}
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
+            />
+            {sendChannel === 'sms' && (
+              <p className="text-xs text-gray-400 mt-1">{sendBody.length} characters · {Math.ceil(sendBody.length / 160) || 1} SMS credit</p>
+            )}
+          </div>
+
+          {sendResult && (
+            <div className={`p-3 rounded-lg text-sm ${sendResult.success ? 'bg-green-50 border border-green-200 text-green-700' : 'bg-red-50 border border-red-200 text-red-700'}`}>
+              {sendResult.success ? '✓ Message sent successfully' : sendResult.error || 'Failed to send'}
+            </div>
+          )}
+
+          <div className="flex justify-end gap-3 pt-1">
+            <Button variant="secondary" type="button" onClick={() => setSendTarget(null)}>Cancel</Button>
+            <Button type="submit" loading={sending} disabled={!sendBody.trim()}>
+              <Send size={14} /> Send message
+            </Button>
+          </div>
+        </form>
       </Modal>
     </div>
   )
