@@ -59,24 +59,24 @@ export async function POST(request: Request) {
   const withReg = customers.filter((c) => c.vehicle_reg)
   const withoutReg = customers.filter((c) => !c.vehicle_reg)
 
-  const errors: string[] = []
+  const insertErrors: string[] = []
 
   if (withReg.length > 0) {
-    const { error } = await supabase
+    const { error: upsertError } = await supabase
       .from('customers')
       .upsert(withReg, { onConflict: 'garage_id,vehicle_reg', ignoreDuplicates: false })
-    if (error) errors.push(error.message)
+    if (upsertError) insertErrors.push(upsertError.message)
   }
 
   if (withoutReg.length > 0) {
-    const { error } = await supabase
+    const { error: insertError } = await supabase
       .from('customers')
       .insert(withoutReg)
-    if (error) errors.push(error.message)
+    if (insertError) insertErrors.push(insertError.message)
   }
 
-  if (errors.length > 0) {
-    return NextResponse.json({ error: errors.join('; ') }, { status: 500 })
+  if (insertErrors.length > 0) {
+    return NextResponse.json({ error: insertErrors.join('; ') }, { status: 500 })
   }
 
   return NextResponse.json({ imported: customers.length })
