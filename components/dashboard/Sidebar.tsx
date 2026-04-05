@@ -30,6 +30,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
   const pathname = usePathname()
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [confirmSignOut, setConfirmSignOut] = useState(false)
 
   async function handleSignOut() {
     const supabase = createClient()
@@ -87,13 +88,33 @@ export default function Sidebar({ garage }: { garage: Garage }) {
 
       {/* Sign out */}
       <div className="px-3 py-4 border-t border-navy-800">
-        <button
-          onClick={handleSignOut}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:text-white hover:bg-navy-800 w-full transition-colors"
-        >
-          <LogOut size={18} />
-          Sign out
-        </button>
+        {confirmSignOut ? (
+          <div className="px-3 py-2">
+            <p className="text-navy-300 text-xs mb-2">Are you sure you want to sign out?</p>
+            <div className="flex gap-2">
+              <button
+                onClick={handleSignOut}
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold py-1.5 rounded-lg transition-colors"
+              >
+                Sign out
+              </button>
+              <button
+                onClick={() => setConfirmSignOut(false)}
+                className="flex-1 bg-navy-800 hover:bg-navy-700 text-navy-300 text-xs font-semibold py-1.5 rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => setConfirmSignOut(true)}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:text-white hover:bg-navy-800 w-full transition-colors"
+          >
+            <LogOut size={18} />
+            Sign out
+          </button>
+        )}
       </div>
     </>
   )
