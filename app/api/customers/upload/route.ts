@@ -3,6 +3,14 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Papa from 'papaparse'
 
+const PLAN_LIMITS: Record<string, number> = {
+  trial: 500,
+  solo: 500,
+  pro: 2000,
+  multi: Infinity,
+  suspended: 0,
+}
+
 interface CSVRow {
   name?: string
   phone?: string
@@ -20,7 +28,7 @@ export async function POST(request: Request) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { data: garage } = await supabase
-    .from('garages').select('id').eq('owner_id', user.id).single()
+    .from('garages').select('id, plan').eq('owner_id', user.id).single()
   if (!garage) return NextResponse.json({ error: 'Garage not found' }, { status: 404 })
 
   const formData = await request.formData()
@@ -56,8 +64,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'No valid customers found in CSV' }, { status: 400 })
   }
 
-  const withReg = customers.filter((c) => c.vehicle_reg)
-  const withoutReg = customers.filter((c) => !c.vehicle_reg)
+  const limit = PLAN_LIMITS[garage.plan] ?? 500
+  const { count: currentCount } = await supabase
+    .from('customers')
+    .select('id', { count: 'exact', head: true })
+    .eq('garage_id', garage.id)
+
+  if ((currentCount ?? 0) >= limit) {
+    return NextResponse.json(
+      { error: `Customer limit reached for your plan (${limit === Infinity ? 'unlimited' : limit}). Upgrade to add more.` },
+      { status: 403 }
+    )
+  }
+
+  const remaining = limit === Infinity ? customers.length : limit - (currentCount ?? 0)
+  const customersToImport = customers.slice(0, remaining)
+
+  const withReg = customersToImport.filter((c) => c.vehicle_reg)
+  const withoutReg = customersToImport.filter((c) => !c.vehicle_reg)
 
   const insertErrors: string[] = []
 
@@ -79,7 +103,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: insertErrors.join('; ') }, { status: 500 })
   }
 
-  return NextResponse.json({ imported: customers.length })
+  return NextResponse.json({
+    imported: customersToImport.length,
+    skipped: customers.length - customersToImport.length,
+  })
 }
 
 function parseDate(dateStr: string | undefined): string | null {
