@@ -56,13 +56,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'No valid customers found in CSV' }, { status: 400 })
   }
 
-  const { error: insertError, count } = await supabase
-    .from('customers')
-    .upsert(customers, { onConflict: 'garage_id,vehicle_reg', ignoreDuplicates: false })
-    .select()
+  const withReg = customers.filter((c) => c.vehicle_reg)
+  const withoutReg = customers.filter((c) => !c.vehicle_reg)
 
-  if (insertError) {
-    return NextResponse.json({ error: insertError.message }, { status: 500 })
+  const errors: string[] = []
+
+  if (withReg.length > 0) {
+    const { error } = await supabase
+      .from('customers')
+      .upsert(withReg, { onConflict: 'garage_id,vehicle_reg', ignoreDuplicates: false })
+    if (error) errors.push(error.message)
+  }
+
+  if (withoutReg.length > 0) {
+    const { error } = await supabase
+      .from('customers')
+      .insert(withoutReg)
+    if (error) errors.push(error.message)
+  }
+
+  if (errors.length > 0) {
+    return NextResponse.json({ error: errors.join('; ') }, { status: 500 })
   }
 
   return NextResponse.json({ imported: customers.length })
