@@ -13,6 +13,7 @@ const planDetails = {
   solo: { label: 'Solo', color: 'text-blue-600 bg-blue-50', price: '£79/month' },
   pro: { label: 'Pro', color: 'text-purple-600 bg-purple-50', price: '£149/month' },
   multi: { label: 'Multi-site', color: 'text-green-600 bg-green-50', price: '£249/month' },
+  suspended: { label: 'Suspended', color: 'text-red-600 bg-red-50', price: 'Subscription ended' },
 }
 
 export default function SettingsPage() {
@@ -96,6 +97,13 @@ export default function SettingsPage() {
   return (
     <div className="p-6 md:p-8 pt-16 md:pt-8 max-w-2xl">
       <PageHeader title="Settings" description="Manage your garage profile and billing" />
+
+      {garage?.plan === 'suspended' && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+          <p className="text-red-800 text-sm font-semibold mb-1">Your subscription has ended</p>
+          <p className="text-red-700 text-sm">Your automations have been paused. Resubscribe below to resume sending reminders to your customers.</p>
+        </div>
+      )}
 
       {justUpgraded && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">

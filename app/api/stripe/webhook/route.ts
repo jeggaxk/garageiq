@@ -71,7 +71,7 @@ export async function POST(request: Request) {
       } else if (status === 'past_due' || status === 'canceled' || status === 'unpaid') {
         await supabase
           .from('garages')
-          .update({ plan: 'trial' })
+          .update({ plan: 'suspended' })
           .eq('id', garageId)
       }
     }

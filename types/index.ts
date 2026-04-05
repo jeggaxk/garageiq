@@ -1,4 +1,4 @@
-export type Plan = 'trial' | 'solo' | 'pro' | 'multi'
+export type Plan = 'trial' | 'solo' | 'pro' | 'multi' | 'suspended'
 export type AutomationType = 'mot_reminder' | 'service_reminder' | 'review_request' | 'win_back'
 export type MessageChannel = 'sms' | 'email'
 export type MessageStatus = 'pending' | 'sent' | 'delivered' | 'failed' | 'opened' | 'clicked'

@@ -134,6 +134,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
 
   for (const garage of garages) {
     // Check plan is active (trial or paid)
+    if (garage.plan === 'suspended') continue
     if (garage.plan === 'trial' && garage.trial_ends_at) {
       const trialEnd = new Date(garage.trial_ends_at)
       if (trialEnd < today) continue
