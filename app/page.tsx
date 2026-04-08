@@ -108,6 +108,7 @@ export default function LandingPage() {
             <a href="#features" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">Features</a>
             <a href="#how-it-works" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">How it works</a>
             <a href="#pricing" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">Pricing</a>
+            <a href="#faq" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">FAQ</a>
           </div>
           <div className="hidden md:flex items-center gap-3">
             <Link href="/login" className="text-sm text-gray-600 hover:text-navy-900 font-medium transition-colors">Sign in</Link>
@@ -129,6 +130,7 @@ export default function LandingPage() {
           <div className="md:hidden border-t border-gray-100 px-4 py-4 space-y-3 bg-white">
             <a href="#features" className="block text-sm text-gray-600" onClick={() => setMobileMenuOpen(false)}>Features</a>
             <a href="#pricing" className="block text-sm text-gray-600" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
+            <a href="#faq" className="block text-sm text-gray-600" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
             <Link href="/login" className="block text-sm text-gray-600 font-medium">Sign in</Link>
             <Link
               href="/signup"
@@ -665,7 +667,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-4 sm:px-6 bg-gray-50">
+      <section id="faq" className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Common questions</h2>
