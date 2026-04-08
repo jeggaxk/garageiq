@@ -203,7 +203,7 @@ export default function MessagesPage() {
 
           <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl">
             <p className="text-sm text-blue-800 font-medium mb-1">Dynamic variables</p>
-            <p className="text-xs text-blue-700 font-mono">[FirstName] [VehicleReg] [VehicleMake] [GarageName] [GaragePhone] [GoogleReviewLink]</p>
+            <p className="text-xs text-blue-700 font-mono">[FirstName] [VehicleReg] [VehicleMake] [GarageName] [GaragePhone] [GoogleReviewLink] [MotDueDate]</p>
           </div>
 
           {/* SMS templates */}
