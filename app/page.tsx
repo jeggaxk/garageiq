@@ -675,7 +675,7 @@ export default function LandingPage() {
             {[
               {
                 q: 'Do my customers need to opt in to receive messages?',
-                a: 'Corviz sends messages to your existing customers who have an established relationship with your garage. Under UK PECR, you can contact existing customers about similar services without explicit opt-in consent. You are responsible for ensuring your customer list is compliant — we provide guidance on this during onboarding.',
+                a: 'Corviz sends messages to your existing customers who have an established relationship with your garage. Under UK PECR, you can contact existing customers about similar services without a new opt-in. You are responsible for ensuring your customer list is compliant — we provide guidance on this during onboarding.',
               },
               {
                 q: 'What if I don\'t have a customer list?',
@@ -687,11 +687,11 @@ export default function LandingPage() {
               },
               {
                 q: 'What happens when my free trial ends?',
-                a: 'Your automations will pause until you choose a plan. We\'ll remind you before the trial ends so you\'re never caught off guard. There\'s no pressure and no automatic charge.',
+                a: 'Your automations will pause until you choose a plan. The trial runs on Solo plan limits — up to 500 customers and all four automations. We\'ll remind you before the trial ends so you\'re never caught off guard. There\'s no pressure and no automatic charge.',
               },
               {
                 q: 'Can I customise the messages?',
-                a: 'Yes. You can edit every message template to match your garage\'s tone. You can include your garage name, phone number, Google review link, the customer\'s vehicle reg, and more using simple tags like [FirstName] and [GarageName].',
+                a: 'Custom message templates are available on the Pro and Multi-site plans. On the Solo plan and during your trial, you use our professionally written default templates which include your garage name, phone number, and the customer\'s details automatically.',
               },
               {
                 q: 'Does this work alongside my existing garage software?',
