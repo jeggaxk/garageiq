@@ -320,7 +320,7 @@ export default function LandingPage() {
                 color: 'bg-blue-500',
                 title: 'MOT reminders',
                 description: 'Sent 4 weeks before MOT due date via SMS and email. Customers book with you before they even think about looking elsewhere.',
-                example: '"Hi Sarah, your AB12 CDE MOT is due in 4 weeks. Book now at Smith\'s Auto — reply YES to confirm or call us on 01234 567890."',
+                example: '"Hi Sarah, your AB12 CDE MOT is due in 4 weeks. Book now at Smith\'s Auto — call us on 01234 567890 or visit our website to book."',
               },
               {
                 icon: Wrench,
@@ -647,8 +647,8 @@ export default function LandingPage() {
           </div>
           <p className="text-navy-400 text-xs">© 2026 Corviz. Built for independent UK garages.</p>
           <div className="flex gap-6">
-            <a href="#" className="text-navy-400 text-xs hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="text-navy-400 text-xs hover:text-white transition-colors">Terms</a>
+            <a href="/privacy" className="text-navy-400 text-xs hover:text-white transition-colors">Privacy</a>
+            <a href="/terms" className="text-navy-400 text-xs hover:text-white transition-colors">Terms</a>
             <a href="mailto:hello@corviz.co.uk" className="text-navy-400 text-xs hover:text-white transition-colors">Contact</a>
           </div>
         </div>

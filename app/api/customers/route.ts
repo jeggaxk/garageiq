@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { sendCatchUpReminders } from '@/lib/automation'
 
 const PLAN_LIMITS: Record<string, number> = {
   trial: 500,
@@ -82,5 +83,8 @@ export async function POST(request: Request) {
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  sendCatchUpReminders([customer.id], garage.id).catch(() => {})
+
   return NextResponse.json({ customer }, { status: 201 })
 }

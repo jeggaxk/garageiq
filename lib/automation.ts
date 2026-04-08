@@ -2,7 +2,7 @@ import { createClient as createSupabaseAdminClient } from '@supabase/supabase-js
 import { sendSMS } from './twilio'
 import { sendEmail } from './resend'
 import { interpolateTemplate, formatPhoneForTwilio, getMotDueDate } from './utils'
-import { differenceInDays, subMonths, subYears, addDays, addHours, parseISO, startOfDay } from 'date-fns'
+import { differenceInDays, subMonths, subYears, addDays, addYears, addHours, parseISO, startOfDay } from 'date-fns'
 import type { AutomationType, Customer, Garage, MessageTemplate } from '@/types'
 
 function getAdminClient() {
@@ -313,6 +313,9 @@ async function sendAutomationMessages(
   templates: MessageTemplate[]
 ): Promise<Array<{ channel: string; success: boolean }>> {
   const firstName = customer.name.split(' ')[0]
+  const motDueDate = customer.last_mot_date
+    ? addYears(parseISO(customer.last_mot_date), 1).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    : undefined
   const vars = {
     firstName,
     vehicleReg: customer.vehicle_reg || undefined,
@@ -320,6 +323,7 @@ async function sendAutomationMessages(
     garageName: garage.name,
     garagePhone: garage.phone || undefined,
     googleReviewLink: garage.google_review_url || undefined,
+    motDueDate,
   }
 
   const results: Array<{ channel: string; success: boolean }> = []
@@ -357,6 +361,103 @@ function getDefaultSubject(type: AutomationType, garageName: string): string {
     win_back: `We miss you at ${garageName}`,
   }
   return subjects[type]
+}
+
+export async function sendCatchUpReminders(customerIds: string[], garageId: string): Promise<void> {
+  const supabase = getAdminClient()
+  const today = startOfDay(new Date())
+
+  const { data: garage } = await supabase
+    .from('garages')
+    .select('*, automations(*), message_templates(*)')
+    .eq('id', garageId)
+    .single()
+
+  if (!garage) return
+  if (garage.plan === 'suspended') return
+  if (garage.plan === 'trial' && garage.trial_ends_at) {
+    if (new Date(garage.trial_ends_at) < today) return
+  }
+
+  const automations = garage.automations || []
+  const templates: MessageTemplate[] = garage.message_templates || []
+  const enabledTypes = new Set(
+    automations
+      .filter((a: { enabled: boolean; type: AutomationType }) => a.enabled)
+      .map((a: { type: AutomationType }) => a.type)
+  )
+
+  const { data: customers } = await supabase
+    .from('customers')
+    .select('*')
+    .eq('garage_id', garageId)
+    .in('id', customerIds)
+
+  if (!customers) return
+
+  for (const customer of customers) {
+    // MOT catch-up: due within 0–28 days and no reminder sent yet
+    if (enabledTypes.has('mot_reminder') && customer.last_mot_date) {
+      const motDue = addYears(parseISO(customer.last_mot_date), 1)
+      const daysUntil = differenceInDays(motDue, today)
+      if (daysUntil >= 0 && daysUntil <= 28) {
+        const { data: existing } = await supabase
+          .from('messages')
+          .select('id')
+          .eq('garage_id', garageId)
+          .eq('customer_id', customer.id)
+          .eq('type', 'mot_reminder')
+          .limit(1)
+        if (!existing || existing.length === 0) {
+          const results = await sendAutomationMessages(customer, garage, 'mot_reminder', templates)
+          for (const r of results) {
+            await logMessage(supabase, garageId, customer.id, 'mot_reminder', r.channel as 'sms' | 'email', r.success)
+          }
+        }
+      }
+    }
+
+    // Service catch-up: last service 11+ months ago and no reminder sent yet
+    if (enabledTypes.has('service_reminder') && customer.last_service_date) {
+      const daysSinceService = differenceInDays(today, parseISO(customer.last_service_date))
+      if (daysSinceService >= 335) { // ~11 months
+        const { data: existing } = await supabase
+          .from('messages')
+          .select('id')
+          .eq('garage_id', garageId)
+          .eq('customer_id', customer.id)
+          .eq('type', 'service_reminder')
+          .limit(1)
+        if (!existing || existing.length === 0) {
+          const results = await sendAutomationMessages(customer, garage, 'service_reminder', templates)
+          for (const r of results) {
+            await logMessage(supabase, garageId, customer.id, 'service_reminder', r.channel as 'sms' | 'email', r.success)
+          }
+        }
+      }
+    }
+
+    // Win-back catch-up: no visit in 12+ months and no message in last 60 days
+    if (enabledTypes.has('win_back') && customer.last_service_date) {
+      const daysSinceService = differenceInDays(today, parseISO(customer.last_service_date))
+      if (daysSinceService >= 365) {
+        const sixtyDaysAgo = addDays(today, -60).toISOString()
+        const { data: recentMessages } = await supabase
+          .from('messages')
+          .select('id')
+          .eq('garage_id', garageId)
+          .eq('customer_id', customer.id)
+          .gte('sent_at', sixtyDaysAgo)
+          .limit(1)
+        if (!recentMessages || recentMessages.length === 0) {
+          const results = await sendAutomationMessages(customer, garage, 'win_back', templates)
+          for (const r of results) {
+            await logMessage(supabase, garageId, customer.id, 'win_back', r.channel as 'sms' | 'email', r.success)
+          }
+        }
+      }
+    }
+  }
 }
 
 async function logMessage(

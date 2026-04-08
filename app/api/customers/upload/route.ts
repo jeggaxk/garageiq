@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import Papa from 'papaparse'
+import { sendCatchUpReminders } from '@/lib/automation'
 
 const PLAN_LIMITS: Record<string, number> = {
   trial: 500,
@@ -84,23 +85,32 @@ export async function POST(request: Request) {
   const withoutReg = customersToImport.filter((c) => !c.vehicle_reg)
 
   const insertErrors: string[] = []
+  const insertedIds: string[] = []
 
   if (withReg.length > 0) {
-    const { error: upsertError } = await supabase
+    const { data: upserted, error: upsertError } = await supabase
       .from('customers')
       .upsert(withReg, { onConflict: 'garage_id,vehicle_reg', ignoreDuplicates: false })
+      .select('id')
     if (upsertError) insertErrors.push(upsertError.message)
+    if (upserted) insertedIds.push(...upserted.map((c: { id: string }) => c.id))
   }
 
   if (withoutReg.length > 0) {
-    const { error: insertError } = await supabase
+    const { data: inserted, error: insertError } = await supabase
       .from('customers')
       .insert(withoutReg)
+      .select('id')
     if (insertError) insertErrors.push(insertError.message)
+    if (inserted) insertedIds.push(...inserted.map((c: { id: string }) => c.id))
   }
 
   if (insertErrors.length > 0) {
     return NextResponse.json({ error: insertErrors.join('; ') }, { status: 500 })
+  }
+
+  if (insertedIds.length > 0) {
+    sendCatchUpReminders(insertedIds, garage.id).catch(() => {})
   }
 
   return NextResponse.json({

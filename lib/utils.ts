@@ -71,6 +71,7 @@ export function interpolateTemplate(
     garageName: string
     garagePhone?: string
     googleReviewLink?: string
+    motDueDate?: string
   }
 ): string {
   return template
@@ -80,6 +81,7 @@ export function interpolateTemplate(
     .replace(/\[GarageName\]/g, vars.garageName)
     .replace(/\[GaragePhone\]/g, vars.garagePhone || '')
     .replace(/\[GoogleReviewLink\]/g, vars.googleReviewLink || '')
+    .replace(/\[MotDueDate\]/g, vars.motDueDate || 'soon')
 }
 
 export function formatCurrency(pence: number): string {

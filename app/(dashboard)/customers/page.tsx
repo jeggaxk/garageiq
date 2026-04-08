@@ -18,6 +18,7 @@ import {
   Trash2,
   Send,
   Download,
+  Pencil,
 } from 'lucide-react'
 
 export default function CustomersPage() {
@@ -35,6 +36,13 @@ export default function CustomersPage() {
   })
   const [adding, setAdding] = useState(false)
   const [addError, setAddError] = useState('')
+  const [editTarget, setEditTarget] = useState<Customer | null>(null)
+  const [editForm, setEditForm] = useState({
+    name: '', phone: '', email: '', vehicle_reg: '', vehicle_make: '',
+    last_service_date: '', last_mot_date: '',
+  })
+  const [editing, setEditing] = useState(false)
+  const [editError, setEditError] = useState('')
   const [sendTarget, setSendTarget] = useState<Customer | null>(null)
   const [sendChannel, setSendChannel] = useState<'sms' | 'email'>('sms')
   const [sendBody, setSendBody] = useState('')
@@ -96,6 +104,40 @@ export default function CustomersPage() {
     setAddForm({ name: '', phone: '', email: '', vehicle_reg: '', vehicle_make: '', last_service_date: '', last_mot_date: '' })
     fetchCustomers()
   }
+
+  function openEdit(customer: Customer) {
+    setEditTarget(customer)
+    setEditForm({
+      name: customer.name,
+      phone: customer.phone || '',
+      email: customer.email || '',
+      vehicle_reg: customer.vehicle_reg || '',
+      vehicle_make: customer.vehicle_make || '',
+      last_service_date: customer.last_service_date || '',
+      last_mot_date: customer.last_mot_date || '',
+    })
+    setEditError('')
+  }
+
+  async function handleEditCustomer(e: React.FormEvent) {
+    e.preventDefault()
+    if (!editTarget) return
+    setEditing(true)
+    setEditError('')
+    const res = await fetch(`/api/customers/${editTarget.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editForm),
+    })
+    const data = await res.json()
+    setEditing(false)
+    if (data.error) { setEditError(data.error); return }
+    setEditTarget(null)
+    fetchCustomers()
+  }
+
+  const updateEdit = (field: string, value: string) =>
+    setEditForm((prev) => ({ ...prev, [field]: value }))
 
   async function handleDelete(id: string) {
     if (!confirm('Delete this customer?')) return
@@ -250,8 +292,16 @@ export default function CustomersPage() {
                             <Send size={14} />
                           </button>
                           <button
+                            onClick={() => openEdit(customer)}
+                            className="p-1.5 rounded-lg hover:bg-amber-50 text-gray-300 hover:text-amber-500 transition-colors"
+                            title="Edit customer"
+                          >
+                            <Pencil size={14} />
+                          </button>
+                          <button
                             onClick={() => handleDelete(customer.id)}
                             className="p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-500 transition-colors"
+                            title="Delete customer"
                           >
                             <Trash2 size={14} />
                           </button>
@@ -327,6 +377,32 @@ export default function CustomersPage() {
             <Button onClick={handleUpload} disabled={!uploadFile} loading={uploading}>Import customers</Button>
           </div>
         </div>
+      </Modal>
+
+      {/* Edit Customer Modal */}
+      <Modal open={!!editTarget} onClose={() => setEditTarget(null)} title="Edit customer" size="md">
+        <form onSubmit={handleEditCustomer} className="space-y-4">
+          {editError && (
+            <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">{editError}</div>
+          )}
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Full name *" value={editForm.name} onChange={(e) => updateEdit('name', e.target.value)} required placeholder="John Smith" />
+            <Input label="Phone" value={editForm.phone} onChange={(e) => updateEdit('phone', e.target.value)} placeholder="07700 900000" />
+          </div>
+          <Input label="Email" type="email" value={editForm.email} onChange={(e) => updateEdit('email', e.target.value)} placeholder="john@example.com" />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Vehicle reg" value={editForm.vehicle_reg} onChange={(e) => updateEdit('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
+            <Input label="Vehicle make" value={editForm.vehicle_make} onChange={(e) => updateEdit('vehicle_make', e.target.value)} placeholder="Ford Focus" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Last MOT date" type="date" value={editForm.last_mot_date} onChange={(e) => updateEdit('last_mot_date', e.target.value)} />
+            <Input label="Last service date" type="date" value={editForm.last_service_date} onChange={(e) => updateEdit('last_service_date', e.target.value)} />
+          </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <Button variant="secondary" type="button" onClick={() => setEditTarget(null)}>Cancel</Button>
+            <Button type="submit" loading={editing}>Save changes</Button>
+          </div>
+        </form>
       </Modal>
 
       {/* Send Message Modal */}
