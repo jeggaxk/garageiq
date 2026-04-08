@@ -524,6 +524,7 @@ export default function LandingPage() {
                   'All 4 automations',
                   'Google review requests',
                   'Message templates',
+                  'Message analytics',
                   'Email support',
                 ],
                 cta: 'Start free trial',
