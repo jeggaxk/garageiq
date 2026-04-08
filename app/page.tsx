@@ -466,7 +466,7 @@ export default function LandingPage() {
                   { label: 'MOT reminders sent', manual: 'When you get round to it', corviz: '28 days before, automatically' },
                   { label: 'Customers lost per year', manual: '~160 (worth £24,000+)', corviz: 'None' },
                   { label: 'Google reviews requested', manual: 'Rarely', corviz: 'After every visit' },
-                  { label: 'Total cost', manual: '£2,400+ in time & lost revenue', corviz: 'From £79/month' },
+                  { label: 'Your cost', manual: '£26,000+/year', corviz: 'From £79/month' },
                 ].map((row, i) => (
                   <tr key={row.label} className={`border-b border-gray-50 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
                     <td className="px-6 py-4 font-medium text-gray-700">{row.label}</td>
@@ -478,7 +478,7 @@ export default function LandingPage() {
             </table>
           </div>
           <div className="mt-8 text-center">
-            <p className="text-gray-500 text-sm mb-4">The average garage loses <span className="font-semibold text-navy-900">£24,000+ a year</span> in lapsed customers. Corviz costs <span className="font-semibold text-navy-900">£79/month</span>.</p>
+            <p className="text-gray-500 text-sm mb-4">The average garage loses <span className="font-semibold text-navy-900">£24,000+ a year</span> in lapsed customers. Corviz costs <span className="font-semibold text-navy-900">from £79/month</span> and handles it automatically.</p>
             <Link
               href="/signup"
               className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
