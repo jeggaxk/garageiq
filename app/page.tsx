@@ -16,6 +16,8 @@ import {
   Zap,
   Menu,
   X,
+  ChevronDown,
+  Shield,
 } from 'lucide-react'
 
 function ROICalculator() {
@@ -92,6 +94,7 @@ function ROICalculator() {
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly')
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
     <div className="bg-white font-sans">
@@ -614,6 +617,111 @@ export default function LandingPage() {
                   <p className="font-semibold text-navy-900 text-sm">{testimonial.name}</p>
                   <p className="text-gray-400 text-xs">{testimonial.garage}</p>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Guarantee */}
+      <section className="py-20 px-4 sm:px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-navy-900 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
+            <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #F5A01A 0%, transparent 60%), radial-gradient(circle at 80% 50%, #F5A01A 0%, transparent 60%)' }} />
+            <div className="relative">
+              <div className="w-16 h-16 bg-cta-500/10 border border-cta-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Shield size={32} className="text-cta-500" />
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                The Corviz Guarantee
+              </h2>
+              <p className="text-navy-300 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
+                Try Corviz free for 60 days — no credit card required. If you don't win back at least one lapsed customer in that time, you never pay a penny. Not a reduced rate. Nothing.
+              </p>
+              <div className="grid sm:grid-cols-3 gap-4 mb-8 text-left">
+                {[
+                  { title: '60-day free trial', body: 'Full access to every feature. No card needed to start.' },
+                  { title: 'Zero setup risk', body: 'Up and running in under 10 minutes. We\'ll help if you get stuck.' },
+                  { title: 'Cancel anytime', body: 'No contracts, no lock-in. Cancel in two clicks if it\'s not for you.' },
+                ].map((item) => (
+                  <div key={item.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Check size={14} className="text-cta-500" />
+                      <p className="text-white font-semibold text-sm">{item.title}</p>
+                    </div>
+                    <p className="text-navy-400 text-sm leading-relaxed">{item.body}</p>
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/signup"
+                className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
+              >
+                Claim your free trial <ArrowRight size={20} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 px-4 sm:px-6 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Common questions</h2>
+            <p className="text-gray-500 text-lg">Everything you need to know before getting started.</p>
+          </div>
+          <div className="space-y-3">
+            {[
+              {
+                q: 'Do my customers need to opt in to receive messages?',
+                a: 'Corviz sends messages to your existing customers who have an established relationship with your garage. Under UK PECR, you can contact existing customers about similar services without explicit opt-in consent. You are responsible for ensuring your customer list is compliant — we provide guidance on this during onboarding.',
+              },
+              {
+                q: 'What if I don\'t have a customer list?',
+                a: 'Most garage management systems (Garage Hive, TechMan, Motasoft etc.) let you export a customer list as a CSV. If you\'re not sure how, contact us and we\'ll walk you through it. If your records are on paper, you can add customers manually one by one.',
+              },
+              {
+                q: 'Will customers know the message is automated?',
+                a: 'Messages are sent from your garage name and use the customer\'s first name — they feel personal, not robotic. Most customers simply see a helpful reminder from a garage they trust.',
+              },
+              {
+                q: 'What happens when my free trial ends?',
+                a: 'Your automations will pause until you choose a plan. We\'ll remind you before the trial ends so you\'re never caught off guard. There\'s no pressure and no automatic charge.',
+              },
+              {
+                q: 'Can I customise the messages?',
+                a: 'Yes. You can edit every message template to match your garage\'s tone. You can include your garage name, phone number, Google review link, the customer\'s vehicle reg, and more using simple tags like [FirstName] and [GarageName].',
+              },
+              {
+                q: 'Does this work alongside my existing garage software?',
+                a: 'Yes — Corviz works independently of your garage management system. You import your customer data via CSV and Corviz handles the rest. There\'s no integration required.',
+              },
+              {
+                q: 'How does Corviz know when an MOT is due?',
+                a: 'We calculate the MOT due date based on the last MOT date you provide when importing customers. MOTs renew annually, so if a customer\'s last MOT was 14 May 2025, we\'ll send a reminder around 14 April 2026.',
+              },
+              {
+                q: 'Is my customer data safe?',
+                a: 'Your data is stored securely in the EU on Supabase infrastructure. We never share or sell your customer data to third parties. We act as a data processor — you remain the data controller. Full details are in our Privacy Policy.',
+              },
+            ].map((faq, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between px-6 py-5 text-left"
+                >
+                  <span className="font-semibold text-navy-900 pr-4">{faq.q}</span>
+                  <ChevronDown
+                    size={18}
+                    className={`text-gray-400 flex-shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {openFaq === i && (
+                  <div className="px-6 pb-5">
+                    <p className="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
