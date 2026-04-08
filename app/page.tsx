@@ -442,6 +442,53 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Comparison */}
+      <section className="py-20 px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Why not just do it yourself?</h2>
+            <p className="text-gray-500 text-lg">Most garage owners know they should follow up with customers. Almost none do it consistently.</p>
+          </div>
+          <div className="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-100">
+                  <th className="text-left px-6 py-4 font-semibold text-gray-500 w-1/3"></th>
+                  <th className="text-center px-6 py-4 font-semibold text-gray-500 w-1/3">Doing it manually</th>
+                  <th className="text-center px-6 py-4 font-semibold text-navy-900 w-1/3 bg-cta-50">Corviz</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { label: 'Time per week', manual: '2–3 hours', corviz: '0 minutes' },
+                  { label: 'Cost of your time', manual: '~£2,400/year', corviz: 'Included' },
+                  { label: 'Customers contacted', manual: 'The ones you remember', corviz: 'Every single one' },
+                  { label: 'MOT reminders sent', manual: 'When you get round to it', corviz: '28 days before, automatically' },
+                  { label: 'Customers lost per year', manual: '~160 (worth £24,000+)', corviz: 'None' },
+                  { label: 'Google reviews requested', manual: 'Rarely', corviz: 'After every visit' },
+                  { label: 'Total cost', manual: '£2,400+ in time & lost revenue', corviz: 'From £79/month' },
+                ].map((row, i) => (
+                  <tr key={row.label} className={`border-b border-gray-50 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+                    <td className="px-6 py-4 font-medium text-gray-700">{row.label}</td>
+                    <td className="px-6 py-4 text-center text-gray-400">{row.manual}</td>
+                    <td className="px-6 py-4 text-center font-semibold text-navy-900 bg-cta-50/50">{row.corviz}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-8 text-center">
+            <p className="text-gray-500 text-sm mb-4">The average garage loses <span className="font-semibold text-navy-900">£24,000+ a year</span> in lapsed customers. Corviz costs <span className="font-semibold text-navy-900">£79/month</span>.</p>
+            <Link
+              href="/signup"
+              className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
+            >
+              Start free — no card required <ArrowRight size={20} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
