@@ -640,7 +640,7 @@ export default function LandingPage() {
               </p>
               <div className="grid sm:grid-cols-3 gap-4 mb-8 text-left">
                 {[
-                  { title: '60-day free trial', body: 'Full access to every feature. No card needed to start.' },
+                  { title: '60-day free trial', body: 'Solo plan features, up to 500 customers. No card needed to start.' },
                   { title: 'Zero setup risk', body: 'Up and running in under 10 minutes. We\'ll help if you get stuck.' },
                   { title: 'Cancel anytime', body: 'No contracts, no lock-in. Cancel in two clicks if it\'s not for you.' },
                 ].map((item) => (
