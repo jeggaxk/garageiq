@@ -1,5 +1,5 @@
 import { createClient as createSupabaseAdminClient } from '@supabase/supabase-js'
-import { sendSMS } from './twilio'
+import { sendSMS } from './textmagic'
 import { sendEmail } from './resend'
 import { interpolateTemplate, formatPhoneForTwilio, getMotDueDate } from './utils'
 import { differenceInDays, subMonths, subYears, addDays, addYears, addHours, parseISO, startOfDay } from 'date-fns'
@@ -334,7 +334,7 @@ async function sendAutomationMessages(
     if (smsTemplate) {
       const body = interpolateTemplate(smsTemplate.body, vars)
       const phone = formatPhoneForTwilio(customer.phone)
-      const result = await sendSMS(phone, body)
+      const result = await sendSMS(phone, body, garage.name)
       results.push({ channel: 'sms', success: result.success })
     }
   }
