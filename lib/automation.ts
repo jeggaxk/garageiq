@@ -130,7 +130,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
 
   if (garagesError || !garages) {
     console.error('Failed to fetch garages:', garagesError)
-    return { sent: 0, errors: 1 }
+    return { sent: 0, errors: 1, debug: [] }
   }
 
   for (const garage of garages) {
