@@ -13,12 +13,9 @@ export async function PATCH(request: Request, { params }: { params: { id: string
 
   const body = await request.json()
 
-  const sanitised = {
-    ...body,
-    last_mot_date: body.last_mot_date || null,
-    last_service_date: body.last_service_date || null,
-    updated_at: new Date().toISOString(),
-  }
+  const sanitised: Record<string, unknown> = { ...body, updated_at: new Date().toISOString() }
+  if ('last_mot_date' in body) sanitised.last_mot_date = body.last_mot_date || null
+  if ('last_service_date' in body) sanitised.last_service_date = body.last_service_date || null
 
   const { data: customer, error } = await supabase
     .from('customers')
