@@ -116,12 +116,11 @@ export async function sendTrialExpiryEmails(thresholdHours: number[]): Promise<v
   }
 }
 
-export async function runDailyAutomations(): Promise<{ sent: number; errors: number; debug: object }> {
+export async function runDailyAutomations(): Promise<{ sent: number; errors: number }> {
   const supabase = getAdminClient()
   const today = startOfDay(new Date())
   let totalSent = 0
   let totalErrors = 0
-  const debugInfo: object[] = []
 
   // Get all garages with their automations
   const { data: garages, error: garagesError } = await supabase
@@ -130,11 +129,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
 
   if (garagesError || !garages) {
     console.error('Failed to fetch garages:', garagesError)
-    return { sent: 0, errors: 1, debug: [{ error: garagesError?.message, garagesNull: !garages }] }
-  }
-
-  if (garages.length === 0) {
-    return { sent: 0, errors: 0, debug: [{ error: 'No garages found in database' }] }
+    return { sent: 0, errors: 1 }
   }
 
   for (const garage of garages) {
@@ -169,9 +164,6 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
         .eq('garage_id', garage.id)
         .eq('last_mot_date', lastMotTargetStr)
 
-      const smsErrors: string[] = []
-      debugInfo.push({ garage: garage.id, plan: garage.plan, lookingFor: lastMotTargetStr, found: customers?.length ?? 0, smsErrors })
-
       if (customers) {
         for (const customer of customers) {
           const results = await sendAutomationMessages(
@@ -182,7 +174,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
           )
           for (const r of results) {
             if (r.success) { totalSent++; garageSent++ }
-            else { totalErrors++; smsErrors.push(`${r.channel}: ${r.error || 'unknown'}`) }
+            else totalErrors++
             await logMessage(supabase, garage.id, customer.id, 'mot_reminder', r.channel as 'sms' | 'email', r.success)
           }
         }
@@ -311,7 +303,7 @@ The Corviz team`,
     }
   }
 
-  return { sent: totalSent, errors: totalErrors, debug: debugInfo }
+  return { sent: totalSent, errors: totalErrors }
 }
 
 async function sendAutomationMessages(

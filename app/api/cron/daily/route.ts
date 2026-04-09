@@ -6,11 +6,10 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
-  // Temporarily disabled for testing
-  // const authHeader = request.headers.get('authorization')
-  // if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-  //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  // }
+  const authHeader = request.headers.get('authorization')
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
   try {
     await sendTrialExpiryEmails([168, 48, 24])
@@ -19,7 +18,6 @@ export async function GET(request: Request) {
       success: true,
       sent: result.sent,
       errors: result.errors,
-      debug: result.debug,
       timestamp: new Date().toISOString(),
     })
   } catch (error) {
