@@ -237,30 +237,53 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
       }
     }
 
-    // --- Review Request (24 hours after service = yesterday) ---
+    // --- Review Request (24 hours after service or MOT = yesterday) ---
     if (enabledTypes.has('review_request')) {
       const yesterday = addDays(today, -1)
       const yesterdayStr = yesterday.toISOString().split('T')[0]
+      const oneDayAgo = addDays(today, -1).toISOString()
 
-      const { data: customers } = await supabase
+      const { data: serviceCustomers } = await supabase
         .from('customers')
         .select('*')
         .eq('garage_id', garage.id)
         .eq('last_service_date', yesterdayStr)
 
-      if (customers) {
-        for (const customer of customers) {
-          const results = await sendAutomationMessages(
-            customer,
-            garage,
-            'review_request',
-            templates
-          )
-          for (const r of results) {
-            if (r.success) { totalSent++; garageSent++ }
-            else totalErrors++
-            await logMessage(supabase, garage.id, customer.id, 'review_request', r.channel as 'sms' | 'email', r.success)
-          }
+      const { data: motCustomers } = await supabase
+        .from('customers')
+        .select('*')
+        .eq('garage_id', garage.id)
+        .eq('last_mot_date', yesterdayStr)
+
+      // Merge and deduplicate by customer ID
+      const seen = new Set<string>()
+      const customers = [...(serviceCustomers || []), ...(motCustomers || [])].filter(c => {
+        if (seen.has(c.id)) return false
+        seen.add(c.id)
+        return true
+      })
+
+      for (const customer of customers) {
+        const { data: recentMessages } = await supabase
+          .from('messages')
+          .select('id')
+          .eq('garage_id', garage.id)
+          .eq('customer_id', customer.id)
+          .eq('type', 'review_request')
+          .gte('sent_at', oneDayAgo)
+          .limit(1)
+        if (recentMessages && recentMessages.length > 0) continue
+
+        const results = await sendAutomationMessages(
+          customer,
+          garage,
+          'review_request',
+          templates
+        )
+        for (const r of results) {
+          if (r.success) { totalSent++; garageSent++ }
+          else totalErrors++
+          await logMessage(supabase, garage.id, customer.id, 'review_request', r.channel as 'sms' | 'email', r.success)
         }
       }
     }
