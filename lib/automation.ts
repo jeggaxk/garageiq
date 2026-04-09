@@ -169,7 +169,8 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
         .eq('garage_id', garage.id)
         .eq('last_mot_date', lastMotTargetStr)
 
-      debugInfo.push({ garage: garage.id, plan: garage.plan, lookingFor: lastMotTargetStr, found: customers?.length ?? 0 })
+      const smsErrors: string[] = []
+      debugInfo.push({ garage: garage.id, plan: garage.plan, lookingFor: lastMotTargetStr, found: customers?.length ?? 0, smsErrors })
 
       if (customers) {
         for (const customer of customers) {
@@ -181,7 +182,7 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
           )
           for (const r of results) {
             if (r.success) { totalSent++; garageSent++ }
-            else totalErrors++
+            else { totalErrors++; smsErrors.push(`${r.channel}: ${r.error || 'unknown'}`) }
             await logMessage(supabase, garage.id, customer.id, 'mot_reminder', r.channel as 'sms' | 'email', r.success)
           }
         }
@@ -318,7 +319,7 @@ async function sendAutomationMessages(
   garage: Garage & { message_templates: MessageTemplate[] },
   type: AutomationType,
   templates: MessageTemplate[]
-): Promise<Array<{ channel: string; success: boolean }>> {
+): Promise<Array<{ channel: string; success: boolean; error?: string }>> {
   const firstName = customer.name.split(' ')[0]
   const motDueDate = customer.last_mot_date
     ? addYears(parseISO(customer.last_mot_date), 1).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -333,7 +334,7 @@ async function sendAutomationMessages(
     motDueDate,
   }
 
-  const results: Array<{ channel: string; success: boolean }> = []
+  const results: Array<{ channel: string; success: boolean; error?: string }> = []
 
   // SMS
   if (customer.phone) {
@@ -342,7 +343,7 @@ async function sendAutomationMessages(
       const body = interpolateTemplate(smsTemplate.body, vars)
       const phone = formatPhoneForTwilio(customer.phone)
       const result = await sendSMS(phone, body, garage.name)
-      results.push({ channel: 'sms', success: result.success })
+      results.push({ channel: 'sms', success: result.success, error: result.error })
     }
   }
 
