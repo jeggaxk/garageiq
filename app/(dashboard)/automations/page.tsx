@@ -109,7 +109,7 @@ export default function AutomationsPage() {
           <p className="text-sm text-gray-500 mt-0.5">Total messages sent</p>
         </div>
         <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm text-center">
-          <p className="text-3xl font-bold text-green-600">£{(totalSent * 35).toLocaleString()}</p>
+          <p className="text-3xl font-bold text-green-600">£{(Math.floor(totalSent / 2) * 100).toLocaleString()}</p>
           <p className="text-sm text-gray-500 mt-0.5">Est. revenue recovered</p>
         </div>
       </div>
