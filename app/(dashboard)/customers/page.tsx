@@ -19,6 +19,7 @@ import {
   Send,
   Download,
   Pencil,
+  Wrench,
 } from 'lucide-react'
 
 export default function CustomersPage() {
@@ -48,6 +49,8 @@ export default function CustomersPage() {
   const [sendBody, setSendBody] = useState('')
   const [sendSubject, setSendSubject] = useState('')
   const [sending, setSending] = useState(false)
+  const [markingServiced, setMarkingServiced] = useState<string | null>(null)
+  const [lookingUp, setLookingUp] = useState(false)
   const [sendResult, setSendResult] = useState<{ success?: boolean; error?: string } | null>(null)
 
   const fetchCustomers = useCallback(async () => {
@@ -93,6 +96,40 @@ export default function CustomersPage() {
     // Already YYYY-MM-DD
     if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr
     return dateStr
+  }
+
+  async function markAsServiced(customerId: string) {
+    setMarkingServiced(customerId)
+    const today = new Date().toISOString().split('T')[0]
+    await fetch(`/api/customers/${customerId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ last_service_date: today }),
+    })
+    setMarkingServiced(null)
+    fetchCustomers()
+  }
+
+  async function lookupVehicle(reg: string, target: 'add' | 'edit') {
+    if (!reg) return
+    setLookingUp(true)
+    const res = await fetch(`/api/vehicle-lookup?reg=${encodeURIComponent(reg)}`)
+    const data = await res.json()
+    setLookingUp(false)
+    if (data.error) return
+    if (target === 'add') {
+      setAddForm(prev => ({
+        ...prev,
+        vehicle_make: data.make || prev.vehicle_make,
+        last_mot_date: data.lastMotDate || prev.last_mot_date,
+      }))
+    } else {
+      setEditForm(prev => ({
+        ...prev,
+        vehicle_make: data.make || prev.vehicle_make,
+        last_mot_date: data.lastMotDate || prev.last_mot_date,
+      }))
+    }
   }
 
   async function handleAddCustomer(e: React.FormEvent) {
@@ -303,6 +340,14 @@ export default function CustomersPage() {
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-1">
                           <button
+                            onClick={() => markAsServiced(customer.id)}
+                            disabled={markingServiced === customer.id}
+                            className="p-1.5 rounded-lg hover:bg-green-50 text-gray-300 hover:text-green-500 transition-colors"
+                            title="Mark as serviced today"
+                          >
+                            <Wrench size={14} />
+                          </button>
+                          <button
                             onClick={() => { setSendTarget(customer); setSendChannel('sms'); setSendBody(''); setSendSubject(''); setSendResult(null) }}
                             className="p-1.5 rounded-lg hover:bg-blue-50 text-gray-300 hover:text-blue-500 transition-colors"
                             title="Send message"
@@ -346,7 +391,17 @@ export default function CustomersPage() {
           </div>
           <Input label="Email" type="email" value={addForm.email} onChange={(e) => updateAdd('email', e.target.value)} placeholder="john@example.com" />
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Vehicle reg" value={addForm.vehicle_reg} onChange={(e) => updateAdd('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
+            <div>
+              <Input label="Vehicle reg" value={addForm.vehicle_reg} onChange={(e) => updateAdd('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
+              <button
+                type="button"
+                onClick={() => lookupVehicle(addForm.vehicle_reg, 'add')}
+                disabled={lookingUp || !addForm.vehicle_reg}
+                className="mt-1 text-xs text-amber-600 hover:text-amber-700 font-medium disabled:opacity-40"
+              >
+                {lookingUp ? 'Looking up...' : 'Auto-fill from DVLA →'}
+              </button>
+            </div>
             <Input label="Vehicle make" value={addForm.vehicle_make} onChange={(e) => updateAdd('vehicle_make', e.target.value)} placeholder="Ford Focus" />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -409,7 +464,17 @@ export default function CustomersPage() {
           </div>
           <Input label="Email" type="email" value={editForm.email} onChange={(e) => updateEdit('email', e.target.value)} placeholder="john@example.com" />
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Vehicle reg" value={editForm.vehicle_reg} onChange={(e) => updateEdit('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
+            <div>
+              <Input label="Vehicle reg" value={editForm.vehicle_reg} onChange={(e) => updateEdit('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
+              <button
+                type="button"
+                onClick={() => lookupVehicle(editForm.vehicle_reg, 'edit')}
+                disabled={lookingUp || !editForm.vehicle_reg}
+                className="mt-1 text-xs text-amber-600 hover:text-amber-700 font-medium disabled:opacity-40"
+              >
+                {lookingUp ? 'Looking up...' : 'Auto-fill from DVLA →'}
+              </button>
+            </div>
             <Input label="Vehicle make" value={editForm.vehicle_make} onChange={(e) => updateEdit('vehicle_make', e.target.value)} placeholder="Ford Focus" />
           </div>
           <div className="grid grid-cols-2 gap-4">
