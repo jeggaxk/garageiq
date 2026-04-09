@@ -116,11 +116,12 @@ export async function sendTrialExpiryEmails(thresholdHours: number[]): Promise<v
   }
 }
 
-export async function runDailyAutomations(): Promise<{ sent: number; errors: number }> {
+export async function runDailyAutomations(): Promise<{ sent: number; errors: number; debug: object }> {
   const supabase = getAdminClient()
   const today = startOfDay(new Date())
   let totalSent = 0
   let totalErrors = 0
+  const debugInfo: object[] = []
 
   // Get all garages with their automations
   const { data: garages, error: garagesError } = await supabase
@@ -158,15 +159,13 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
       const lastMotTarget = subYears(targetDate, 1)
       const lastMotTargetStr = lastMotTarget.toISOString().split('T')[0]
 
-      console.log(`[MOT] Garage: ${garage.id}, looking for last_mot_date: ${lastMotTargetStr}`)
-
       const { data: customers } = await supabase
         .from('customers')
         .select('*')
         .eq('garage_id', garage.id)
         .eq('last_mot_date', lastMotTargetStr)
 
-      console.log(`[MOT] Found ${customers?.length ?? 0} customers`)
+      debugInfo.push({ garage: garage.id, plan: garage.plan, lookingFor: lastMotTargetStr, found: customers?.length ?? 0 })
 
       if (customers) {
         for (const customer of customers) {
@@ -307,7 +306,7 @@ The Corviz team`,
     }
   }
 
-  return { sent: totalSent, errors: totalErrors }
+  return { sent: totalSent, errors: totalErrors, debug: debugInfo }
 }
 
 async function sendAutomationMessages(

@@ -19,6 +19,7 @@ export async function GET(request: Request) {
       success: true,
       sent: result.sent,
       errors: result.errors,
+      debug: result.debug,
       timestamp: new Date().toISOString(),
     })
   } catch (error) {
