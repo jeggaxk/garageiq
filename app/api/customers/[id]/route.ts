@@ -13,9 +13,16 @@ export async function PATCH(request: Request, { params }: { params: { id: string
 
   const body = await request.json()
 
+  const sanitised = {
+    ...body,
+    last_mot_date: body.last_mot_date || null,
+    last_service_date: body.last_service_date || null,
+    updated_at: new Date().toISOString(),
+  }
+
   const { data: customer, error } = await supabase
     .from('customers')
-    .update({ ...body, updated_at: new Date().toISOString() })
+    .update(sanitised)
     .eq('id', params.id)
     .eq('garage_id', garage.id)
     .select()
