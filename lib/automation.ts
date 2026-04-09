@@ -165,7 +165,18 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
         .eq('last_mot_date', lastMotTargetStr)
 
       if (customers) {
+        const sixtyDaysAgo = addDays(today, -60).toISOString()
         for (const customer of customers) {
+          const { data: recentMessages } = await supabase
+            .from('messages')
+            .select('id')
+            .eq('garage_id', garage.id)
+            .eq('customer_id', customer.id)
+            .eq('type', 'mot_reminder')
+            .gte('sent_at', sixtyDaysAgo)
+            .limit(1)
+          if (recentMessages && recentMessages.length > 0) continue
+
           const results = await sendAutomationMessages(
             customer,
             garage,
@@ -199,7 +210,18 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
         .eq('last_service_date', targetServiceDateStr)
 
       if (customers) {
+        const sixtyDaysAgo = addDays(today, -60).toISOString()
         for (const customer of customers) {
+          const { data: recentMessages } = await supabase
+            .from('messages')
+            .select('id')
+            .eq('garage_id', garage.id)
+            .eq('customer_id', customer.id)
+            .eq('type', 'service_reminder')
+            .gte('sent_at', sixtyDaysAgo)
+            .limit(1)
+          if (recentMessages && recentMessages.length > 0) continue
+
           const results = await sendAutomationMessages(
             customer,
             garage,
