@@ -93,12 +93,12 @@ export function formatCurrency(pence: number): string {
 }
 
 export function formatPhoneForTwilio(phone: string): string {
-  // Normalise UK numbers to E.164
-  const cleaned = phone.replace(/\s+/g, '').replace(/-/g, '')
+  // Normalise UK numbers to international format without +
+  const cleaned = phone.replace(/\s+/g, '').replace(/-/g, '').replace(/^\+/, '')
   if (cleaned.startsWith('07')) {
-    return '+44' + cleaned.slice(1)
+    return '44' + cleaned.slice(1)
   }
-  if (cleaned.startsWith('+44')) {
+  if (cleaned.startsWith('447')) {
     return cleaned
   }
   return cleaned
