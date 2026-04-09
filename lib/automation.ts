@@ -342,7 +342,7 @@ async function sendAutomationMessages(
     if (smsTemplate) {
       const body = interpolateTemplate(smsTemplate.body, vars)
       const phone = formatPhoneForTwilio(customer.phone)
-      const result = await sendSMS(phone, body, garage.name)
+      const result = await sendSMS(phone, body)
       results.push({ channel: 'sms', success: result.success, error: result.error })
     }
   }
