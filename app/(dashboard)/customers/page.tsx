@@ -85,6 +85,16 @@ export default function CustomersPage() {
     }
   }
 
+  function normaliseDate(dateStr: string): string {
+    if (!dateStr) return ''
+    // Handle DD/MM/YYYY
+    const ukMatch = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)
+    if (ukMatch) return `${ukMatch[3]}-${ukMatch[2].padStart(2, '0')}-${ukMatch[1].padStart(2, '0')}`
+    // Already YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr
+    return dateStr
+  }
+
   async function handleAddCustomer(e: React.FormEvent) {
     e.preventDefault()
     setAdding(true)
@@ -92,7 +102,11 @@ export default function CustomersPage() {
     const res = await fetch('/api/customers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(addForm),
+      body: JSON.stringify({
+        ...addForm,
+        last_mot_date: normaliseDate(addForm.last_mot_date),
+        last_service_date: normaliseDate(addForm.last_service_date),
+      }),
     })
     const data = await res.json()
     setAdding(false)
@@ -127,7 +141,11 @@ export default function CustomersPage() {
     const res = await fetch(`/api/customers/${editTarget.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editForm),
+      body: JSON.stringify({
+        ...editForm,
+        last_mot_date: normaliseDate(editForm.last_mot_date),
+        last_service_date: normaliseDate(editForm.last_service_date),
+      }),
     })
     const data = await res.json()
     setEditing(false)
