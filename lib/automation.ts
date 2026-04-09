@@ -130,7 +130,11 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
 
   if (garagesError || !garages) {
     console.error('Failed to fetch garages:', garagesError)
-    return { sent: 0, errors: 1, debug: [] }
+    return { sent: 0, errors: 1, debug: [{ error: garagesError?.message, garagesNull: !garages }] }
+  }
+
+  if (garages.length === 0) {
+    return { sent: 0, errors: 0, debug: [{ error: 'No garages found in database' }] }
   }
 
   for (const garage of garages) {
