@@ -49,7 +49,10 @@ export default function CustomersPage() {
   const [sendBody, setSendBody] = useState('')
   const [sendSubject, setSendSubject] = useState('')
   const [sending, setSending] = useState(false)
-  const [markingServiced, setMarkingServiced] = useState<string | null>(null)
+  const [workedOnTarget, setWorkedOnTarget] = useState<Customer | null>(null)
+  const [workedOnService, setWorkedOnService] = useState(false)
+  const [workedOnMot, setWorkedOnMot] = useState(false)
+  const [workedOnSaving, setWorkedOnSaving] = useState(false)
   const [lookingUp, setLookingUp] = useState(false)
   const [sendResult, setSendResult] = useState<{ success?: boolean; error?: string } | null>(null)
 
@@ -98,15 +101,22 @@ export default function CustomersPage() {
     return dateStr
   }
 
-  async function markAsServiced(customerId: string) {
-    setMarkingServiced(customerId)
+  async function confirmWorkedOn() {
+    if (!workedOnTarget || (!workedOnService && !workedOnMot)) return
+    setWorkedOnSaving(true)
     const today = new Date().toISOString().split('T')[0]
-    await fetch(`/api/customers/${customerId}`, {
+    const body: Record<string, string> = {}
+    if (workedOnService) body.last_service_date = today
+    if (workedOnMot) body.last_mot_date = today
+    await fetch(`/api/customers/${workedOnTarget.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ last_service_date: today }),
+      body: JSON.stringify(body),
     })
-    setMarkingServiced(null)
+    setWorkedOnSaving(false)
+    setWorkedOnTarget(null)
+    setWorkedOnService(false)
+    setWorkedOnMot(false)
     fetchCustomers()
   }
 
@@ -340,10 +350,9 @@ export default function CustomersPage() {
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-1">
                           <button
-                            onClick={() => markAsServiced(customer.id)}
-                            disabled={markingServiced === customer.id}
+                            onClick={() => { setWorkedOnTarget(customer); setWorkedOnService(false); setWorkedOnMot(false) }}
                             className="p-1.5 rounded-lg hover:bg-green-50 text-gray-300 hover:text-green-500 transition-colors"
-                            title="Mark as serviced today"
+                            title="Worked on today"
                           >
                             <Wrench size={14} />
                           </button>
@@ -486,6 +495,51 @@ export default function CustomersPage() {
             <Button type="submit" loading={editing}>Save changes</Button>
           </div>
         </form>
+      </Modal>
+
+      {/* Worked On Modal */}
+      <Modal open={!!workedOnTarget} onClose={() => setWorkedOnTarget(null)} title="Worked on today" size="sm">
+        <div className="space-y-4">
+          <p className="text-sm text-gray-500">
+            Select what was done on <span className="font-medium text-navy-900">{workedOnTarget?.name}</span>'s vehicle today. The date will be set to today automatically.
+          </p>
+          <div className="space-y-3">
+            <label className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-amber-300 hover:bg-amber-50/50 cursor-pointer transition-colors">
+              <input
+                type="checkbox"
+                checked={workedOnService}
+                onChange={(e) => setWorkedOnService(e.target.checked)}
+                className="w-4 h-4 accent-amber-500"
+              />
+              <div>
+                <p className="text-sm font-medium text-navy-900">Service</p>
+                <p className="text-xs text-gray-400">Updates last service date to today</p>
+              </div>
+            </label>
+            <label className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-amber-300 hover:bg-amber-50/50 cursor-pointer transition-colors">
+              <input
+                type="checkbox"
+                checked={workedOnMot}
+                onChange={(e) => setWorkedOnMot(e.target.checked)}
+                className="w-4 h-4 accent-amber-500"
+              />
+              <div>
+                <p className="text-sm font-medium text-navy-900">MOT</p>
+                <p className="text-xs text-gray-400">Updates last MOT date to today</p>
+              </div>
+            </label>
+          </div>
+          <div className="flex justify-end gap-3 pt-1">
+            <Button variant="secondary" type="button" onClick={() => setWorkedOnTarget(null)}>Cancel</Button>
+            <Button
+              onClick={confirmWorkedOn}
+              loading={workedOnSaving}
+              disabled={!workedOnService && !workedOnMot}
+            >
+              <Wrench size={14} /> Confirm
+            </Button>
+          </div>
+        </div>
       </Modal>
 
       {/* Send Message Modal */}
