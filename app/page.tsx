@@ -20,21 +20,54 @@ import {
   Shield,
 } from 'lucide-react'
 
+const plans = [
+  { key: 'solo',  label: 'Solo',       price: 79,  maxCustomers: 500,  sliderMax: 500  },
+  { key: 'pro',   label: 'Pro',        price: 149, maxCustomers: 2000, sliderMax: 2000 },
+  { key: 'multi', label: 'Multi-site', price: 249, maxCustomers: null, sliderMax: 5000 },
+] as const
+
+type PlanKey = typeof plans[number]['key']
+
 function ROICalculator() {
-  const [customers, setCustomers] = useState(400)
+  const [planKey, setPlanKey] = useState<PlanKey>('solo')
+  const [customers, setCustomers] = useState(200)
 
-  const lapsedPercent = 0.40
-  const recoveryRate = 0.35
-  const avgJobValue = 165
+  const plan = plans.find((p) => p.key === planKey)!
 
-  const lapsedCustomers = Math.round(customers * lapsedPercent)
-  const recovered = Math.round(lapsedCustomers * recoveryRate)
-  const revenue = recovered * avgJobValue
+  const capped = Math.min(customers, plan.sliderMax)
+
+  const lapsedCustomers = Math.round(capped * 0.40)
+  const recovered = Math.round(lapsedCustomers * 0.35)
+  const revenue = recovered * 165
+  const annualCost = plan.price * 12
+  const roi = Math.round((revenue / annualCost) * 100)
+
+  function handlePlanChange(key: PlanKey) {
+    setPlanKey(key)
+    const newPlan = plans.find((p) => p.key === key)!
+    if (customers > newPlan.sliderMax) setCustomers(newPlan.sliderMax)
+  }
 
   return (
     <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
       <h3 className="text-2xl font-bold text-navy-900 mb-2">See your potential return</h3>
-      <p className="text-gray-500 mb-6">Move the slider to match your customer base</p>
+      <p className="text-gray-500 mb-5">Choose your plan and move the slider to match your customer base</p>
+
+      {/* Plan selector */}
+      <div className="flex gap-1 p-1 bg-gray-100 rounded-xl mb-6">
+        {plans.map((p) => (
+          <button
+            key={p.key}
+            onClick={() => handlePlanChange(p.key)}
+            className={`flex-1 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              planKey === p.key ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            {p.label}
+            <span className="block text-xs font-normal mt-0.5 opacity-70">£{p.price}/mo</span>
+          </button>
+        ))}
+      </div>
 
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
@@ -44,16 +77,15 @@ function ROICalculator() {
         <input
           type="range"
           min={50}
-          max={2000}
+          max={plan.sliderMax}
           step={50}
           value={customers}
           onChange={(e) => setCustomers(Number(e.target.value))}
-          onInput={(e) => setCustomers(Number((e.target as HTMLInputElement).value))}
           className="w-full h-2 bg-gray-200 rounded-full cursor-pointer accent-amber-500"
         />
         <div className="flex justify-between text-xs text-gray-400 mt-1">
           <span>50</span>
-          <span>2,000</span>
+          <span>{plan.maxCustomers ? plan.maxCustomers.toLocaleString() : '5,000+'}</span>
         </div>
       </div>
 
@@ -77,8 +109,10 @@ function ROICalculator() {
 
       <div className="p-4 bg-navy-900 rounded-xl flex items-center justify-between">
         <div>
-          <p className="text-white font-semibold">Corviz costs £79–249/mo</p>
-          <p className="text-navy-300 text-sm">Your ROI: <span className="text-cta-500 font-bold">{Math.round(revenue / (79 * 12) * 100)}% return</span> on the Solo plan</p>
+          <p className="text-white font-semibold">{plan.label} plan — £{plan.price}/mo</p>
+          <p className="text-navy-300 text-sm">
+            Your ROI: <span className="text-cta-500 font-bold">{roi}% return</span> on your annual spend
+          </p>
         </div>
         <Link
           href="/signup"
