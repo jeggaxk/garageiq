@@ -42,7 +42,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
     <>
       {/* Logo */}
       <div className="px-6 py-5 border-b border-navy-800">
-        <img src="/corviz-logo.png" alt="Corviz" className="h-8 w-auto" />
+        <img src="/corviz-logo-sidebar.png" alt="Corviz" className="h-12 w-auto" />
       </div>
 
       {/* Trial banner */}
@@ -120,7 +120,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
 
       {/* Mobile top bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-navy-900 flex items-center justify-between px-4 py-3 border-b border-navy-800">
-        <img src="/corviz-logo.png" alt="Corviz" className="h-7 w-auto" />
+        <img src="/corviz-logo-sidebar.png" alt="Corviz" className="h-7 w-auto" />
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="text-white p-1"
