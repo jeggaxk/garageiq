@@ -80,7 +80,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3">11. Governing Law</h2>
-            <p>These Terms are governed by the laws of England and Wales. Any disputes shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+            <p>These Terms are governed by the laws of England, Wales, and Scotland. Any disputes shall be subject to the exclusive jurisdiction of the courts of England, Wales, and Scotland.</p>
           </section>
 
           <section>
