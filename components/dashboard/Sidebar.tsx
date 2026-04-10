@@ -42,7 +42,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
     <>
       {/* Logo */}
       <div className="px-6 py-5 border-b border-navy-800">
-        <img src="/corviz-logo-sidebar.png" alt="Corviz" className="h-12 w-auto" />
+        <img src="/corviz-logo-sidebar.png" alt="Corviz" className="h-16 w-auto" />
       </div>
 
       {/* Trial banner */}
