@@ -102,7 +102,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <div className="flex items-center">
-            <img src="/corviz-logo-transparent.png" alt="Corviz" className="h-8 w-auto" />
+            <img src="/corviz-logo-transparent.png" alt="Corviz" className="h-12 w-auto" />
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-navy-900 transition-colors">Features</a>
