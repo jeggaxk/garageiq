@@ -28,7 +28,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
       <Sidebar garage={garage} />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {!emailConfirmed && <EmailConfirmBanner email={user.email!} />}
         {showTrialBanner && <TrialBanner trialEndsAt={garage.trial_ends_at} />}
         <main className="flex-1 overflow-y-auto">
