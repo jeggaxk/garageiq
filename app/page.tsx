@@ -20,6 +20,54 @@ import {
   Shield,
 } from 'lucide-react'
 
+function EmailCaptureForm({ source, dark = true }: { source: string; dark?: boolean }) {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setStatus('loading')
+    const res = await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source }),
+    })
+    setStatus(res.ok ? 'done' : 'error')
+  }
+
+  if (status === 'done') {
+    return (
+      <div className={`text-center py-4 ${dark ? 'text-white' : 'text-navy-900'}`}>
+        <p className="text-xl font-bold mb-1">You're on the list!</p>
+        <p className={dark ? 'text-navy-300' : 'text-gray-500'}>Check your inbox — the guide is on its way.</p>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input
+        type="email"
+        required
+        placeholder="your@email.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="flex-1 px-4 py-3 rounded-lg text-navy-900 text-sm focus:outline-none focus:ring-2 focus:ring-cta-500 border border-transparent"
+      />
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        className="bg-cta-500 hover:bg-cta-400 text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors disabled:opacity-60 whitespace-nowrap"
+      >
+        {status === 'loading' ? 'Sending…' : 'Send me the guide'}
+      </button>
+      {status === 'error' && (
+        <p className="text-red-400 text-xs mt-1 w-full">Something went wrong — try again.</p>
+      )}
+    </form>
+  )
+}
+
 const plans = [
   { key: 'solo',  label: 'Solo',       price: 79,  maxCustomers: 500,  sliderMax: 500  },
   { key: 'pro',   label: 'Pro',        price: 149, maxCustomers: 2000, sliderMax: 2000 },
@@ -181,7 +229,7 @@ export default function LandingPage() {
       <section className="bg-navy-900 pt-20 pb-24 px-4 sm:px-6 overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cta-500/10 border border-cta-500/20 rounded-full mb-6">
                 <span className="w-1.5 h-1.5 bg-cta-500 rounded-full" />
                 <span className="text-cta-500 text-xs font-medium">60-day free trial · No card required</span>
@@ -196,7 +244,7 @@ export default function LandingPage() {
               <p className="text-navy-300 text-lg mb-8 leading-relaxed">
                 Corviz sends automated MOT reminders, service follow-ups, and Google review requests — so your customers book with <em>you</em>, not someone else.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link
                   href="/signup"
                   className="inline-flex items-center justify-center gap-2 bg-cta-500 text-white font-bold px-6 py-3.5 rounded-xl hover:bg-cta-400 transition-colors text-base"
@@ -327,8 +375,8 @@ export default function LandingPage() {
             ].map((item) => {
               const Icon = item.icon
               return (
-                <div key={item.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-                  <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4`}>
+                <div key={item.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
+                  <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4 mx-auto md:mx-0`}>
                     <Icon size={24} />
                   </div>
                   <p className="text-4xl font-bold text-navy-900 mb-1">{item.stat}</p>
@@ -385,8 +433,8 @@ export default function LandingPage() {
             ].map((feature) => {
               const Icon = feature.icon
               return (
-                <div key={feature.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-                  <div className={`w-10 h-10 ${feature.color} rounded-xl flex items-center justify-center mb-4`}>
+                <div key={feature.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
+                  <div className={`w-10 h-10 ${feature.color} rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0`}>
                     <Icon size={20} className="text-white" />
                   </div>
                   <h3 className="text-lg font-bold text-navy-900 mb-2">{feature.title}</h3>
@@ -448,14 +496,14 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="text-center lg:text-left">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
                 What's your garage actually losing?
               </h2>
               <p className="text-gray-500 text-lg mb-6 leading-relaxed">
                 Most garages are sitting on hundreds of lapsed customers worth thousands of pounds. Corviz brings them back automatically.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-3 inline-block text-left">
                 {[
                   'Average MOT booking value: £55',
                   'Average service booking value: £150',
@@ -520,6 +568,20 @@ export default function LandingPage() {
               Start free — no card required <ArrowRight size={20} />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Email capture */}
+      <section className="py-16 px-4 sm:px-6 bg-navy-900">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-cta-500 text-sm font-semibold uppercase tracking-wider mb-3">Free guide</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+            Not ready to commit yet?
+          </h2>
+          <p className="text-navy-300 mb-8">
+            Get our free guide — <span className="text-white font-medium">5 ways UK garages lose £20,000+ a year in lapsed customers</span> — and learn how to fix it before you sign up for anything.
+          </p>
+          <EmailCaptureForm source="website" />
         </div>
       </section>
 
