@@ -680,7 +680,7 @@ export default function LandingPage() {
                 <p className={`text-sm mb-4 ${plan.popular ? 'text-navy-300' : 'text-gray-500'}`}>
                   {plan.description}
                 </p>
-                <div className="flex items-end gap-1 mb-1">
+                <div className="flex items-end gap-1 mb-1 justify-center md:justify-start">
                   <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-navy-900'}`}>
                     {pricing.price}
                   </span>
@@ -694,9 +694,9 @@ export default function LandingPage() {
                   </p>
                 )}
                 {billingPeriod === 'monthly' && <div className="mb-5" />}
-                <ul className="space-y-2.5 mb-6 inline-block text-left w-full">
+                <ul className="space-y-2.5 mb-6 w-full">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2.5">
+                    <li key={feature} className="flex items-center gap-2.5 justify-center md:justify-start">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
                         plan.popular ? 'bg-cta-500/20' : 'bg-green-100'
                       }`}>
