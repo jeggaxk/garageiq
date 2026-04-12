@@ -238,7 +238,7 @@ export default function CustomersPage() {
   }
 
   return (
-    <div className="p-6 md:p-8 pt-16 md:pt-8">
+    <div className="p-6 md:p-8 pt-20 md:pt-8">
       <PageHeader
         title="Customers"
         description={`${customers.length} customers`}
@@ -435,17 +435,7 @@ export default function CustomersPage() {
               </div>
               <Input label="Email" type="email" value={addForm.email} onChange={(e) => updateAdd('email', e.target.value)} placeholder="john@example.com" />
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Input label="Vehicle reg" value={addForm.vehicle_reg} onChange={(e) => updateAdd('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
-                  <button
-                    type="button"
-                    onClick={() => lookupVehicle(addForm.vehicle_reg, 'add')}
-                    disabled={lookingUp || !addForm.vehicle_reg}
-                    className="mt-1 text-xs text-amber-600 hover:text-amber-700 font-medium disabled:opacity-40"
-                  >
-                    {lookingUp ? 'Looking up...' : 'Auto-fill from DVLA →'}
-                  </button>
-                </div>
+                <Input label="Vehicle reg" value={addForm.vehicle_reg} onChange={(e) => updateAdd('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
                 <Input label="Vehicle make" value={addForm.vehicle_make} onChange={(e) => updateAdd('vehicle_make', e.target.value)} placeholder="Ford Focus" />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -510,17 +500,7 @@ export default function CustomersPage() {
           </div>
           <Input label="Email" type="email" value={editForm.email} onChange={(e) => updateEdit('email', e.target.value)} placeholder="john@example.com" />
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Input label="Vehicle reg" value={editForm.vehicle_reg} onChange={(e) => updateEdit('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
-              <button
-                type="button"
-                onClick={() => lookupVehicle(editForm.vehicle_reg, 'edit')}
-                disabled={lookingUp || !editForm.vehicle_reg}
-                className="mt-1 text-xs text-amber-600 hover:text-amber-700 font-medium disabled:opacity-40"
-              >
-                {lookingUp ? 'Looking up...' : 'Auto-fill from DVLA →'}
-              </button>
-            </div>
+            <Input label="Vehicle reg" value={editForm.vehicle_reg} onChange={(e) => updateEdit('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
             <Input label="Vehicle make" value={editForm.vehicle_make} onChange={(e) => updateEdit('vehicle_make', e.target.value)} placeholder="Ford Focus" />
           </div>
           <div className="grid grid-cols-2 gap-4">

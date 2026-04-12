@@ -95,7 +95,7 @@ export default function SettingsPage() {
   const planInfo = plan ? planDetails[plan] : null
 
   return (
-    <div className="p-6 md:p-8 pt-16 md:pt-8 max-w-2xl">
+    <div className="p-6 md:p-8 pt-20 md:pt-8 max-w-2xl">
       <PageHeader title="Settings" description="Manage your garage profile and billing" />
 
       {garage?.plan === 'suspended' && (

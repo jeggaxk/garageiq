@@ -85,7 +85,7 @@ export default function MessagesPage() {
   const emailTemplates = templates.filter((t) => t.channel === 'email')
 
   return (
-    <div className="p-6 md:p-8 pt-16 md:pt-8">
+    <div className="p-6 md:p-8 pt-20 md:pt-8">
       <PageHeader title="Messages" description="Message log and template editor" />
 
       {/* Tabs */}

@@ -78,7 +78,7 @@ export default function AutomationsPage() {
 
   if (loading) {
     return (
-      <div className="p-6 md:p-8 pt-16 md:pt-8">
+      <div className="p-6 md:p-8 pt-20 md:pt-8">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-48" />
           {[...Array(4)].map((_, i) => (
@@ -92,7 +92,7 @@ export default function AutomationsPage() {
   const totalSent = automations.reduce((sum, a) => sum + (a.total_sent || 0), 0)
 
   return (
-    <div className="p-6 md:p-8 pt-16 md:pt-8">
+    <div className="p-6 md:p-8 pt-20 md:pt-8">
       <PageHeader
         title="Automations"
         description="Messages run daily at 9am — toggle each automation on or off"

@@ -100,7 +100,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-6 md:p-8 pt-16 md:pt-8">
+    <div className="p-6 md:p-8 pt-20 md:pt-8">
       <PageHeader
         title="Dashboard"
         description="Your garage performance at a glance"
