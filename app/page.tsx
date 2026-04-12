@@ -687,25 +687,30 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Email capture + CTA */}
+      {/* CTA */}
       <section className="py-20 px-4 sm:px-6 bg-navy-900">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Start recovering customers today</h2>
           <p className="text-navy-300 text-lg mb-8">60-day free trial. No card needed. Set up in under 10 minutes.</p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg mb-10"
+            className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
           >
             Claim your free trial <ArrowRight size={20} />
           </Link>
-          <div className="border-t border-navy-800 pt-10">
-            <p className="text-cta-500 text-sm font-semibold uppercase tracking-wider mb-3">Not ready yet?</p>
-            <p className="text-white font-semibold mb-2">Get our free guide first</p>
-            <p className="text-navy-300 text-sm mb-6">
-              <span className="text-white font-medium">"5 ways UK garages lose £20,000+ a year in lapsed customers"</span> — no strings attached.
-            </p>
-            <EmailCaptureForm source="website" />
-          </div>
+          <p className="text-navy-500 text-sm mt-4">No credit card required · Cancel anytime</p>
+        </div>
+      </section>
+
+      {/* Email capture */}
+      <section className="py-14 px-4 sm:px-6 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-xl mx-auto text-center">
+          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Free guide</p>
+          <h3 className="text-xl font-bold text-navy-900 mb-2">Not ready to sign up yet?</h3>
+          <p className="text-gray-500 text-sm mb-6">
+            Get <span className="font-medium text-navy-900">"5 ways UK garages lose £20,000+ a year in lapsed customers"</span> — free, no strings attached.
+          </p>
+          <EmailCaptureForm source="website" dark={false} />
         </div>
       </section>
 
