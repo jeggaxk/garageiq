@@ -270,7 +270,7 @@ export default function LandingPage() {
                 </a>
               </div>
               <p className="text-navy-400 text-sm mt-4">
-                Trusted by 200+ independent UK garages · Setup in under 10 minutes
+                No credit card required · Setup in under 10 minutes · Cancel anytime
               </p>
             </div>
 
@@ -330,26 +330,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Social proof strip */}
-      <section className="bg-gray-50 border-y border-gray-100 py-5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 sm:flex sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center">
-            {[
-              { stat: '200+', label: 'UK garages' },
-              { stat: '£2.4M', label: 'Revenue recovered' },
-              { stat: '94%', label: 'Delivery rate' },
-              { stat: '4.8★', label: 'Average rating' },
-            ].map((item) => (
-              <div key={item.label}>
-                <p className="text-2xl font-bold text-navy-900">{item.stat}</p>
-                <p className="text-sm text-gray-500">{item.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Problem section */}
+      {/* Problem */}
       <section className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="max-w-3xl mx-auto text-center mb-12">
@@ -362,34 +343,14 @@ export default function LandingPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              {
-                icon: Car,
-                stat: '40%',
-                title: 'Customer lapse rate',
-                description: 'The average independent garage loses 40% of its customers each year purely from lack of follow-up contact.',
-                color: 'text-red-500 bg-red-50',
-              },
-              {
-                icon: Mail,
-                stat: '£0',
-                title: 'Most garages spend on retention',
-                description: 'While franchises invest heavily in CRM and reminder systems, most independents have nothing in place.',
-                color: 'text-cta-500 bg-cta-50',
-              },
-              {
-                icon: TrendingUp,
-                stat: '5×',
-                title: 'Cheaper to retain than acquire',
-                description: 'Keeping an existing customer costs 5 times less than winning a new one — yet most garages focus only on new business.',
-                color: 'text-green-500 bg-green-50',
-              },
+              { icon: Car, stat: '40%', title: 'Customer lapse rate', description: 'The average independent garage loses 40% of its customers each year purely from lack of follow-up contact.', color: 'text-red-500 bg-red-50' },
+              { icon: Mail, stat: '£0', title: 'Most garages spend on retention', description: 'While franchises invest heavily in CRM and reminder systems, most independents have nothing in place.', color: 'text-cta-500 bg-cta-50' },
+              { icon: TrendingUp, stat: '5×', title: 'Cheaper to retain than acquire', description: 'Keeping an existing customer costs 5 times less than winning a new one — yet most garages focus only on new business.', color: 'text-green-500 bg-green-50' },
             ].map((item) => {
               const Icon = item.icon
               return (
                 <div key={item.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
-                  <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4 mx-auto md:mx-0`}>
-                    <Icon size={24} />
-                  </div>
+                  <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4 mx-auto md:mx-0`}><Icon size={24} /></div>
                   <p className="text-4xl font-bold text-navy-900 mb-1">{item.stat}</p>
                   <p className="font-semibold text-navy-900 mb-2">{item.title}</p>
                   <p className="text-gray-500 text-sm leading-relaxed">{item.description}</p>
@@ -400,62 +361,28 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
-              Four automations that run while you work
-            </h2>
-            <p className="text-gray-500 text-lg">
-              Set them up once. They run every morning at 9am, automatically.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              {
-                icon: Car,
-                color: 'bg-blue-500',
-                title: 'MOT reminders',
-                description: 'Sent 4 weeks before MOT due date via SMS and email. Customers book with you before they even think about looking elsewhere.',
-                example: '"Hi Sarah, your AB12 CDE MOT is due in 4 weeks. Book now at Smith\'s Auto — call us on 01234 567890 or visit our website to book."',
-              },
-              {
-                icon: Wrench,
-                color: 'bg-orange-500',
-                title: 'Service follow-ups',
-                description: '11 months after their last service, your customers get a friendly nudge. Most will book without thinking twice.',
-                example: '"Hi Mark, it\'s been almost a year since your last service at Smith\'s Auto. Book your Ford Focus in now — call 01234 567890."',
-              },
-              {
-                icon: Star,
-                color: 'bg-cta-500',
-                title: 'Google review requests',
-                description: 'Sent 24 hours after every visit. More reviews mean higher ranking in local search — more customers finding you first.',
-                example: '"Hi James, thanks for visiting Smith\'s Auto today. If you\'re happy, a quick Google review would mean a lot: [link]"',
-              },
-              {
-                icon: UserCheck,
-                color: 'bg-purple-500',
-                title: 'Win-back campaigns',
-                description: 'Customers who haven\'t visited in 12+ months get a personalised message with a free health check offer.',
-                example: '"Hi Emma, we haven\'t seen your VW Golf in a while! Come in for a free 10-point vehicle health check — call us to arrange."',
-              },
-            ].map((feature) => {
-              const Icon = feature.icon
-              return (
-                <div key={feature.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
-                  <div className={`w-10 h-10 ${feature.color} rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0`}>
-                    <Icon size={20} className="text-white" />
-                  </div>
-                  <h3 className="text-lg font-bold text-navy-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-500 text-sm mb-4 leading-relaxed">{feature.description}</p>
-                  <div className="bg-gray-50 rounded-xl p-3 border-l-4 border-amber-400">
-                    <p className="text-xs text-gray-600 italic leading-relaxed">{feature.example}</p>
-                  </div>
-                </div>
-              )
-            })}
+      {/* ROI Calculator */}
+      <section className="py-20 px-4 sm:px-6 bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">What's your garage actually losing?</h2>
+              <p className="text-gray-500 text-lg mb-6 leading-relaxed">Most garages are sitting on hundreds of lapsed customers worth thousands of pounds. Corviz brings them back automatically.</p>
+              <ul className="space-y-3 inline-block text-left">
+                {[
+                  'Average MOT booking value: £55',
+                  'Average service booking value: £150',
+                  'Average recovery rate with Corviz: 35%',
+                  'Setup time: under 10 minutes',
+                ].map((point) => (
+                  <li key={point} className="flex items-center gap-3 text-gray-700">
+                    <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0"><Check size={12} className="text-green-600" /></div>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <ROICalculator />
           </div>
         </div>
       </section>
@@ -469,25 +396,10 @@ export default function LandingPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              {
-                step: '1',
-                title: 'Import your customers',
-                description: 'Upload a CSV from your existing system, or add customers manually. We support all common formats.',
-                icon: Upload,
-              },
-              {
-                step: '2',
-                title: 'Turn on automations',
-                description: 'Toggle on the automations you want. Customise the message text with your garage name, phone, and Google review link.',
-                icon: Zap,
-              },
-              {
-                step: '3',
-                title: 'Watch customers return',
-                description: 'Corviz runs every morning. You\'ll see messages going out, customers booking, and revenue coming in.',
-                icon: TrendingUp,
-              },
-            ].map((step, i) => {
+              { step: '1', title: 'Import your customers', description: 'Upload a CSV from your existing system, or add customers manually. We support all common formats.', icon: Upload },
+              { step: '2', title: 'Turn on automations', description: 'Toggle on the automations you want. Customise the message text with your garage name, phone, and Google review link.', icon: Zap },
+              { step: '3', title: 'Watch customers return', description: "Corviz runs every morning. You'll see messages going out, customers booking, and revenue coming in.", icon: TrendingUp },
+            ].map((step) => {
               const Icon = step.icon
               return (
                 <div key={step.step} className="text-center">
@@ -503,96 +415,69 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ROI Calculator */}
-      <section className="py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
-                What's your garage actually losing?
-              </h2>
-              <p className="text-gray-500 text-lg mb-6 leading-relaxed">
-                Most garages are sitting on hundreds of lapsed customers worth thousands of pounds. Corviz brings them back automatically.
+      {/* Features */}
+      <section id="features" className="py-20 px-4 sm:px-6 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Four automations that run while you work</h2>
+            <p className="text-gray-500 text-lg">Set them up once. They run every morning at 9am, automatically.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { icon: Car, color: 'bg-blue-500', title: 'MOT reminders', description: 'Sent 4 weeks before MOT due date via SMS and email. Customers book with you before they even think about looking elsewhere.', example: '"Hi Sarah, your AB12 CDE MOT is due in 4 weeks. Book now at Smith\'s Auto — call us on 01234 567890 or visit our website to book."' },
+              { icon: Wrench, color: 'bg-orange-500', title: 'Service follow-ups', description: '11 months after their last service, your customers get a friendly nudge. Most will book without thinking twice.', example: '"Hi Mark, it\'s been almost a year since your last service at Smith\'s Auto. Book your Ford Focus in now — call 01234 567890."' },
+              { icon: Star, color: 'bg-cta-500', title: 'Google review requests', description: 'Sent 24 hours after every visit. More reviews mean higher ranking in local search — more customers finding you first.', example: '"Hi James, thanks for visiting Smith\'s Auto today. If you\'re happy, a quick Google review would mean a lot: [link]"' },
+              { icon: UserCheck, color: 'bg-purple-500', title: 'Win-back campaigns', description: "Customers who haven't visited in 12+ months get a personalised message with a free health check offer.", example: '"Hi Emma, we haven\'t seen your VW Golf in a while! Come in for a free 10-point vehicle health check — call us to arrange."' },
+            ].map((feature) => {
+              const Icon = feature.icon
+              return (
+                <div key={feature.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
+                  <div className={`w-10 h-10 ${feature.color} rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0`}><Icon size={20} className="text-white" /></div>
+                  <h3 className="text-lg font-bold text-navy-900 mb-2">{feature.title}</h3>
+                  <p className="text-gray-500 text-sm mb-4 leading-relaxed">{feature.description}</p>
+                  <div className="bg-gray-50 rounded-xl p-3 border-l-4 border-amber-400">
+                    <p className="text-xs text-gray-600 italic leading-relaxed">{feature.example}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Guarantee */}
+      <section className="py-20 px-4 sm:px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-navy-900 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
+            <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #F5A01A 0%, transparent 60%), radial-gradient(circle at 80% 50%, #F5A01A 0%, transparent 60%)' }} />
+            <div className="relative">
+              <div className="w-16 h-16 bg-cta-500/10 border border-cta-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Shield size={32} className="text-cta-500" />
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">The Corviz Guarantee</h2>
+              <p className="text-navy-300 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
+                Try Corviz free for 60 days — no credit card required. If you don't win back at least one lapsed customer in that time, you never pay a penny. Not a reduced rate. Nothing.
               </p>
-              <ul className="space-y-3 inline-block text-left">
+              <div className="grid sm:grid-cols-3 gap-4 mb-8 text-left">
                 {[
-                  'Average MOT booking value: £55',
-                  'Average service booking value: £150',
-                  'Average recovery rate with Corviz: 35%',
-                  'Setup time: under 10 minutes',
-                ].map((point) => (
-                  <li key={point} className="flex items-center gap-3 text-gray-700">
-                    <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Check size={12} className="text-green-600" />
+                  { title: '60-day free trial', body: 'Solo plan features, up to 500 customers. No card needed to start.' },
+                  { title: 'Zero setup risk', body: "Up and running in under 10 minutes. We'll help if you get stuck." },
+                  { title: 'Cancel anytime', body: 'No contracts, no lock-in. Cancel in two clicks if it\'s not for you.' },
+                ].map((item) => (
+                  <div key={item.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Check size={14} className="text-cta-500" />
+                      <p className="text-white font-semibold text-sm">{item.title}</p>
                     </div>
-                    {point}
-                  </li>
+                    <p className="text-navy-400 text-sm leading-relaxed">{item.body}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
+              <Link href="/signup" className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg">
+                Claim your free trial <ArrowRight size={20} />
+              </Link>
             </div>
-            <ROICalculator />
           </div>
-        </div>
-      </section>
-
-      {/* Comparison */}
-      <section className="py-20 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Why not just do it yourself?</h2>
-            <p className="text-gray-500 text-lg">Most garage owners know they should follow up with customers. Almost none do it consistently.</p>
-          </div>
-          <div className="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-100">
-                  <th className="text-left px-6 py-4 font-semibold text-gray-500 w-1/3"></th>
-                  <th className="text-center px-6 py-4 font-semibold text-gray-500 w-1/3">Doing it manually</th>
-                  <th className="text-center px-6 py-4 font-semibold text-navy-900 w-1/3 bg-cta-50">Corviz</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { label: 'Time per week', manual: '2–3 hours', corviz: '0 minutes' },
-                  { label: 'Cost of your time', manual: '~£2,400/year', corviz: 'Included' },
-                  { label: 'Customers contacted', manual: 'The ones you remember', corviz: 'Every single one' },
-                  { label: 'MOT reminders sent', manual: 'When you get round to it', corviz: '28 days before, automatically' },
-                  { label: 'Customers lost per year', manual: '~160 (worth £24,000+)', corviz: 'None' },
-                  { label: 'Google reviews requested', manual: 'Rarely', corviz: 'After every visit' },
-                  { label: 'Your cost', manual: '£26,000+/year', corviz: 'From £79/month' },
-                ].map((row, i) => (
-                  <tr key={row.label} className={`border-b border-gray-50 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
-                    <td className="px-6 py-4 font-medium text-gray-700">{row.label}</td>
-                    <td className="px-6 py-4 text-center text-gray-400">{row.manual}</td>
-                    <td className="px-6 py-4 text-center font-semibold text-navy-900 bg-cta-50/50">{row.corviz}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-8 text-center">
-            <p className="text-gray-500 text-sm mb-4">The average garage loses <span className="font-semibold text-navy-900">£24,000+ a year</span> in lapsed customers. Corviz costs <span className="font-semibold text-navy-900">from £79/month</span> and handles it automatically.</p>
-            <Link
-              href="/signup"
-              className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
-            >
-              Start free — no card required <ArrowRight size={20} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Email capture */}
-      <section className="py-16 px-4 sm:px-6 bg-navy-900">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-cta-500 text-sm font-semibold uppercase tracking-wider mb-3">Free guide</p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Not ready to commit yet?
-          </h2>
-          <p className="text-navy-300 mb-8">
-            Get our free guide — <span className="text-white font-medium">5 ways UK garages lose £20,000+ a year in lapsed customers</span> — and learn how to fix it before you sign up for anything.
-          </p>
-          <EmailCaptureForm source="website" />
         </div>
       </section>
 
@@ -738,89 +623,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-navy-900 text-center mb-12">What garage owners say</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                quote: "We got 18 MOT bookings in the first month just from the automated reminders. Paid for itself ten times over.",
-                name: "Steve M.",
-                garage: "SM Autocare, Birmingham",
-                stars: 5,
-              },
-              {
-                quote: "I used to lose track of customers all the time. Now Corviz handles it — I just show up and the bookings are there.",
-                name: "Raj P.",
-                garage: "Prestige Motors, Leicester",
-                stars: 5,
-              },
-              {
-                quote: "The Google review requests are brilliant. We've gone from 12 reviews to 94 in three months. Our search ranking has shot up.",
-                name: "Karen T.",
-                garage: "TT Auto Services, Manchester",
-                stars: 5,
-              },
-            ].map((testimonial) => (
-              <div key={testimonial.name} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
-                <div className="flex gap-0.5 mb-3 justify-center md:justify-start">
-                  {[...Array(testimonial.stars)].map((_, i) => (
-                    <Star key={i} size={14} className="text-cta-500 fill-cta-500" />
-                  ))}
-                </div>
-                <p className="text-gray-700 text-sm leading-relaxed mb-4 italic">"{testimonial.quote}"</p>
-                <div>
-                  <p className="font-semibold text-navy-900 text-sm">{testimonial.name}</p>
-                  <p className="text-gray-400 text-xs">{testimonial.garage}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Guarantee */}
-      <section className="py-20 px-4 sm:px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-navy-900 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
-            <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #F5A01A 0%, transparent 60%), radial-gradient(circle at 80% 50%, #F5A01A 0%, transparent 60%)' }} />
-            <div className="relative">
-              <div className="w-16 h-16 bg-cta-500/10 border border-cta-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Shield size={32} className="text-cta-500" />
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                The Corviz Guarantee
-              </h2>
-              <p className="text-navy-300 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
-                Try Corviz free for 60 days — no credit card required. If you don't win back at least one lapsed customer in that time, you never pay a penny. Not a reduced rate. Nothing.
-              </p>
-              <div className="grid sm:grid-cols-3 gap-4 mb-8 text-left">
-                {[
-                  { title: '60-day free trial', body: 'Solo plan features, up to 500 customers. No card needed to start.' },
-                  { title: 'Zero setup risk', body: 'Up and running in under 10 minutes. We\'ll help if you get stuck.' },
-                  { title: 'Cancel anytime', body: 'No contracts, no lock-in. Cancel in two clicks if it\'s not for you.' },
-                ].map((item) => (
-                  <div key={item.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Check size={14} className="text-cta-500" />
-                      <p className="text-white font-semibold text-sm">{item.title}</p>
-                    </div>
-                    <p className="text-navy-400 text-sm leading-relaxed">{item.body}</p>
-                  </div>
-                ))}
-              </div>
-              <Link
-                href="/signup"
-                className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
-              >
-                Claim your free trial <ArrowRight size={20} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section id="faq" className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-3xl mx-auto">
@@ -885,22 +687,25 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Email capture + CTA */}
       <section className="py-20 px-4 sm:px-6 bg-navy-900">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Start recovering customers today
-          </h2>
-          <p className="text-navy-300 text-lg mb-8">
-            Join 200+ independent UK garages using Corviz to retain more customers and grow revenue — automatically.
-          </p>
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Start recovering customers today</h2>
+          <p className="text-navy-300 text-lg mb-8">60-day free trial. No card needed. Set up in under 10 minutes.</p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
+            className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg mb-10"
           >
-            Start your free 60-day trial <ArrowRight size={20} />
+            Claim your free trial <ArrowRight size={20} />
           </Link>
-          <p className="text-navy-400 text-sm mt-4">No credit card required · Setup in 10 minutes · Cancel anytime</p>
+          <div className="border-t border-navy-800 pt-10">
+            <p className="text-cta-500 text-sm font-semibold uppercase tracking-wider mb-3">Not ready yet?</p>
+            <p className="text-white font-semibold mb-2">Get our free guide first</p>
+            <p className="text-navy-300 text-sm mb-6">
+              <span className="text-white font-medium">"5 ways UK garages lose £20,000+ a year in lapsed customers"</span> — no strings attached.
+            </p>
+            <EmailCaptureForm source="website" />
+          </div>
         </div>
       </section>
 
