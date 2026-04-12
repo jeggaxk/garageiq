@@ -41,7 +41,7 @@ export default function Sidebar({ garage }: { garage: Garage }) {
   const NavContent = () => (
     <>
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-navy-800">
+      <div className="hidden md:block px-6 py-5 border-b border-navy-800">
         <img src="/corviz-logo-sidebar.png" alt="Corviz" className="h-16 w-auto max-w-full" />
       </div>
 
