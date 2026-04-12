@@ -244,14 +244,14 @@ export default function CustomersPage() {
         description={`${customers.length} customers`}
         action={
           <div className="flex gap-2">
-            <a href="/corviz-customers-template.csv" download className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-navy-900 border border-gray-200 hover:border-gray-300 px-3 py-1.5 rounded-lg transition-colors">
+            <a href="/corviz-customers-template.csv" download className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-navy-900 border border-gray-200 hover:border-gray-300 px-3 py-1.5 rounded-lg transition-colors">
               <Download size={13} /> CSV template
             </a>
             <Button variant="secondary" size="sm" onClick={() => setShowUploadModal(true)}>
-              <Upload size={15} /> Import CSV
+              <Upload size={15} /> <span className="hidden sm:inline">Import CSV</span>
             </Button>
             <Button size="sm" onClick={() => { setShowAddModal(true); setDuplicateExisting(null) }}>
-              <Plus size={15} /> Add customer
+              <Plus size={15} /> <span className="hidden sm:inline">Add customer</span>
             </Button>
           </div>
         }
