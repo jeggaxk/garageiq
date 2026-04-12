@@ -322,7 +322,7 @@ export default function LandingPage() {
       {/* Social proof strip */}
       <section className="bg-gray-50 border-y border-gray-100 py-5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center">
+          <div className="grid grid-cols-2 sm:flex sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center">
             {[
               { stat: '200+', label: 'UK garages' },
               { stat: '£2.4M', label: 'Revenue recovered' },
@@ -663,7 +663,7 @@ export default function LandingPage() {
               return (
               <div
                 key={plan.name}
-                className={`rounded-2xl p-6 border ${
+                className={`rounded-2xl p-6 border text-center md:text-left ${
                   plan.popular
                     ? 'bg-navy-900 border-navy-700 shadow-xl shadow-navy-900/20'
                     : 'bg-white border-gray-100 shadow-sm'
@@ -694,7 +694,7 @@ export default function LandingPage() {
                   </p>
                 )}
                 {billingPeriod === 'monthly' && <div className="mb-5" />}
-                <ul className="space-y-2.5 mb-6">
+                <ul className="space-y-2.5 mb-6 inline-block text-left w-full">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2.5">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
@@ -752,8 +752,8 @@ export default function LandingPage() {
                 stars: 5,
               },
             ].map((testimonial) => (
-              <div key={testimonial.name} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-                <div className="flex gap-0.5 mb-3">
+              <div key={testimonial.name} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
+                <div className="flex gap-0.5 mb-3 justify-center md:justify-start">
                   {[...Array(testimonial.stars)].map((_, i) => (
                     <Star key={i} size={14} className="text-cta-500 fill-cta-500" />
                   ))}
