@@ -17,7 +17,7 @@ export default function TrialBanner({ trialEndsAt }: TrialBannerProps) {
 
   return (
     <div
-      className={`flex items-center justify-between gap-4 px-5 py-2.5 text-sm ${
+      className={`flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 text-sm ${
         isUrgent
           ? 'bg-red-50 border-b border-red-200'
           : 'bg-amber-50 border-b border-amber-200'
