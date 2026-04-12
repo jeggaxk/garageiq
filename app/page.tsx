@@ -638,7 +638,7 @@ export default function LandingPage() {
               },
               {
                 q: 'What if I don\'t have a customer list?',
-                a: 'Most garage management systems (Garage Hive, TechMan, Motasoft etc.) let you export a customer list as a CSV. If you\'re not sure how, contact us and we\'ll walk you through it. If your records are on paper, you can add customers manually one by one.',
+                a: 'Most garage management systems (Garage Hive, TechMan, Motasoft etc.) let you export a customer list as a CSV — usually found under a "Reports" or "Export" section. If your records are on paper, you can add customers manually one by one directly in Corviz.',
               },
               {
                 q: 'Will customers know the message is automated?',
