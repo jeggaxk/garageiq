@@ -22,7 +22,6 @@ export async function GET(request: Request) {
 
   const { searchParams } = new URL(request.url)
   const search = searchParams.get('search') || ''
-  const status = searchParams.get('status') || ''
 
   let query = supabase
     .from('customers')
@@ -63,9 +62,26 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json()
-  const { name, phone, email, vehicle_reg, vehicle_make, last_service_date, last_mot_date } = body
+  const { name, phone, email, vehicle_reg, vehicle_make, last_service_date, last_mot_date, force } = body
 
   if (!name) return NextResponse.json({ error: 'Name is required' }, { status: 400 })
+
+  // Duplicate check — match on phone or vehicle reg within same garage
+  if (!force && (phone || vehicle_reg)) {
+    const orClauses = []
+    if (phone) orClauses.push(`phone.eq.${phone}`)
+    if (vehicle_reg) orClauses.push(`vehicle_reg.eq.${vehicle_reg}`)
+    const { data: existing } = await supabase
+      .from('customers')
+      .select('id, name, phone, vehicle_reg')
+      .eq('garage_id', garage.id)
+      .or(orClauses.join(','))
+      .limit(1)
+      .single()
+    if (existing) {
+      return NextResponse.json({ duplicate: true, existing }, { status: 409 })
+    }
+  }
 
   const { data: customer, error } = await supabase
     .from('customers')

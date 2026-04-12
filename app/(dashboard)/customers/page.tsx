@@ -13,8 +13,6 @@ import {
   Upload,
   Plus,
   Users,
-  Car,
-  AlertCircle,
   Trash2,
   Send,
   Download,
@@ -37,6 +35,7 @@ export default function CustomersPage() {
   })
   const [adding, setAdding] = useState(false)
   const [addError, setAddError] = useState('')
+  const [duplicateExisting, setDuplicateExisting] = useState<{ id: string; name: string; phone?: string; vehicle_reg?: string } | null>(null)
   const [editTarget, setEditTarget] = useState<Customer | null>(null)
   const [editForm, setEditForm] = useState({
     name: '', phone: '', email: '', vehicle_reg: '', vehicle_make: '',
@@ -142,10 +141,11 @@ export default function CustomersPage() {
     }
   }
 
-  async function handleAddCustomer(e: React.FormEvent) {
+  async function handleAddCustomer(e: React.FormEvent, force = false) {
     e.preventDefault()
     setAdding(true)
     setAddError('')
+    setDuplicateExisting(null)
     const res = await fetch('/api/customers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -153,15 +153,21 @@ export default function CustomersPage() {
         ...addForm,
         last_mot_date: normaliseDate(addForm.last_mot_date),
         last_service_date: normaliseDate(addForm.last_service_date),
+        force,
       }),
     })
     const data = await res.json()
     setAdding(false)
+    if (res.status === 409 && data.duplicate) {
+      setDuplicateExisting(data.existing)
+      return
+    }
     if (data.error) {
       setAddError(data.error)
       return
     }
     setShowAddModal(false)
+    setDuplicateExisting(null)
     setAddForm({ name: '', phone: '', email: '', vehicle_reg: '', vehicle_make: '', last_service_date: '', last_mot_date: '' })
     fetchCustomers()
   }
@@ -244,7 +250,7 @@ export default function CustomersPage() {
             <Button variant="secondary" size="sm" onClick={() => setShowUploadModal(true)}>
               <Upload size={15} /> Import CSV
             </Button>
-            <Button size="sm" onClick={() => setShowAddModal(true)}>
+            <Button size="sm" onClick={() => { setShowAddModal(true); setDuplicateExisting(null) }}>
               <Plus size={15} /> Add customer
             </Button>
           </div>
@@ -389,37 +395,68 @@ export default function CustomersPage() {
       </div>
 
       {/* Add Customer Modal */}
-      <Modal open={showAddModal} onClose={() => setShowAddModal(false)} title="Add customer" size="md">
+      <Modal open={showAddModal} onClose={() => { setShowAddModal(false); setDuplicateExisting(null) }} title="Add customer" size="md">
         <form onSubmit={handleAddCustomer} className="space-y-4">
           {addError && (
             <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">{addError}</div>
           )}
-          <div className="grid grid-cols-2 gap-4">
-            <Input label="Full name *" value={addForm.name} onChange={(e) => updateAdd('name', e.target.value)} required placeholder="John Smith" />
-            <Input label="Phone" value={addForm.phone} onChange={(e) => updateAdd('phone', e.target.value)} placeholder="07700 900000" />
-          </div>
-          <Input label="Email" type="email" value={addForm.email} onChange={(e) => updateAdd('email', e.target.value)} placeholder="john@example.com" />
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Input label="Vehicle reg" value={addForm.vehicle_reg} onChange={(e) => updateAdd('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
-              <button
-                type="button"
-                onClick={() => lookupVehicle(addForm.vehicle_reg, 'add')}
-                disabled={lookingUp || !addForm.vehicle_reg}
-                className="mt-1 text-xs text-amber-600 hover:text-amber-700 font-medium disabled:opacity-40"
-              >
-                {lookingUp ? 'Looking up...' : 'Auto-fill from DVLA →'}
-              </button>
+          {duplicateExisting && (
+            <div className="p-4 bg-amber-50 border border-amber-300 rounded-lg space-y-2">
+              <p className="text-sm font-semibold text-amber-900">This customer already exists</p>
+              <p className="text-sm text-amber-700">
+                <span className="font-medium">{duplicateExisting.name}</span>
+                {duplicateExisting.phone && ` · ${duplicateExisting.phone}`}
+                {duplicateExisting.vehicle_reg && ` · ${duplicateExisting.vehicle_reg}`}
+              </p>
+              <p className="text-xs text-amber-600">Would you like to update their details, or add them as a separate entry?</p>
+              <div className="flex gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => { openEdit({ id: duplicateExisting.id, name: duplicateExisting.name, phone: duplicateExisting.phone, vehicle_reg: duplicateExisting.vehicle_reg } as never); setShowAddModal(false); setDuplicateExisting(null) }}
+                  className="flex-1 bg-amber-500 hover:bg-amber-400 text-white text-xs font-semibold py-2 rounded-lg transition-colors"
+                >
+                  Update their details
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => handleAddCustomer(e as never, true)}
+                  className="flex-1 border border-amber-300 text-amber-800 text-xs font-semibold py-2 rounded-lg hover:bg-amber-100 transition-colors"
+                >
+                  Add anyway
+                </button>
+              </div>
             </div>
-            <Input label="Vehicle make" value={addForm.vehicle_make} onChange={(e) => updateAdd('vehicle_make', e.target.value)} placeholder="Ford Focus" />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Input label="Last MOT date" type="date" value={addForm.last_mot_date} onChange={(e) => updateAdd('last_mot_date', e.target.value)} />
-            <Input label="Last service date" type="date" value={addForm.last_service_date} onChange={(e) => updateAdd('last_service_date', e.target.value)} />
-          </div>
+          )}
+          {!duplicateExisting && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <Input label="Full name *" value={addForm.name} onChange={(e) => updateAdd('name', e.target.value)} required placeholder="John Smith" />
+                <Input label="Phone" value={addForm.phone} onChange={(e) => updateAdd('phone', e.target.value)} placeholder="07700 900000" />
+              </div>
+              <Input label="Email" type="email" value={addForm.email} onChange={(e) => updateAdd('email', e.target.value)} placeholder="john@example.com" />
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Input label="Vehicle reg" value={addForm.vehicle_reg} onChange={(e) => updateAdd('vehicle_reg', e.target.value.toUpperCase())} placeholder="AB12 CDE" />
+                  <button
+                    type="button"
+                    onClick={() => lookupVehicle(addForm.vehicle_reg, 'add')}
+                    disabled={lookingUp || !addForm.vehicle_reg}
+                    className="mt-1 text-xs text-amber-600 hover:text-amber-700 font-medium disabled:opacity-40"
+                  >
+                    {lookingUp ? 'Looking up...' : 'Auto-fill from DVLA →'}
+                  </button>
+                </div>
+                <Input label="Vehicle make" value={addForm.vehicle_make} onChange={(e) => updateAdd('vehicle_make', e.target.value)} placeholder="Ford Focus" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Input label="Last MOT date" type="date" value={addForm.last_mot_date} onChange={(e) => updateAdd('last_mot_date', e.target.value)} />
+                <Input label="Last service date" type="date" value={addForm.last_service_date} onChange={(e) => updateAdd('last_service_date', e.target.value)} />
+              </div>
+            </>
+          )}
           <div className="flex justify-end gap-3 pt-2">
-            <Button variant="secondary" type="button" onClick={() => setShowAddModal(false)}>Cancel</Button>
-            <Button type="submit" loading={adding}>Add customer</Button>
+            <Button variant="secondary" type="button" onClick={() => { setShowAddModal(false); setDuplicateExisting(null) }}>Cancel</Button>
+            {!duplicateExisting && <Button type="submit" loading={adding}>Add customer</Button>}
           </div>
         </form>
       </Modal>
