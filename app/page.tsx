@@ -634,7 +634,7 @@ export default function LandingPage() {
             {[
               {
                 q: 'Do my customers need to opt in to receive messages?',
-                a: 'Corviz sends messages to your existing customers who have an established relationship with your garage. Under UK PECR, you can contact existing customers about similar services without a new opt-in. You are responsible for ensuring your customer list is compliant — we provide guidance on this during onboarding.',
+                a: 'Under UK PECR, the "soft opt-in" rule allows you to contact existing customers about similar services — such as MOT reminders and service follow-ups — without a separate opt-in, provided they were given a chance to opt out when you first collected their details. You are responsible for ensuring your customer list is compliant with this rule. If you are unsure, we recommend seeking independent legal advice.',
               },
               {
                 q: 'What if I don\'t have a customer list?',
