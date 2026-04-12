@@ -209,18 +209,29 @@ export default function LandingPage() {
           </button>
         </div>
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 px-4 py-4 space-y-3 bg-white">
-            <a href="#features" className="block text-sm text-gray-600" onClick={() => setMobileMenuOpen(false)}>Features</a>
-            <a href="#pricing" className="block text-sm text-gray-600" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
-            <a href="#faq" className="block text-sm text-gray-600" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
-            <Link href="/login" className="block text-sm text-gray-600 font-medium">Sign in</Link>
-            <Link
-              href="/signup"
-              className="block text-center bg-cta-500 text-white text-sm font-semibold px-4 py-2.5 rounded-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Start free trial
-            </Link>
+          <div className="md:hidden border-t border-gray-100 px-4 py-4 bg-white">
+            <div className="flex gap-2 mb-4">
+              <Link
+                href="/signup"
+                className="flex-1 text-center bg-cta-500 text-white text-sm font-semibold px-4 py-2.5 rounded-lg"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Start free trial
+              </Link>
+              <Link
+                href="/login"
+                className="flex-1 text-center border border-gray-200 text-navy-900 text-sm font-semibold px-4 py-2.5 rounded-lg"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Sign in
+              </Link>
+            </div>
+            <div className="space-y-1 border-t border-gray-100 pt-3">
+              <a href="#features" className="block text-sm text-gray-600 py-2" onClick={() => setMobileMenuOpen(false)}>Features</a>
+              <a href="#how-it-works" className="block text-sm text-gray-600 py-2" onClick={() => setMobileMenuOpen(false)}>How it works</a>
+              <a href="#pricing" className="block text-sm text-gray-600 py-2" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
+              <a href="#faq" className="block text-sm text-gray-600 py-2" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
+            </div>
           </div>
         )}
       </nav>
