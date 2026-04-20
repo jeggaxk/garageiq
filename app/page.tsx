@@ -39,7 +39,7 @@ function EmailCaptureForm({ source, dark = true }: { source: string; dark?: bool
     return (
       <div className={`text-center py-4 ${dark ? 'text-white' : 'text-navy-900'}`}>
         <p className="text-xl font-bold mb-1">You're on the list!</p>
-        <p className={dark ? 'text-navy-300' : 'text-gray-500'}>Check your inbox — the guide is on its way.</p>
+        <p className={dark ? 'text-white/75' : 'text-gray-500'}>Check your inbox — the guide is on its way.</p>
       </div>
     )
   }
@@ -62,7 +62,7 @@ function EmailCaptureForm({ source, dark = true }: { source: string; dark?: bool
         {status === 'loading' ? 'Sending…' : 'Send me the guide'}
       </button>
       {status === 'error' && (
-        <p className="text-red-400 text-xs mt-1 w-full">Something went wrong — try again.</p>
+        <p className="text-red-600 text-xs mt-1 w-full">Something went wrong — try again.</p>
       )}
     </form>
   )
@@ -108,7 +108,7 @@ function ROICalculator() {
             key={p.key}
             onClick={() => handlePlanChange(p.key)}
             className={`flex-1 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-              planKey === p.key ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              planKey === p.key ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-600 hover:text-gray-800'
             }`}
           >
             {p.label}
@@ -131,7 +131,7 @@ function ROICalculator() {
           onChange={(e) => setCustomers(Number(e.target.value))}
           className="w-full h-2 bg-gray-200 rounded-full cursor-pointer accent-amber-500"
         />
-        <div className="flex justify-between text-xs text-gray-400 mt-1">
+        <div className="flex justify-between text-xs text-gray-500 mt-1">
           <span>50</span>
           <span>{plan.maxCustomers ? plan.maxCustomers.toLocaleString() : '5,000+'}</span>
         </div>
@@ -141,30 +141,30 @@ function ROICalculator() {
         <div className="text-center p-4 bg-red-50 rounded-xl">
           <p className="text-3xl font-bold text-red-600">{lapsedCustomers}</p>
           <p className="text-xs text-red-500 mt-1 font-medium">Lapsed per year</p>
-          <p className="text-xs text-gray-400 mt-0.5">(40% average)</p>
+          <p className="text-xs text-gray-500 mt-0.5">(40% average)</p>
         </div>
         <div className="text-center p-4 bg-cta-50 rounded-xl">
           <p className="text-3xl font-bold text-cta-500">{recovered}</p>
           <p className="text-xs text-cta-500 mt-1 font-medium">Recovered</p>
-          <p className="text-xs text-gray-400 mt-0.5">with Corviz</p>
+          <p className="text-xs text-gray-500 mt-0.5">with Corviz</p>
         </div>
         <div className="text-center p-4 bg-green-50 rounded-xl">
           <p className="text-xl font-bold text-green-600 whitespace-nowrap">£{revenue.toLocaleString()}</p>
           <p className="text-xs text-green-600 mt-1 font-medium">Revenue recovered</p>
-          <p className="text-xs text-gray-400 mt-0.5">per year</p>
+          <p className="text-xs text-gray-500 mt-0.5">per year</p>
         </div>
       </div>
 
       <div className="p-4 bg-navy-900 rounded-xl flex items-center justify-between">
         <div>
           <p className="text-white font-semibold">{plan.label} plan — £{plan.price}/mo</p>
-          <p className="text-navy-300 text-sm">
+          <p className="text-white/75 text-sm">
             Your ROI: <span className="text-cta-500 font-bold">{roi}% return</span> on your annual spend
           </p>
         </div>
         <Link
           href="/signup"
-          className="flex-shrink-0 bg-cta-500 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-cta-400 transition-colors"
+          className="flex-shrink-0 bg-cta-500 text-navy-900 font-semibold px-4 py-2 rounded-lg text-sm hover:bg-cta-400 transition-colors"
         >
           Start free →
         </Link>
@@ -196,7 +196,7 @@ export default function LandingPage() {
             <Link href="/login" className="text-sm text-gray-600 hover:text-navy-900 font-medium transition-colors">Sign in</Link>
             <Link
               href="/signup"
-              className="bg-cta-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-cta-400 transition-colors"
+              className="bg-cta-500 text-navy-900 text-sm font-semibold px-4 py-2 rounded-lg hover:bg-cta-400 transition-colors"
             >
               Start free trial
             </Link>
@@ -213,7 +213,7 @@ export default function LandingPage() {
             <div className="flex gap-2 mb-4">
               <Link
                 href="/signup"
-                className="flex-1 text-center bg-cta-500 text-white text-sm font-semibold px-4 py-2.5 rounded-lg"
+                className="flex-1 text-center bg-cta-500 text-navy-900 text-sm font-semibold px-4 py-2.5 rounded-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Start free trial
@@ -249,16 +249,16 @@ export default function LandingPage() {
                 Stop losing customers to garages{' '}
                 <span className="text-cta-500">down the road</span>
               </h1>
-              <p className="text-navy-300 text-lg mb-4 leading-relaxed">
+              <p className="text-white/75 text-lg mb-4 leading-relaxed">
                 Independent UK garages lose <span className="text-white font-semibold">40% of customers every year</span> — not because of bad service, but because no one followed up.
               </p>
-              <p className="text-navy-300 text-lg mb-8 leading-relaxed">
+              <p className="text-white/75 text-lg mb-8 leading-relaxed">
                 Corviz sends automated MOT reminders, service follow-ups, and Google review requests — so your customers book with <em>you</em>, not someone else.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link
                   href="/signup"
-                  className="inline-flex items-center justify-center gap-2 bg-cta-500 text-white font-bold px-6 py-3.5 rounded-xl hover:bg-cta-400 transition-colors text-base"
+                  className="inline-flex items-center justify-center gap-2 bg-cta-500 text-navy-900 font-bold px-6 py-3.5 rounded-xl hover:bg-cta-400 transition-colors text-base"
                 >
                   Start free 60-day trial <ArrowRight size={18} />
                 </Link>
@@ -269,7 +269,7 @@ export default function LandingPage() {
                   See how it works
                 </a>
               </div>
-              <p className="text-navy-400 text-sm mt-4">
+              <p className="text-white/60 text-sm mt-4">
                 No credit card required · Setup in under 10 minutes · Cancel anytime
               </p>
             </div>
@@ -455,7 +455,7 @@ export default function LandingPage() {
                 <Shield size={32} className="text-cta-500" />
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">The Corviz Guarantee</h2>
-              <p className="text-navy-300 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-white/75 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
                 Try Corviz free for 60 days — no credit card required. If you don't win back at least one lapsed customer in that time, you never pay a penny. Not a reduced rate. Nothing.
               </p>
               <div className="grid sm:grid-cols-3 gap-4 mb-8 text-left">
@@ -469,11 +469,11 @@ export default function LandingPage() {
                       <Check size={14} className="text-cta-500" />
                       <p className="text-white font-semibold text-sm">{item.title}</p>
                     </div>
-                    <p className="text-navy-400 text-sm leading-relaxed">{item.body}</p>
+                    <p className="text-white/60 text-sm leading-relaxed">{item.body}</p>
                   </div>
                 ))}
               </div>
-              <Link href="/signup" className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg">
+              <Link href="/signup" className="inline-flex items-center gap-2 bg-cta-500 text-navy-900 font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg">
                 Claim your free trial <ArrowRight size={20} />
               </Link>
             </div>
@@ -491,13 +491,13 @@ export default function LandingPage() {
             <div className="inline-flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
               <button
                 onClick={() => setBillingPeriod('monthly')}
-                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'monthly' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'monthly' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-600 hover:text-gray-800'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingPeriod('annual')}
-                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'annual' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'annual' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-600 hover:text-gray-800'}`}
               >
                 Annual <span className="text-green-600 text-xs font-semibold ml-1">2 months free</span>
               </button>
@@ -566,21 +566,21 @@ export default function LandingPage() {
                 }`}
               >
                 {plan.popular && (
-                  <span className="inline-block bg-cta-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">
+                  <span className="inline-block bg-cta-500 text-navy-900 text-xs font-bold px-3 py-1 rounded-full mb-4">
                     Most popular
                   </span>
                 )}
                 <h3 className={`text-xl font-bold mb-1 ${plan.popular ? 'text-white' : 'text-navy-900'}`}>
                   {plan.name}
                 </h3>
-                <p className={`text-sm mb-4 ${plan.popular ? 'text-navy-300' : 'text-gray-500'}`}>
+                <p className={`text-sm mb-4 ${plan.popular ? 'text-white/75' : 'text-gray-500'}`}>
                   {plan.description}
                 </p>
                 <div className="flex items-end gap-1 mb-1 justify-center md:justify-start">
                   <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-navy-900'}`}>
                     {pricing.price}
                   </span>
-                  <span className={`text-sm mb-1.5 ${plan.popular ? 'text-navy-300' : 'text-gray-400'}`}>
+                  <span className={`text-sm mb-1.5 ${plan.popular ? 'text-white/75' : 'text-gray-500'}`}>
                     {pricing.period}
                   </span>
                 </div>
@@ -608,7 +608,7 @@ export default function LandingPage() {
                   href="/signup"
                   className={`block text-center font-semibold px-4 py-2.5 rounded-xl transition-colors ${
                     plan.popular
-                      ? 'bg-cta-500 text-white hover:bg-cta-400'
+                      ? 'bg-cta-500 text-navy-900 hover:bg-cta-400'
                       : 'bg-navy-900 text-white hover:bg-navy-800'
                   }`}
                 >
@@ -617,7 +617,7 @@ export default function LandingPage() {
               </div>
             )})}
           </div>
-          <p className="text-center text-gray-400 text-sm mt-6">
+          <p className="text-center text-gray-500 text-sm mt-6">
             All plans include a 60-day free trial. No credit card required to start.
           </p>
         </div>
@@ -673,7 +673,7 @@ export default function LandingPage() {
                   <span className="font-semibold text-navy-900 pr-4">{faq.q}</span>
                   <ChevronDown
                     size={18}
-                    className={`text-gray-400 flex-shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`}
+                    className={`text-gray-500 flex-shrink-0 transition-transform duration-200 ${openFaq === i ? 'rotate-180' : ''}`}
                   />
                 </button>
                 {openFaq === i && (
@@ -691,14 +691,14 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 bg-navy-900">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Start recovering customers today</h2>
-          <p className="text-navy-300 text-lg mb-8">60-day free trial. No card needed. Set up in under 10 minutes.</p>
+          <p className="text-white/75 text-lg mb-8">60-day free trial. No card needed. Set up in under 10 minutes.</p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 bg-cta-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
+            className="inline-flex items-center gap-2 bg-cta-500 text-navy-900 font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
           >
             Claim your free trial <ArrowRight size={20} />
           </Link>
-          <p className="text-navy-500 text-sm mt-4">No credit card required · Cancel anytime</p>
+          <p className="text-white/60 text-sm mt-4">No credit card required · Cancel anytime</p>
         </div>
       </section>
 
@@ -720,11 +720,11 @@ export default function LandingPage() {
           <div className="flex items-center">
             <img src="/corviz-logo-white.png" alt="Corviz" className="h-10 w-auto" />
           </div>
-          <p className="text-navy-400 text-xs">© 2026 Corviz. Built for independent UK garages.</p>
+          <p className="text-navy-300 text-xs">© 2026 Corviz. Built for independent UK garages.</p>
           <div className="flex gap-6">
-            <a href="/privacy" className="text-navy-400 text-xs hover:text-white transition-colors">Privacy</a>
-            <a href="/terms" className="text-navy-400 text-xs hover:text-white transition-colors">Terms</a>
-            <a href="mailto:hello@corviz.co.uk" className="text-navy-400 text-xs hover:text-white transition-colors">Contact</a>
+            <a href="/privacy" className="text-navy-300 text-xs hover:text-white transition-colors">Privacy</a>
+            <a href="/terms" className="text-navy-300 text-xs hover:text-white transition-colors">Terms</a>
+            <a href="mailto:hello@corviz.co.uk" className="text-navy-300 text-xs hover:text-white transition-colors">Contact</a>
           </div>
         </div>
       </footer>
