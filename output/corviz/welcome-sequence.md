@@ -337,13 +337,11 @@ Revenue attributed: £[X] ([X] cars at avg £[X])
 
 Read that this weekend.
 
-Monday, I need one of two answers:
+Monday: are you in?
 
-1. Continue at £39 a month. Rate locked forever. I set up the subscription and send you a confirmation.
+Yes — I set up the subscription, £39 a month, locked forever, confirmation same day.
 
-2. No.
-
-Reply Monday.
+No — just reply and tell me.
 
 Jack
 
