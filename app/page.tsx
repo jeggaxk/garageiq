@@ -649,7 +649,7 @@ export default function LandingPage() {
             <p className="font-bold text-navy-900 text-lg">Jack</p>
             <p className="text-gray-500 text-sm mb-3">Founder, Corviz</p>
             <p className="text-gray-600 text-sm leading-relaxed">
-              I built Corviz for the kind of garage my dad used to run — owner-operated, great at the job, no time for anything that isn&apos;t under a bonnet. I run every pilot personally. If you have a question, email me: <a href="mailto:jack@getcorviz.com" className="text-amber-600 underline">jack@getcorviz.com</a>
+              I built Corviz for owner-operated garages — great at the job, no time for anything that isn&apos;t under a bonnet. I run every pilot personally. If you have a question, email me: <a href="mailto:jack@getcorviz.com" className="text-amber-600 underline">jack@getcorviz.com</a>
             </p>
           </div>
         </div>
