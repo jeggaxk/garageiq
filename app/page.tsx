@@ -102,12 +102,12 @@ function ROICalculator() {
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="text-center p-4 bg-red-50 rounded-xl">
           <p className="text-3xl font-bold text-red-600">{annualMissing}</p>
-          <p className="text-xs text-red-500 mt-1 font-medium">Missing per year</p>
-          <p className="text-xs text-gray-500 mt-0.5">({missing}/month × 12)</p>
+          <p className="text-xs text-red-700 mt-1 font-medium">Missing per year</p>
+          <p className="text-xs text-gray-600 mt-0.5">({missing}/month × 12)</p>
         </div>
         <div className="text-center p-4 bg-green-50 rounded-xl">
           <p className="text-2xl font-bold text-green-600">£{revenue.toLocaleString()}</p>
-          <p className="text-xs text-green-600 mt-1 font-medium">Potential value</p>
+          <p className="text-xs text-green-700 mt-1 font-medium">Potential value</p>
           <p className="text-xs text-gray-500 mt-0.5">at £85/car recovered</p>
         </div>
       </div>
@@ -595,7 +595,7 @@ export default function LandingPage() {
             >
               Start my 90-day pilot — £99
             </Link>
-            <p className="text-center text-white/40 text-xs mt-3 leading-relaxed">
+            <p className="text-center text-white/60 text-xs mt-3 leading-relaxed">
               After your pilot, continue at founding member pricing — £39/month for life.{' '}
               Standard pricing after the first 10 founding members is £79/month.
             </p>
