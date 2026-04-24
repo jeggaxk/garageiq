@@ -23,8 +23,6 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const [upgradingPlan, setUpgradingPlan] = useState<string | null>(null)
-  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly')
   const [openingPortal, setOpeningPortal] = useState(false)
   const [form, setForm] = useState({
     name: '', owner_name: '', phone: '', address: '', google_review_url: '',
@@ -63,21 +61,6 @@ export default function SettingsPage() {
       setTimeout(() => setSaved(false), 3000)
     }
     setSaving(false)
-  }
-
-  async function handleUpgrade(plan: string) {
-    setUpgradingPlan(plan)
-    const res = await fetch('/api/stripe/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plan, billing }),
-    })
-    const data = await res.json()
-    if (data.url) {
-      window.location.href = data.url
-    } else {
-      setUpgradingPlan(null)
-    }
   }
 
   async function handleManageBilling() {
@@ -161,7 +144,7 @@ export default function SettingsPage() {
         </div>
         <div className="p-5">
           {planInfo && (
-            <div className="flex items-center justify-between mb-4 p-4 bg-gray-50 rounded-xl">
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
               <div>
                 <p className="text-sm font-medium text-gray-700">Current plan</p>
                 <div className="flex items-center gap-2 mt-1">
@@ -188,46 +171,6 @@ export default function SettingsPage() {
               )}
             </div>
           )}
-
-          <div className="space-y-3">
-            {[
-              { name: 'Founding Member', price: '£39/mo', features: ['500 customers', 'SMS + email', 'All 4 automations'], plan: 'founding', badge: 'Best value' },
-              { name: 'Solo', price: '£79/mo', features: ['500 customers', 'SMS + email', 'All 4 automations'], plan: 'solo' },
-              { name: 'Pro', price: '£149/mo', features: ['2,000 customers', 'Custom templates', 'Priority support'], plan: 'pro' },
-            ].map((p) => (
-              <div
-                key={p.plan}
-                className={`border rounded-xl p-4 flex items-center justify-between ${
-                  garage?.plan === p.plan ? 'border-amber-300 bg-amber-50' : 'border-gray-200'
-                }`}
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold text-navy-900">{p.name}</p>
-                    {p.badge && (
-                      <span className="text-xs bg-amber-500 text-white font-semibold px-2 py-0.5 rounded-full">{p.badge}</span>
-                    )}
-                  </div>
-                  <p className="text-xs text-gray-400 mt-0.5">{p.features.join(' · ')}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-bold text-navy-900">{p.price}</span>
-                  {garage?.plan === p.plan ? (
-                    <span className="text-xs text-amber-600 font-medium">Current plan</span>
-                  ) : (
-                    <Button
-                      size="sm"
-                      onClick={() => handleUpgrade(p.plan)}
-                      loading={upgradingPlan === p.plan}
-                      disabled={upgradingPlan !== null}
-                    >
-                      Upgrade
-                    </Button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>
