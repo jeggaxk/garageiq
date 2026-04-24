@@ -11,7 +11,6 @@ import {
   ArrowRight,
   Upload,
   Phone,
-  Mail,
   TrendingUp,
   Zap,
   Menu,
@@ -69,54 +68,49 @@ function EmailCaptureForm({ source, dark = true }: { source: string; dark?: bool
 }
 
 function ROICalculator() {
-  const [customers, setCustomers] = useState(200)
+  const [missing, setMissing] = useState(10)
 
-  const lapsedCustomers = Math.round(customers * 0.40)
-  const recovered = Math.round(lapsedCustomers * 0.35)
-  const revenue = recovered * 165
-  const annualCost = 39 * 12  // founding member rate
+  const annualMissing = missing * 12
+  const revenue = annualMissing * 85  // £85/car: £55 MOT + £30 average fix-on
+  const annualCost = 39 * 12
   const roi = Math.round((revenue / annualCost) * 100)
 
   return (
     <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
-      <h3 className="text-2xl font-bold text-navy-900 mb-2">See your potential return</h3>
-      <p className="text-gray-500 mb-5">Move the slider to match your customer base</p>
+      <h3 className="text-2xl font-bold text-navy-900 mb-2">Run the numbers on your garage</h3>
+      <p className="text-gray-500 mb-5">How many customers go missing each month without a reminder?</p>
 
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-sm font-medium text-gray-700">Number of customers</label>
-          <span className="text-2xl font-bold text-navy-900">{customers.toLocaleString()}</span>
+          <label className="text-sm font-medium text-gray-700" htmlFor="missing-slider">Customers missing per month</label>
+          <span className="text-2xl font-bold text-navy-900">{missing}</span>
         </div>
         <input
+          id="missing-slider"
           type="range"
-          min={50}
-          max={500}
-          step={25}
-          value={customers}
-          onChange={(e) => setCustomers(Number(e.target.value))}
+          min={5}
+          max={20}
+          step={1}
+          value={missing}
+          onChange={(e) => setMissing(Number(e.target.value))}
           className="w-full h-2 bg-gray-200 rounded-full cursor-pointer accent-amber-500"
         />
         <div className="flex justify-between text-xs text-gray-500 mt-1">
-          <span>50</span>
-          <span>500</span>
+          <span>5</span>
+          <span>20</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="text-center p-4 bg-red-50 rounded-xl">
-          <p className="text-3xl font-bold text-red-600">{lapsedCustomers}</p>
-          <p className="text-xs text-red-500 mt-1 font-medium">Lapsed per year</p>
-          <p className="text-xs text-gray-500 mt-0.5">(40% average)</p>
-        </div>
-        <div className="text-center p-4 bg-cta-50 rounded-xl">
-          <p className="text-3xl font-bold text-cta-500">{recovered}</p>
-          <p className="text-xs text-cta-500 mt-1 font-medium">Recovered</p>
-          <p className="text-xs text-gray-500 mt-0.5">with Corviz</p>
+          <p className="text-3xl font-bold text-red-600">{annualMissing}</p>
+          <p className="text-xs text-red-500 mt-1 font-medium">Missing per year</p>
+          <p className="text-xs text-gray-500 mt-0.5">({missing}/month × 12)</p>
         </div>
         <div className="text-center p-4 bg-green-50 rounded-xl">
-          <p className="text-xl font-bold text-green-600 whitespace-nowrap">£{revenue.toLocaleString()}</p>
-          <p className="text-xs text-green-600 mt-1 font-medium">Revenue recovered</p>
-          <p className="text-xs text-gray-500 mt-0.5">per year</p>
+          <p className="text-2xl font-bold text-green-600">£{revenue.toLocaleString()}</p>
+          <p className="text-xs text-green-600 mt-1 font-medium">Potential value</p>
+          <p className="text-xs text-gray-500 mt-0.5">at £85/car recovered</p>
         </div>
       </div>
 
@@ -124,7 +118,7 @@ function ROICalculator() {
         <div>
           <p className="text-white font-semibold">Founding member — £39/mo</p>
           <p className="text-white/75 text-sm">
-            Your ROI: <span className="text-cta-500 font-bold">{roi}% return</span> on your annual spend
+            vs. <span className="text-cta-500 font-bold">£{revenue.toLocaleString()}</span> in recoverable bookings
           </p>
         </div>
         <Link
@@ -210,14 +204,14 @@ export default function LandingPage() {
                 <span className="text-cta-500 text-xs font-medium">90-day pilot · £99 · Full refund guarantee</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Stop losing customers to garages{' '}
-                <span className="text-cta-500">down the road</span>
+                The reminder tool your garage system{' '}
+                <span className="text-cta-500">never got right.</span>
               </h1>
               <p className="text-white/75 text-lg mb-4 leading-relaxed">
-                Independent UK garages lose <span className="text-white font-semibold">40% of customers every year</span> — not because of bad service, but because no one followed up.
+                The reminder function in your garage management system probably tried. It fired blind — no DVLA check, no number validation. You got angry replies and turned it off.
               </p>
               <p className="text-white/75 text-lg mb-8 leading-relaxed">
-                Corviz sends automated MOT reminders, service follow-ups, and Google review requests — so your customers book with <em>you</em>, not someone else.
+                Corviz cross-checks every reminder against the DVLA before it sends. First reminders firing within 72 hours of signup.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link
@@ -306,9 +300,9 @@ export default function LandingPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: Car, stat: '40%', title: 'Customer lapse rate', description: 'The average independent garage loses 40% of its customers each year purely from lack of follow-up contact.', color: 'text-red-500 bg-red-50' },
-              { icon: Mail, stat: '£0', title: 'Most garages spend on retention', description: 'While franchises invest heavily in CRM and reminder systems, most independents have nothing in place.', color: 'text-cta-500 bg-cta-50' },
-              { icon: TrendingUp, stat: '5×', title: 'Cheaper to retain than acquire', description: 'Keeping an existing customer costs 5 times less than winning a new one — yet most garages focus only on new business.', color: 'text-green-500 bg-green-50' },
+              { icon: Car, stat: '8–15', title: 'Customers missing every month', description: 'Pull up last April\'s bookings against this April\'s. 8 to 15 names are usually missing — not angry, just never followed up.', color: 'text-red-500 bg-red-50' },
+              { icon: TrendingUp, stat: '£8–15k', title: 'Walking out the door each year', description: 'At £85 per recovered car, those missing customers add up to £8,000 to £15,000 in revenue that left quietly without a single reminder.', color: 'text-cta-500 bg-cta-50' },
+              { icon: Zap, stat: '72hrs', title: 'Until your first reminders fire', description: 'Upload your CSV, Jack cross-checks it against the DVLA, you approve the first batch. First reminders out within 72 hours of signup.', color: 'text-green-500 bg-green-50' },
             ].map((item) => {
               const Icon = item.icon
               return (
@@ -333,9 +327,9 @@ export default function LandingPage() {
               <p className="text-gray-500 text-lg mb-6 leading-relaxed">Most garages are sitting on hundreds of lapsed customers worth thousands of pounds. Corviz brings them back automatically.</p>
               <ul className="space-y-3 inline-block text-left">
                 {[
-                  'Average MOT booking value: £55',
-                  'Average service booking value: £150',
-                  'Average recovery rate with Corviz: 35%',
+                  '£85 per recovered car: £55 MOT + £30 average advisory fix-on',
+                  'Typical garages are missing 8 to 15 customers per month',
+                  'First reminders fire within 72 hours of signup',
                   'Setup time: under 10 minutes',
                 ].map((point) => (
                   <li key={point} className="flex items-center gap-3 text-gray-700">
@@ -442,6 +436,72 @@ export default function LandingPage() {
       </section>
 
 
+      {/* Who this is for / not for */}
+      <section className="py-20 px-4 sm:px-6 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Who Corviz is for</h2>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+              Most garages I&apos;d ignore. Fast-fit places, solo operations, the big multi-site chains. What I built isn&apos;t for them.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Check size={16} className="text-green-600" />
+                </div>
+                <h3 className="text-lg font-bold text-navy-900">This is for you if</h3>
+              </div>
+              <ul className="space-y-4">
+                {[
+                  '2 to 4 staff, owner-operated',
+                  'Doing MOTs and servicing',
+                  '300 to 1,500 customers on the books',
+                  '3 to 7 years under current ownership',
+                  'Using MAM, GA4, Autowork Online, HBS, or similar',
+                  'Frustrated watching customers drift away year on year',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check size={11} className="text-green-600" />
+                    </div>
+                    <span className="text-gray-700 text-sm leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <X size={16} className="text-red-500" />
+                </div>
+                <h3 className="text-lg font-bold text-navy-900">This is not for you if</h3>
+              </div>
+              <ul className="space-y-4">
+                {[
+                  'Under 300 customers on your books',
+                  '5 or more staff — your garage management system already handles this',
+                  'Multi-site or franchise operation',
+                  'Specialist workshop — bodywork, performance, diagnostics only',
+                  'Fast-fit, tyres, exhausts, batteries — transactional not relationship-driven',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <X size={11} className="text-red-500" />
+                    </div>
+                    <span className="text-gray-700 text-sm leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <p className="text-center text-gray-500 text-sm mt-8">
+            Not sure if you fit? Email <a href="mailto:jack@getcorviz.com" className="text-amber-600 underline">jack@getcorviz.com</a> — I&apos;ll give you an honest answer.
+          </p>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="py-20 px-4 sm:px-6">
         <div className="max-w-xl mx-auto">
@@ -468,7 +528,7 @@ export default function LandingPage() {
                 'Direct WhatsApp access to Jack for the full pilot',
                 'DVLA cross-check on every reminder before it sends',
                 'Your first batch reviewed and approved by you before anything fires',
-                'Weekly results and a dedicated monthly review',
+                'Written reviews at day 30, 60, and 90 with your actual dashboard numbers',
               ].map((feature) => (
                 <li key={feature} className="flex items-start gap-3">
                   <div className="w-4 h-4 rounded-full bg-cta-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -577,6 +637,24 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Founder */}
+      <section className="py-16 px-4 sm:px-6 bg-white border-t border-gray-100">
+        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-8 text-center sm:text-left">
+          <img
+            src="/jack.jpg"
+            alt="Jack, founder of Corviz"
+            className="w-20 h-20 rounded-full object-cover flex-shrink-0 border-2 border-gray-100"
+          />
+          <div>
+            <p className="font-bold text-navy-900 text-lg">Jack</p>
+            <p className="text-gray-500 text-sm mb-3">Founder, Corviz</p>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              I built Corviz for the kind of garage my dad used to run — owner-operated, great at the job, no time for anything that isn&apos;t under a bonnet. I run every pilot personally. If you have a question, email me: <a href="mailto:jack@getcorviz.com" className="text-amber-600 underline">jack@getcorviz.com</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 px-4 sm:px-6 bg-navy-900">
         <div className="max-w-2xl mx-auto text-center">
@@ -600,7 +678,12 @@ export default function LandingPage() {
           <p className="text-gray-500 text-sm mb-6">
             Get <span className="font-medium text-navy-900">"5 ways UK garages lose £20,000+ a year in lapsed customers"</span> — free, no strings attached.
           </p>
-          <EmailCaptureForm source="website" dark={false} />
+          <Link
+            href="/guide-optin"
+            className="inline-flex items-center justify-center gap-2 bg-navy-900 text-white font-semibold px-6 py-3 rounded-lg text-sm hover:bg-navy-800 transition-colors"
+          >
+            Get the free guide <ArrowRight size={16} />
+          </Link>
         </div>
       </section>
 
