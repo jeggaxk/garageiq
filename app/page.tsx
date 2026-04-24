@@ -390,10 +390,11 @@ export default function LandingPage() {
               { icon: Car, color: 'bg-blue-500', title: 'MOT reminders', description: 'Sent 4 weeks before MOT due date via SMS and email. Customers book with you before they even think about looking elsewhere.', example: '"Hi Sarah, your AB12 CDE MOT is due in 4 weeks. Book now at Smith\'s Auto — call us on 01234 567890 or visit our website to book."' },
               { icon: Wrench, color: 'bg-orange-500', title: 'Service follow-ups', description: '11 months after their last service, your customers get a friendly nudge. Most will book without thinking twice.', example: '"Hi Mark, it\'s been almost a year since your last service at Smith\'s Auto. Book your Ford Focus in now — call 01234 567890."' },
               { icon: Star, color: 'bg-cta-500', title: 'Google review requests', description: 'Sent 24 hours after every visit. More reviews mean higher ranking in local search — more customers finding you first.', example: '"Hi James, thanks for visiting Smith\'s Auto today. If you\'re happy, a quick Google review would mean a lot: [link]"' },
-            ].map((feature) => {
+            ].map((feature, index, arr) => {
               const Icon = feature.icon
+              const isLastOdd = index === arr.length - 1 && arr.length % 2 !== 0
               return (
-                <div key={feature.title} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left">
+                <div key={feature.title} className={`bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center md:text-left${isLastOdd ? ' md:col-span-2 max-w-lg mx-auto w-full' : ''}`}>
                   <div className={`w-10 h-10 ${feature.color} rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0`}><Icon size={20} className="text-white" /></div>
                   <h3 className="text-lg font-bold text-navy-900 mb-2">{feature.title}</h3>
                   <p className="text-gray-500 text-sm mb-4 leading-relaxed">{feature.description}</p>
