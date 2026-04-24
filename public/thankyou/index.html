@@ -69,14 +69,16 @@
     }
 
     .logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--navy);
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: -0.02em;
     }
 
-    .logo span { color: var(--amber); }
+    .logo img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
 
     /* ── Layout ── */
     main {
@@ -514,7 +516,7 @@
 <body>
 
   <header class="site-header">
-    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home">Cor<span>viz</span></a>
+    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home"><img src="/corviz-logo-transparent.png" alt="Corviz" height="40"></a>
   </header>
 
   <main>
