@@ -130,6 +130,21 @@ function ROICalculator() {
   )
 }
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Do my customers need to opt in to receive messages?', acceptedAnswer: { '@type': 'Answer', text: 'Under UK PECR, the "soft opt-in" rule allows you to contact existing customers about similar services — such as MOT reminders and service follow-ups — without a separate opt-in, provided they were given a chance to opt out when you first collected their details. You are responsible for ensuring your customer list is compliant with this rule. If you are unsure, I recommend seeking independent legal advice.' } },
+    { '@type': 'Question', name: "What if I don't have a customer list?", acceptedAnswer: { '@type': 'Answer', text: "Most independent garages run on a mix of paper, spreadsheets, and legacy software. On your onboarding I'll walk you through how to export from any system — or if you're fully on paper, we'll start with your most recent customers and build from there." } },
+    { '@type': 'Question', name: 'Will customers know the message is automated?', acceptedAnswer: { '@type': 'Answer', text: "Messages are sent from your garage name and use the customer's first name — they feel personal, not robotic. Most customers simply see a helpful reminder from a garage they trust." } },
+    { '@type': 'Question', name: 'How does the 90-day refund guarantee work?', acceptedAnswer: { '@type': 'Answer', text: "If at the end of 90 days you don't believe Corviz has paid for itself, email me or message me on WhatsApp. I'll refund you in full. No forms, no disputes, no 'prove it' required. Your call." } },
+    { '@type': 'Question', name: 'Can I customise the messages?', acceptedAnswer: { '@type': 'Answer', text: "Yes. You get a default template out of the box — it auto-fills your garage name, your phone number, and the customer's details so the reminder reads like it came from you, not a robot. If you want to change the wording, you can — every template is editable in your dashboard before the batch fires." } },
+    { '@type': 'Question', name: 'Does this work alongside my existing garage software?', acceptedAnswer: { '@type': 'Answer', text: "Yes — Corviz works independently of your garage management system. You import your customer data via CSV and Corviz handles the rest. There's no integration required." } },
+    { '@type': 'Question', name: 'How does Corviz know when an MOT is due?', acceptedAnswer: { '@type': 'Answer', text: 'I calculate the MOT due date based on the last MOT date you provide when importing customers. I also cross-reference with the DVLA to keep dates accurate — if a customer has renewed elsewhere, I update their record automatically.' } },
+    { '@type': 'Question', name: 'Is my customer data safe?', acceptedAnswer: { '@type': 'Answer', text: "Your data is stored securely in the EU on Supabase infrastructure. I never share or sell your customer data to third parties. I act as a data processor — you remain the data controller. Full details are in our Privacy Policy." } },
+  ],
+}
+
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -144,6 +159,10 @@ export default function LandingPage() {
 
   return (
     <div className="bg-white font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
@@ -205,9 +224,17 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cta-500/10 border border-cta-500/20 rounded-full mb-6">
-                <span className="w-1.5 h-1.5 bg-cta-500 rounded-full" />
-                <span className="text-cta-500 text-xs font-medium">90-day pilot · £99 · Full refund guarantee</span>
+              <div className="flex flex-col items-center lg:items-start gap-2 mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cta-500/10 border border-cta-500/20 rounded-full">
+                  <span className="w-1.5 h-1.5 bg-cta-500 rounded-full" />
+                  <span className="text-cta-500 text-xs font-medium">90-day pilot · £99 · Full refund guarantee</span>
+                </div>
+                {founderCount !== null && founderCount > 0 && (
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/20 rounded-full">
+                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                    <span className="text-white/80 text-xs font-medium">{founderCount} of 10 founding spots taken</span>
+                  </div>
+                )}
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 The reminder tool your garage system{' '}
