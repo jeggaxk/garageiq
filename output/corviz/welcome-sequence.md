@@ -341,9 +341,9 @@ Monday, I need one of two answers:
 
 1. Continue at £39 a month. Rate locked forever. I set up the subscription and send you a confirmation.
 
-2. Refund the £99. Processed same day. No forms, no disputes. Your call.
+2. No.
 
-Either answer is the right answer. Reply Monday.
+Reply Monday.
 
 Jack
 
@@ -363,6 +363,8 @@ P.S. If you need more time or something has come up, message me on WhatsApp. I'm
 - If the result has been mixed: be honest about what underperformed, and specific about why the next 90 days would be different. The guarantee means a customer who trusts the reasoning will continue.
 
 **On Monday:** If no reply by end of day, send a single WhatsApp message — not another email. Keep it short: "Just checking you got the review — let me know either way when you're ready."
+
+**If they reply "No":** Do not process the refund automatically. Wait for them to email or WhatsApp asking for it. The guarantee is real — honour it without hesitation when they ask — but the ask must come from them. Do not chase the refund conversation if they go quiet after a "no."
 
 ---
 
