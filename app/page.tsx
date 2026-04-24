@@ -507,7 +507,7 @@ export default function LandingPage() {
         <div className="max-w-xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-3">Founding Member Pilot</h2>
-            <p className="text-gray-500 text-lg">Limited to the first 5 garages. Personally onboarded by Jack.</p>
+            <p className="text-gray-500 text-lg">Limited to the first 10 garages. Personally onboarded by Jack.</p>
           </div>
 
           {/* Single pilot card */}
@@ -559,7 +559,7 @@ export default function LandingPage() {
             </Link>
             <p className="text-center text-white/40 text-xs mt-3 leading-relaxed">
               After your pilot, continue at founding member pricing — £39/month for life.{' '}
-              Standard pricing after the first 5 founding members is £79/month.
+              Standard pricing after the first 10 founding members is £79/month.
             </p>
           </div>
 
@@ -567,7 +567,7 @@ export default function LandingPage() {
           <div className="mt-8 text-center">
             <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-3">What happens after the pilot</h3>
             <p className="text-gray-500 text-sm leading-relaxed">
-              After your 90-day pilot, you continue with Corviz at <strong className="text-navy-900">£39/month for life</strong> as a founding member — no price increases, no surprise charges. This founding member rate is available only to the first 5 garages. After that, Corviz is £79/month.
+              After your 90-day pilot, you continue with Corviz at <strong className="text-navy-900">£39/month for life</strong> as a founding member — no price increases, no surprise charges. This founding member rate is available only to the first 10 garages. After that, Corviz is £79/month.
             </p>
           </div>
         </div>
