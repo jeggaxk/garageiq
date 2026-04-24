@@ -12,8 +12,8 @@ create table if not exists garages (
   address text,
   google_review_url text,
   stripe_customer_id text,
-  plan text default 'trial' check (plan in ('trial', 'solo', 'pro', 'multi')),
-  trial_ends_at timestamptz default (now() + interval '60 days'),
+  plan text default 'pilot' check (plan in ('pilot', 'trial', 'solo', 'pro', 'multi', 'founding', 'suspended')),
+  trial_ends_at timestamptz,
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );

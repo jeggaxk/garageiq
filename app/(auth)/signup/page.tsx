@@ -22,7 +22,6 @@ export default function SignupPage() {
     setLoading(true)
     setError('')
 
-    // Create user + garage server-side (service role bypasses RLS)
     const res = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -43,7 +42,7 @@ export default function SignupPage() {
       return
     }
 
-    // Now sign in on the client to get a session
+    // Sign in to get a session
     const supabase = createClient()
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email: formData.email,
@@ -57,8 +56,20 @@ export default function SignupPage() {
       return
     }
 
-    router.push('/dashboard')
-    router.refresh()
+    // Redirect to Stripe checkout for the £99 pilot payment
+    const checkoutRes = await fetch('/api/stripe/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: 'pilot' }),
+    })
+    const checkoutData = await checkoutRes.json()
+
+    if (checkoutData.url) {
+      window.location.href = checkoutData.url
+    } else {
+      // Fallback: go to dashboard (pilot will be pending payment)
+      router.push('/dashboard')
+    }
   }
 
   const update = (field: string, value: string) =>
@@ -66,8 +77,8 @@ export default function SignupPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-navy-900 mb-1">Start your free trial</h1>
-      <p className="text-gray-500 text-sm mb-6">60 days free — no credit card required</p>
+      <h1 className="text-2xl font-bold text-navy-900 mb-1">Start your 90-day pilot</h1>
+      <p className="text-gray-500 text-sm mb-6">£99 · Full refund guarantee if it doesn't pay for itself</p>
 
       {error && (
         <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
@@ -147,7 +158,7 @@ export default function SignupPage() {
           disabled={loading}
           className="w-full bg-cta-500 text-white font-semibold py-2.5 rounded-lg hover:bg-cta-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {loading ? 'Creating account…' : 'Start free trial'}
+          {loading ? 'Setting up…' : 'Continue to payment — £99'}
         </button>
       </form>
 

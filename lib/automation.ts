@@ -2,8 +2,9 @@ import { createClient as createSupabaseAdminClient } from '@supabase/supabase-js
 import { sendSMS } from './textmagic'
 import { sendEmail } from './resend'
 import { interpolateTemplate, formatPhoneForTwilio, getMotDueDate } from './utils'
-import { differenceInDays, subMonths, subYears, addDays, addYears, addHours, parseISO, startOfDay } from 'date-fns'
+import { differenceInDays, subMonths, subYears, addDays, addYears, parseISO, startOfDay, format } from 'date-fns'
 import type { AutomationType, Customer, Garage, MessageTemplate } from '@/types'
+import { fetchDvlaVehicle } from './dvla'
 
 function getAdminClient() {
   return createSupabaseAdminClient(
@@ -17,103 +18,6 @@ interface SendResult {
   type: AutomationType
   channel: string
   success: boolean
-}
-
-interface ExpiryThreshold {
-  hours: number          // target hours until expiry
-  windowHours: number    // ± window to catch it once per cron run
-  subject: string
-  body: (name: string, appUrl: string) => string
-}
-
-const EXPIRY_THRESHOLDS: ExpiryThreshold[] = [
-  {
-    hours: 168, // 7 days
-    windowHours: 12,
-    subject: 'Your Corviz trial ends in 7 days',
-    body: (name, url) => `Hi ${name},
-
-Your free 60-day trial ends in 7 days.
-
-Once it ends your automations will pause — no more MOT reminders, service follow-ups, or win-back messages going out. The customers you've been protecting will start slipping away.
-
-Upgrade now to keep everything running without interruption:
-${url}/settings
-
-If you have any questions just reply to this email.
-
-The Corviz team`,
-  },
-  {
-    hours: 48,
-    windowHours: 12,
-    subject: 'Your Corviz trial ends in 48 hours',
-    body: (name, url) => `Hi ${name},
-
-Just a heads up — your trial ends in 48 hours.
-
-Upgrade before then to make sure your automations keep running without a gap:
-${url}/settings
-
-The Corviz team`,
-  },
-  {
-    hours: 24,
-    windowHours: 12,
-    subject: 'Your Corviz trial ends tomorrow',
-    body: (name, url) => `Hi ${name},
-
-Your trial ends tomorrow. After that your automations will stop and customers won't receive any reminders.
-
-Upgrade now — it takes less than a minute:
-${url}/settings
-
-The Corviz team`,
-  },
-  {
-    hours: 12,
-    windowHours: 6,
-    subject: 'Last chance — your Corviz trial ends in 12 hours',
-    body: (name, url) => `Hi ${name},
-
-Your trial expires in 12 hours. This is your last chance to upgrade before your automations pause.
-
-${url}/settings
-
-The Corviz team`,
-  },
-]
-
-export async function sendTrialExpiryEmails(thresholdHours: number[]): Promise<void> {
-  const supabase = getAdminClient()
-  const now = new Date()
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getcorviz.com'
-
-  for (const hours of thresholdHours) {
-    const threshold = EXPIRY_THRESHOLDS.find((t) => t.hours === hours)
-    if (!threshold) continue
-
-    const from = addHours(now, hours - threshold.windowHours)
-    const to = addHours(now, hours + threshold.windowHours)
-
-    const { data: garages } = await supabase
-      .from('garages')
-      .select('name, email, owner_name, trial_ends_at')
-      .eq('plan', 'trial')
-      .gte('trial_ends_at', from.toISOString())
-      .lt('trial_ends_at', to.toISOString())
-
-    if (!garages) continue
-
-    for (const garage of garages) {
-      if (!garage.email) continue
-      await sendEmail({
-        to: garage.email,
-        subject: threshold.subject,
-        text: threshold.body(garage.owner_name || 'there', appUrl),
-      }).catch(() => {})
-    }
-  }
 }
 
 export async function runDailyAutomations(): Promise<{ sent: number; errors: number }> {
@@ -133,9 +37,10 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
   }
 
   for (const garage of garages) {
-    // Check plan is active (trial or paid)
+    // Check plan is active
     if (garage.plan === 'suspended') continue
-    if (garage.plan === 'trial' && garage.trial_ends_at) {
+    // Pilot and legacy trial both expire at trial_ends_at
+    if ((garage.plan === 'pilot' || garage.plan === 'trial') && garage.trial_ends_at) {
       const trialEnd = new Date(garage.trial_ends_at)
       if (trialEnd < today) continue
     }
@@ -152,7 +57,6 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
     // --- MOT Reminder (4 weeks / 28 days before due) ---
     if (enabledTypes.has('mot_reminder')) {
       const targetDate = addDays(today, 28)
-      const targetDateStr = targetDate.toISOString().split('T')[0]
 
       // last_mot_date + 1 year = targetDate → last_mot_date = targetDate - 1 year
       const lastMotTarget = subYears(targetDate, 1)
@@ -176,6 +80,34 @@ export async function runDailyAutomations(): Promise<{ sent: number; errors: num
             .gte('sent_at', sixtyDaysAgo)
             .limit(1)
           if (recentMessages && recentMessages.length > 0) continue
+
+          // DVLA verification: skip if the stored MOT date no longer matches DVLA.
+          // This catches customers who renewed their MOT elsewhere since the garage last updated their record.
+          if (customer.vehicle_reg) {
+            const dvla = await fetchDvlaVehicle(customer.vehicle_reg)
+            if (dvla?.motExpiryDate) {
+              const expectedExpiry = format(addYears(parseISO(customer.last_mot_date!), 1), 'yyyy-MM-dd')
+              if (dvla.motExpiryDate !== expectedExpiry) {
+                // DVLA has a different expiry — update the stored date and skip this reminder.
+                // Convert motExpiryDate back to last_mot_date (1 year before expiry).
+                const dvlaLastMotDate = format(
+                  addYears(parseISO(dvla.motExpiryDate), -1),
+                  'yyyy-MM-dd'
+                )
+                await supabase
+                  .from('customers')
+                  .update({ last_mot_date: dvlaLastMotDate })
+                  .eq('id', customer.id)
+                console.log(
+                  `MOT reminder skipped for customer ${customer.id}: ` +
+                  `stored expiry ${expectedExpiry} ≠ DVLA expiry ${dvla.motExpiryDate}. ` +
+                  `Updated last_mot_date to ${dvlaLastMotDate}.`
+                )
+                continue
+              }
+            }
+            // If DVLA returned null (API unavailable or vehicle not found), proceed with the reminder.
+          }
 
           const results = await sendAutomationMessages(
             customer,
@@ -420,7 +352,7 @@ export async function sendCatchUpReminders(customerIds: string[], garageId: stri
 
   if (!garage) return
   if (garage.plan === 'suspended') return
-  if (garage.plan === 'trial' && garage.trial_ends_at) {
+  if ((garage.plan === 'pilot' || garage.plan === 'trial') && garage.trial_ends_at) {
     if (new Date(garage.trial_ends_at) < today) return
   }
 
@@ -454,9 +386,27 @@ export async function sendCatchUpReminders(customerIds: string[], garageId: stri
           .eq('type', 'mot_reminder')
           .limit(1)
         if (!existing || existing.length === 0) {
-          const results = await sendAutomationMessages(customer, garage, 'mot_reminder', templates)
-          for (const r of results) {
-            await logMessage(supabase, garageId, customer.id, 'mot_reminder', r.channel as 'sms' | 'email', r.success)
+          // DVLA verification before catch-up reminder
+          let dvlaVerified = true
+          if (customer.vehicle_reg) {
+            const dvla = await fetchDvlaVehicle(customer.vehicle_reg)
+            if (dvla?.motExpiryDate) {
+              const expectedExpiry = format(addYears(parseISO(customer.last_mot_date), 1), 'yyyy-MM-dd')
+              if (dvla.motExpiryDate !== expectedExpiry) {
+                dvlaVerified = false
+                const dvlaLastMotDate = format(addYears(parseISO(dvla.motExpiryDate), -1), 'yyyy-MM-dd')
+                await supabase
+                  .from('customers')
+                  .update({ last_mot_date: dvlaLastMotDate })
+                  .eq('id', customer.id)
+              }
+            }
+          }
+          if (dvlaVerified) {
+            const results = await sendAutomationMessages(customer, garage, 'mot_reminder', templates)
+            for (const r of results) {
+              await logMessage(supabase, garageId, customer.id, 'mot_reminder', r.channel as 'sms' | 'email', r.success)
+            }
           }
         }
       }

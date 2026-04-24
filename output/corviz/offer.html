@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Corviz Exists — and the 90-Day Pilot Offer | Corviz</title>
+  <meta name="description" content="Jack explains why he built Corviz, why the pilot costs £99, and what happens in the first 72 hours. The founding member offer — 10 garages only.">
+  <link rel="canonical" href="https://getcorviz.com/offer">
+  <meta property="og:title" content="Why Corviz Exists — and the 90-Day Pilot Offer | Corviz">
+  <meta property="og:description" content="Jack explains why he built Corviz, why the pilot costs £99, and what happens in the first 72 hours. The founding member offer — 10 garages only.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://getcorviz.com/offer">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://getcorviz.com/#organisation",
+        "name": "Corviz",
+        "url": "https://getcorviz.com",
+        "description": "Automated customer retention tool for UK independent MOT and servicing garages",
+        "founder": {
+          "@type": "Person",
+          "name": "Jack",
+          "jobTitle": "Founder"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://getcorviz.com/offer#webpage",
+        "url": "https://getcorviz.com/offer",
+        "name": "Why Corviz Exists — and the 90-Day Pilot Offer",
+        "isPartOf": { "@id": "https://getcorviz.com/#organisation" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "I already have reminders in my garage management system. Why isn't that enough?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because most of them don't work in practice. They fire without checking whether the MOT has already been renewed elsewhere. They include numbers that haven't been validated. Owners turn them off after the first batch because of the angry replies. Corviz cross-checks every reminder against the DVLA before it fires and gives you full approval of the first batch before anything goes out."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if my customers don't want texts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You see every message before it goes out. The first batch is yours to approve — you can edit the template, remove specific customers, or hold it entirely. Every message includes your direct number so customers can call or text you back. The opt-out rate in this format is low because the message is relevant, specific, and comes from a garage they already trust."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does setup actually take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "10 to 15 minutes of your time across the full first week. You fill in the intake form (5 minutes), export your customer CSV (5-10 minutes — I send you a walkthrough video for your specific system), and approve the first batch (2 minutes). That's it. I do the rest."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens to my customer data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your customer list is used only to send the reminders you approve. It is not shared, sold, or used for anything else. You can export it or request deletion at any time. Corviz operates under UK GDPR and you remain the data controller for your customer records."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if it doesn't work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "At the end of 90 days, you decide. If you don't believe Corviz has paid for itself, tell me and I refund the £99 the same day. No forms, no disputes. Your call."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "I'm not very technical. Will I be able to use this?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. I handle the technical side. You export a spreadsheet from your garage management system — I send you a short video showing exactly how to do it in under 5 minutes. Everything after that runs without you touching anything."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0F1C2E;
+      --navy-mid: #1E3A5F;
+      --gray-dark: #374151;
+      --gray-mid: #6B7280;
+      --gray-light: #E5E7EB;
+      --gray-subtle: #F9FAFB;
+      --amber: #B45309;
+      --amber-dark: #92400E;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+      --green-bg: #ECFDF5;
+      --green-border: #6EE7B7;
+      --green-text: #065F46;
+      --bg: #FAFAF7;
+      --white: #FFFFFF;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--navy);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray-light);
+      background: var(--white);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--amber); }
+
+    .header-link {
+      font-size: 0.875rem;
+      color: var(--gray-mid);
+      text-decoration: none;
+    }
+
+    .header-link:hover { color: var(--navy); }
+
+    /* ── Layout ── */
+    main {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Acknowledgement ── */
+    .ack-strip {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 0.9375rem;
+      color: var(--green-text);
+      font-weight: 500;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ── Section spacing ── */
+    .section {
+      margin-bottom: 56px;
+    }
+
+    /* ── Video placeholder ── */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: var(--navy);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .video-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .video-play-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .video-caption {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+      text-align: center;
+    }
+
+    /* ── Founder letter ── */
+    .letter {
+      font-size: 1rem;
+      color: var(--gray-dark);
+      line-height: 1.8;
+    }
+
+    .letter h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+
+    .letter h2:first-child {
+      margin-top: 0;
+    }
+
+    .letter p {
+      margin-bottom: 18px;
+    }
+
+    .letter p:last-child {
+      margin-bottom: 0;
+    }
+
+    .letter strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .letter-sign {
+      margin-top: 32px;
+      font-size: 1rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+    }
+
+    .letter-sign strong {
+      color: var(--navy);
+    }
+
+    /* ── 72-hour timeline ── */
+    .timeline {
+      list-style: none;
+      position: relative;
+      padding-left: 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 24px;
+      bottom: 24px;
+      width: 2px;
+      background: var(--gray-light);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--amber-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .timeline-dot-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--amber);
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .timeline-content {
+      padding-top: 8px;
+      flex: 1;
+    }
+
+    .timeline-content strong {
+      display: block;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .timeline-content p {
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+    }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Pilot card ── */
+    .pilot-card {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 36px 32px;
+      color: var(--white);
+    }
+
+    .pilot-card-eyebrow {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #FCD34D;
+      margin-bottom: 10px;
+    }
+
+    .pilot-card h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      color: var(--white);
+    }
+
+    .pilot-card-subhead {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .price-big {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .price-note {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .price-subline {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+
+    .feature-check {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #6EE7B7;
+    }
+
+    .guarantee-box {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .guarantee-box strong {
+      color: var(--white);
+    }
+
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      background: #D97706;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      min-height: 44px;
+      line-height: 1.4;
+    }
+
+    .cta-btn:hover { background: var(--amber); }
+
+    .cta-btn:focus-visible {
+      outline: 3px solid #FCD34D;
+      outline-offset: 3px;
+    }
+
+    .post-cta-note {
+      margin-top: 14px;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .post-cta-note a {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .after-pilot {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ── FAQ ── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--gray-light);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1.45;
+      min-height: 44px;
+    }
+
+    .faq-question:hover {
+      background: var(--gray-subtle);
+    }
+
+    .faq-question:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: -2px;
+    }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      color: var(--gray-mid);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 18px;
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* ── Final CTA section ── */
+    .final-cta {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px;
+    }
+
+    .final-cta h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .final-cta p {
+      font-size: 1rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .final-cta-btn {
+      display: inline-block;
+      padding: 16px 36px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background 0.15s ease;
+      min-height: 44px;
+    }
+
+    .final-cta-btn:hover { background: var(--navy-mid); }
+
+    .final-cta-btn:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    .final-cta-sub {
+      margin-top: 16px;
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      margin-top: 60px;
+      padding: 24px;
+      border-top: 1px solid var(--gray-light);
+      text-align: center;
+    }
+
+    .site-footer p {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+    }
+
+    .site-footer a {
+      color: var(--gray-mid);
+      text-decoration: underline;
+    }
+
+    .site-footer a:hover { color: var(--navy); }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--gray-light);
+      margin: 0 0 56px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      main { padding: 32px 16px 60px; }
+      .pilot-card { padding: 28px 20px; }
+      .price-big { font-size: 2.5rem; }
+      .final-cta { padding: 36px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home">Cor<span>viz</span></a>
+    <a href="https://getcorviz.com" class="header-link">Back to main site</a>
+  </header>
+
+  <main>
+
+    <div class="ack-strip" role="status">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 13l4 4L19 7" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Good — the guide is on its way to your inbox. Read this first.
+    </div>
+
+    <!-- ── Video ── -->
+    <section class="section" aria-labelledby="video-heading">
+      <h1 id="video-heading" class="section-heading">A quick word from Jack before you read on</h1>
+
+      <!--
+        INTEGRATION NOTE:
+        Replace the placeholder below with a Loom embed.
+        Use: <div style="position:relative;padding-top:56.25%">
+               <iframe src="https://www.loom.com/embed/YOUR_VIDEO_ID" ... style="position:absolute;top:0;left:0;width:100%;height:100%;" ...></iframe>
+             </div>
+        Loom script opens: "Hi, I'm Jack, founder of Corviz."
+        Length: 2-3 minutes.
+      -->
+      <figure>
+        <div class="video-wrap" aria-label="Video: Jack introduces Corviz and the pilot offer (2–3 minutes)">
+          <div class="video-inner">
+            <div class="video-play-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M8 5l13 7-13 7V5z" fill="rgba(255,255,255,0.8)"/>
+              </svg>
+            </div>
+            <p class="video-label">Jack's 2-minute intro — coming soon</p>
+          </div>
+        </div>
+        <figcaption class="video-caption">Jack, founder of Corviz — recorded once, no live calls needed</figcaption>
+      </figure>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── Founder letter ── -->
+    <section class="section" aria-labelledby="letter-heading">
+      <div class="letter">
+
+        <h2 id="letter-heading">Why Corviz exists</h2>
+
+        <p>
+          I started looking at UK garage data because I kept noticing the same thing. Owners who had been in the same location for 5, 6, 7 years, with a decent customer base, good reviews on Google, a professional setup — and still losing ground year on year. Not to bad service. To silence.
+        </p>
+
+        <p>
+          A customer brings their car in for three years running. Then one year, nothing. The garage doesn't notice straight away — there are cars to turn around, phones to answer. But that customer has gone somewhere else. Probably not because they had a bad experience. Because nobody sent a reminder.
+        </p>
+
+        <p>
+          Every garage management system has a reminder function. Most garage owners I've spoken to tried it once, got a batch of angry texts back from wrong numbers, and turned it off. The problem wasn't the idea of reminders. It was that the tool fired blind — no check on whether the MOT had already been renewed elsewhere, no validation on the numbers, no approval step before it went out.
+        </p>
+
+        <p>
+          That's what I built Corviz to fix. One thing only: a reminder engine that doesn't fire blind.
+        </p>
+
+        <p>
+          Every reminder is cross-checked against the DVLA MOT database before it goes out. If a customer has already renewed their MOT somewhere else since their last visit to you, we catch it before the reminder reaches their phone. If the MOT date in your system doesn't match what DVLA holds, you're shown the disagreement and decide what to do. Nothing fires without you seeing it first.
+        </p>
+
+        <h2>Why it costs £99 and not £9</h2>
+
+        <p>
+          The £99 is not software access. It's my time.
+        </p>
+
+        <p>
+          I personally review your customer list before anything goes out. I cross-check it against DVLA. I send you a walkthrough video tailored to your specific garage management system within 24 hours of you uploading your data. I'm on WhatsApp for the full 90 days. I write you a full review at day 30, day 60, and day 90 with the actual numbers from your dashboard.
+        </p>
+
+        <p>
+          You couldn't buy that as a managed service for £99 anywhere. The reason I can offer it at this price is that I'm doing it for 10 garages in the first cohort, not 1,000. That's the constraint.
+        </p>
+
+        <p>
+          The product itself — the automated reminders, the DVLA cross-check, the dashboard — that runs without me after the pilot. But the pilot is the part where I make sure it's set up correctly for your specific situation, your data, your customers. That's worth doing properly.
+        </p>
+
+        <h2>Why there are only 10 founding spots</h2>
+
+        <p>
+          I can only do this well for a small number of garages at once. Concierge means something. If I took 50 garages in the first cohort, I couldn't give each one a personal walkthrough video, a real WhatsApp relationship, and a written review at day 30, 60, and 90. I could send bulk emails and call it concierge. I'm not doing that.
+        </p>
+
+        <p>
+          The first 10 garages get a locked rate of £39 a month for life. That rate never rises for them, regardless of what the standard rate does. In exchange, they're getting something that doesn't exist yet at full scale — direct founder access for 90 days, with a guarantee on the outcome.
+        </p>
+
+        <p>
+          When those 10 are gone, they're gone. The founding member rate closes. Standard pricing is £79 a month.
+        </p>
+
+        <div class="letter-sign">
+          <p>Thanks for reading.</p>
+          <p><strong>Jack</strong><br>Founder, Corviz<br>South Queensferry, Edinburgh</p>
+          <p style="margin-top:12px; font-size:0.875rem; color: var(--gray-mid);">
+            Questions before you decide? Email <a href="mailto:jack@getcorviz.com" style="color: var(--amber);">jack@getcorviz.com</a> — I answer every one.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── 72-hour timeline ── -->
+    <section class="section" aria-labelledby="timeline-heading">
+      <h2 id="timeline-heading" class="section-heading">What happens in the first 72 hours</h2>
+
+      <ol class="timeline" aria-label="Onboarding timeline">
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-dot-label">Sign<br>up</span>
+          </div>
+          <div class="timeline-content">
+            <strong>You sign up and pay £99</strong>
+            <p>Immediately: welcome email arrives with the intake form and my WhatsApp number. Message me "Hi" so I've got your number saved.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-dot-label">Hr<br>1–2</span>
+          </div>
+          <div class="timeline-content">
+            <strong>Fill in the intake form</strong>
+            <p>5 minutes. Garage name, number of customers, which system you use (MAM, GA4, Autowork Online, or other). That's all I need to get started.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-dot-label">Hr<br>2–6</span>
+          </div>
+          <div class="timeline-content">
+            <strong>Export your customer CSV</strong>
+            <p>I send you a short walkthrough video — 90 seconds, specific to your system. You export the list and upload it to your dashboard. Takes under 10 minutes.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-dot-label">Hr<br>6–24</span>
+          </div>
+          <div class="timeline-content">
+            <strong>I review your list and cross-check against DVLA</strong>
+            <p>Within 24 hours of receiving your data, I send you a personal Loom walkthrough of your list — what I found, what I flagged, what I'd recommend for the first batch.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-dot-label">Hr<br>24–48</span>
+          </div>
+          <div class="timeline-content">
+            <strong>You approve the first batch</strong>
+            <p>You see exactly who gets a reminder, exactly what it says, and exactly when. Edit it, remove names, or approve it as-is. Nothing fires until you say so.</p>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            <span class="timeline-dot-label">Hr<br>48–72</span>
+          </div>
+          <div class="timeline-content">
+            <strong>First reminders fire</strong>
+            <p>Customers start receiving their reminders. Replies come back to your number — bookings, questions, "already done it." You see all of it in the dashboard. The first results are usually visible the same day.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── Pilot card ── -->
+    <section class="section" id="pilot-offer" aria-labelledby="pilot-heading">
+      <div class="pilot-card">
+
+        <p class="pilot-card-eyebrow">Founding Member Pilot</p>
+        <h2 id="pilot-heading">90-Day Concierge Pilot</h2>
+        <p class="pilot-card-subhead">Limited to the first 10 garages. Personally onboarded by Jack.</p>
+
+        <div class="price-row">
+          <span class="price-big" aria-label="£99">£99</span>
+          <span class="price-note">one-time payment</span>
+        </div>
+        <p class="price-subline">Covers the full 90-day pilot. No auto-renewal. No subscription unless you choose one.</p>
+
+        <ul class="feature-list" aria-label="What's included">
+          <li class="feature-item">
+            <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Personal DVLA cross-check of your customer list before anything fires
+          </li>
+          <li class="feature-item">
+            <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            First batch approval — you see every message before it goes out
+          </li>
+          <li class="feature-item">
+            <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Direct WhatsApp access to Jack for the full 90 days
+          </li>
+          <li class="feature-item">
+            <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Written reviews at day 30, 60, and 90 with your actual dashboard numbers
+          </li>
+          <li class="feature-item">
+            <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Physical welcome pack posted to your garage (first-class)
+          </li>
+          <li class="feature-item">
+            <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 13l4 4L19 7" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            10–15 minutes of your time across the full first week
+          </li>
+        </ul>
+
+        <div class="guarantee-box">
+          <strong>Your call. No forms, no disputes.</strong><br>
+          If Corviz hasn't paid for itself by day 90, tell me and I refund the £99 same day. You decide — no evidence required.
+        </div>
+
+        <a href="https://getcorviz.com/signup" class="cta-btn" aria-label="Start the 90-day pilot for £99">
+          Start my 90-day pilot — £99
+        </a>
+
+        <p class="post-cta-note">
+          Secure payment via Stripe. Questions first?
+          <a href="mailto:jack@getcorviz.com">Email Jack directly</a>.
+        </p>
+
+        <p class="after-pilot">
+          After the pilot: founding member rate £39/month for life (first 10 garages) · standard rate £79/month
+        </p>
+
+      </div>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── FAQ ── -->
+    <section class="section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading" class="section-heading">Honest answers to the real objections</h2>
+
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-1">
+            I already have reminders in my garage management system. Why isn't that enough?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="faq-answer" id="faq-1" role="region">
+            Because in practice, most of them don't work. They fire without checking whether the MOT has already been renewed elsewhere. They include numbers that haven't been validated. Owners turn them off after the first angry-text batch and never go back.
+            <br><br>
+            The idea of reminders isn't the problem. The execution is. Corviz cross-checks every reminder against DVLA before it fires, so a customer who already renewed their MOT elsewhere doesn't get a message from you. And you see the full first batch before anything goes out.
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-2">
+            What if my customers don't want texts?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="faq-answer" id="faq-2" role="region">
+            You see every message before it goes out. The first batch is yours to approve — you can edit the template, remove specific customers, or hold it entirely.
+            <br><br>
+            Every reminder includes your direct number so customers call or text you back. The opt-out rate is low when the message is relevant, specific, and comes from a garage they already know.
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-3">
+            How long does setup actually take?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="faq-answer" id="faq-3" role="region">
+            10 to 15 minutes of your time in the first week. Fill in the intake form (5 minutes), export your customer CSV using the walkthrough video I send you (5–10 minutes), approve the first batch (2 minutes). That's it. I do the rest.
+            <br><br>
+            There are no live calls, no training sessions, no weekly meetings. Everything I need from you is async — at a time that suits you.
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-4">
+            What happens to my customer data?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="faq-answer" id="faq-4" role="region">
+            Your customer list is used only to send the reminders you approve. It's not shared, sold, or used for anything else. You can export it or request deletion at any time.
+            <br><br>
+            Corviz operates under UK GDPR. You remain the data controller for your customer records. The reminders are sent on your behalf, from a number that routes back to you.
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-5">
+            What if it doesn't work?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="faq-answer" id="faq-5" role="region">
+            At the end of 90 days, you decide. If you don't believe Corviz has paid for itself, tell me and I refund the £99 the same day. No forms, no disputes. Your call.
+            <br><br>
+            One recovered MOT booking — one customer who books an £85 job they would have gone elsewhere for — and the pilot has paid for itself twice over.
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-6">
+            I'm not very technical. Will I be able to use this?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="faq-answer" id="faq-6" role="region">
+            Yes. I handle the technical side. You export a spreadsheet from your garage management system — I send you a 90-second video showing exactly how to do it in your specific system. Upload it to your dashboard. I take it from there.
+            <br><br>
+            If anything isn't clear, message me on WhatsApp. That's what the number is for.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Final CTA ── -->
+    <section class="final-cta" aria-labelledby="final-cta-heading">
+      <h2 id="final-cta-heading">Ready to run the pilot?</h2>
+      <p>
+        £99. 90 days. First reminders firing within 72 hours. Full refund if it doesn't pay for itself — your call.
+      </p>
+      <a href="https://getcorviz.com/signup" class="final-cta-btn" aria-label="Start the 90-day pilot for £99">
+        Start my 90-day pilot — £99
+      </a>
+      <p class="final-cta-sub">
+        Questions first? <a href="mailto:jack@getcorviz.com" style="color: var(--amber);">Email Jack</a>. I answer every one.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; 2025 Corviz &nbsp;·&nbsp;
+      <a href="https://getcorviz.com">getcorviz.com</a> &nbsp;·&nbsp;
+      <a href="https://getcorviz.com/privacy">Privacy</a>
+    </p>
+  </footer>
+
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(function(i) {
+          i.classList.remove('open');
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're in — Welcome to Corviz</title>
+  <meta name="description" content="Welcome to your 90-day Corviz pilot. Here's what happens next.">
+  <link rel="canonical" href="https://getcorviz.com/thankyou">
+  <!-- No index — post-payment page should not appear in search results -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://getcorviz.com/#organisation",
+    "name": "Corviz",
+    "url": "https://getcorviz.com"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0F1C2E;
+      --navy-mid: #1E3A5F;
+      --gray-dark: #374151;
+      --gray-mid: #6B7280;
+      --gray-light: #E5E7EB;
+      --gray-subtle: #F9FAFB;
+      --amber: #B45309;
+      --amber-dark: #92400E;
+      --amber-light: #D97706;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+      --green-bg: #ECFDF5;
+      --green-border: #6EE7B7;
+      --green-text: #065F46;
+      --green-dark: #047857;
+      --bg: #FAFAF7;
+      --white: #FFFFFF;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--navy);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray-light);
+      background: var(--white);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--amber); }
+
+    /* ── Layout ── */
+    main {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── Confirmation hero ── */
+    .confirm-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .confirm-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--green-bg);
+      border: 2px solid var(--green-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .confirm-hero h1 {
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .member-badge {
+      display: inline-block;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--amber);
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      margin-bottom: 20px;
+      letter-spacing: 0.01em;
+    }
+
+    .confirm-sub {
+      font-size: 1.0625rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 52px;
+    }
+
+    .section-heading {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--gray-light);
+      margin: 0 0 52px;
+    }
+
+    /* ── Video ── */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: var(--navy);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .video-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .video-play-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .video-caption {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+      text-align: center;
+    }
+
+    /* ── WhatsApp CTA ── */
+    .whatsapp-card {
+      background: #F0FDF4;
+      border: 1.5px solid #86EFAC;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .whatsapp-icon-wrap {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: #22C55E;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .whatsapp-body h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .whatsapp-body p {
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #16A34A;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+      min-height: 44px;
+    }
+
+    .whatsapp-btn:hover { background: #15803D; }
+
+    .whatsapp-btn:focus-visible {
+      outline: 3px solid #16A34A;
+      outline-offset: 3px;
+    }
+
+    /* ── What happens next timeline ── */
+    .next-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--gray-light);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .next-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .next-item:last-child {
+      border-bottom: none;
+    }
+
+    .next-step-badge {
+      flex-shrink: 0;
+      min-width: 56px;
+      padding: 4px 8px;
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--amber);
+      text-align: center;
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .next-item-body strong {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .next-item-body p {
+      font-size: 0.875rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+    }
+
+    /* ── Intake form ── */
+    .intake-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(15,28,46,0.05);
+    }
+
+    .intake-card-intro {
+      font-size: 0.9375rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--navy);
+      background: var(--bg);
+      border: 1.5px solid var(--gray-light);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.15s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.6;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--amber);
+      background: var(--white);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #9CA3AF;
+    }
+
+    .intake-submit {
+      display: block;
+      width: 100%;
+      height: 52px;
+      padding: 0 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--navy);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      min-height: 44px;
+    }
+
+    .intake-submit:hover { background: var(--navy-mid); }
+
+    .intake-submit:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    .intake-success {
+      display: none;
+      text-align: center;
+      padding: 24px 16px;
+    }
+
+    .intake-success.visible { display: block; }
+
+    .intake-success p {
+      font-size: 0.9375rem;
+      color: var(--green-dark);
+      font-weight: 500;
+    }
+
+    /* ── Refund section ── */
+    .refund-section {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .refund-section h2 {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .refund-section p {
+      font-size: 0.9375rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .refund-section p:last-child { margin-bottom: 0; }
+
+    .refund-section a {
+      color: var(--amber);
+      text-decoration: underline;
+    }
+
+    /* ── Jack sign-off ── */
+    .sign-off {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .jack-avatar {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--white);
+    }
+
+    .sign-off-body {
+      font-size: 0.9375rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+    }
+
+    .sign-off-body strong { color: var(--navy); }
+
+    .sign-off-body a {
+      color: var(--amber);
+      text-decoration: underline;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      margin-top: 60px;
+      padding: 24px;
+      border-top: 1px solid var(--gray-light);
+      text-align: center;
+    }
+
+    .site-footer p {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+    }
+
+    .site-footer a {
+      color: var(--gray-mid);
+      text-decoration: underline;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      main { padding: 32px 16px 60px; }
+      .intake-card { padding: 20px 16px; }
+      .whatsapp-card {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .sign-off { flex-direction: row; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home">Cor<span>viz</span></a>
+  </header>
+
+  <main>
+
+    <!-- ── Confirmation hero ── -->
+    <div class="confirm-hero">
+      <div class="confirm-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 13l4 4L19 7" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <h1>You're in.</h1>
+
+      <!--
+        INTEGRATION NOTE:
+        Pass ?member=3 (or similar) in the Stripe success redirect URL to populate the
+        founding member number dynamically. The JS below reads it from the URL.
+        If no parameter is present, the badge reads "Founding Member".
+      -->
+      <p class="member-badge" id="member-badge" aria-live="polite">Founding Member</p>
+
+      <p class="confirm-sub">
+        Payment confirmed. Your 90-day pilot starts now. Read this page before you do anything else — it tells you exactly what happens next and what I need from you today.
+      </p>
+    </div>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── Welcome video ── -->
+    <section class="section" aria-labelledby="video-heading">
+      <h2 id="video-heading" class="section-heading">Watch this first — 3 minutes</h2>
+
+      <!--
+        INTEGRATION NOTE:
+        Replace the placeholder below with a Loom embed when recorded.
+        Use: <div style="position:relative;padding-top:56.25%">
+               <iframe src="https://www.loom.com/embed/YOUR_VIDEO_ID"
+                 title="Welcome to Corviz — Jack's 3-minute welcome video"
+                 style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                 frameborder="0" allowfullscreen></iframe>
+             </div>
+        Script covers: welcome as founding member, what happens this week,
+        how to reach Jack on WhatsApp, what the welcome pack contains.
+        Length: under 3 minutes. Recorded once, used for all customers.
+      -->
+      <figure>
+        <div class="video-wrap" aria-label="Welcome video from Jack — 3 minutes (coming soon)">
+          <div class="video-inner">
+            <div class="video-play-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M8 5l13 7-13 7V5z" fill="rgba(255,255,255,0.8)"/>
+              </svg>
+            </div>
+            <p class="video-label">Jack's welcome video — coming soon</p>
+          </div>
+        </div>
+        <figcaption class="video-caption">3 minutes. Covers everything you need to know this week.</figcaption>
+      </figure>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── WhatsApp prompt ── -->
+    <section class="section" aria-labelledby="whatsapp-heading">
+      <h2 id="whatsapp-heading" class="section-heading">Do this right now</h2>
+
+      <div class="whatsapp-card">
+        <div class="whatsapp-icon-wrap" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.522 5.859L.057 23.486a.5.5 0 00.612.612l5.628-1.465A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.003-1.37l-.358-.213-3.712.967.984-3.6-.234-.372A9.783 9.783 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+          </svg>
+        </div>
+
+        <div class="whatsapp-body">
+          <h3>Message me on WhatsApp — right now</h3>
+          <p>
+            Send me a message saying "Hi" so I've got your number saved and you've got mine. This is how we'll communicate throughout the pilot — no helpdesk, no support tickets. Just WhatsApp.
+          </p>
+          <!--
+            INTEGRATION NOTE:
+            Replace YOUR_WHATSAPP_NUMBER with Jack's WhatsApp Business number
+            in international format without + or spaces (e.g. 447700900000).
+            The link opens WhatsApp with a pre-filled "Hi" message.
+          -->
+          <a
+            href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%20Jack%2C%20I%27ve%20just%20signed%20up%20for%20the%20Corviz%20pilot."
+            class="whatsapp-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Message Jack on WhatsApp (opens in new tab)"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.522 5.859L.057 23.486a.5.5 0 00.612.612l5.628-1.465A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.003-1.37l-.358-.213-3.712.967.984-3.6-.234-.372A9.783 9.783 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+            </svg>
+            Message Jack on WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── What happens next ── -->
+    <section class="section" aria-labelledby="next-heading">
+      <h2 id="next-heading" class="section-heading">What happens next</h2>
+
+      <ol class="next-list" aria-label="What to expect this week">
+        <li class="next-item">
+          <span class="next-step-badge" aria-label="Today">Today</span>
+          <div class="next-item-body">
+            <strong>Fill in the intake form below</strong>
+            <p>Three questions — takes 2 minutes. Tells me which system you use and roughly how many customers I'm working with. This is what I need to send you the right CSV walkthrough video.</p>
+          </div>
+        </li>
+
+        <li class="next-item">
+          <span class="next-step-badge" aria-label="Within 24 hours">24 hrs</span>
+          <div class="next-item-body">
+            <strong>I send you a walkthrough video</strong>
+            <p>A short Loom video — 90 seconds — showing exactly how to export your customer list from your specific system. You'll also receive a link to upload it to your Corviz dashboard.</p>
+          </div>
+        </li>
+
+        <li class="next-item">
+          <span class="next-step-badge" aria-label="Within 48 hours">48 hrs</span>
+          <div class="next-item-body">
+            <strong>You upload your customer CSV</strong>
+            <p>Takes under 10 minutes. I cross-check it against the DVLA MOT database and send you a personal Loom walkthrough of what I found — any date disagreements flagged, any customers who've already renewed elsewhere caught before they reach their phone.</p>
+          </div>
+        </li>
+
+        <li class="next-item">
+          <span class="next-step-badge" aria-label="Within 72 hours">72 hrs</span>
+          <div class="next-item-body">
+            <strong>You approve the first batch — reminders fire</strong>
+            <p>You see every message, to whom, and when. Edit it, remove names, or approve it as-is. The first replies usually come in the same day. Some will book. Some will say they've already done it — that's useful data too.</p>
+          </div>
+        </li>
+
+        <li class="next-item">
+          <span class="next-step-badge" aria-label="In a few days">Post</span>
+          <div class="next-item-body">
+            <strong>Your welcome pack arrives</strong>
+            <p>A padded envelope, first class. Inside: a handwritten card from me and your printed First 90 Days one-pager — the map for the whole pilot. Pin it somewhere you'll see it.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── Intake form ── -->
+    <section class="section" aria-labelledby="intake-heading">
+      <h2 id="intake-heading" class="section-heading">Intake form — 3 questions</h2>
+
+      <div class="intake-card">
+        <p class="intake-card-intro">
+          This is what I need before I can send your CSV walkthrough video. Fill it in now while you're here — takes about 2 minutes.
+        </p>
+
+        <!--
+          INTEGRATION NOTE:
+          Replace the form action with your form handler endpoint.
+          Options: Formspree, Netlify Forms, your own API route, or a Zapier webhook.
+          On submission, trigger: (a) a notification to Jack, and (b) welcome email 2
+          in the sequence (the CSV walkthrough email).
+        -->
+        <form id="intake-form" action="YOUR_FORM_HANDLER_ENDPOINT" method="POST" novalidate>
+
+          <div class="form-group">
+            <label for="garage-system">
+              Which garage management system do you use?
+            </label>
+            <select id="garage-system" name="garage_system" required>
+              <option value="" disabled selected>Select your system</option>
+              <option value="mam">MAM Software</option>
+              <option value="ga4">GA4</option>
+              <option value="autowork">Autowork Online</option>
+              <option value="hbs">HBS</option>
+              <option value="other">Other (tell me below)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="customer-count">
+              Roughly how many customers are on your books?
+            </label>
+            <select id="customer-count" name="customer_count" required>
+              <option value="" disabled selected>Select a range</option>
+              <option value="under-300">Under 300</option>
+              <option value="300-500">300 – 500</option>
+              <option value="500-750">500 – 750</option>
+              <option value="750-1000">750 – 1,000</option>
+              <option value="1000-1500">1,000 – 1,500</option>
+              <option value="over-1500">Over 1,500</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="anything-else">
+              Anything I should know about your garage or your customer list?
+            </label>
+            <textarea
+              id="anything-else"
+              name="anything_else"
+              placeholder="e.g. We do a mix of MOTs and tyres, some customers are fleets. We use a different system for fleet accounts."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="intake-submit" id="intake-submit-btn">
+            Send intake form
+          </button>
+
+        </form>
+
+        <div class="intake-success" id="intake-success" role="status" aria-live="polite">
+          <p>
+            ✓ &nbsp;Got it — I'll send your CSV walkthrough video within 24 hours. Keep an eye on your inbox.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── What if you change your mind ── -->
+    <section class="section" aria-labelledby="refund-heading">
+      <div class="refund-section">
+        <h2 id="refund-heading">What if you change your mind?</h2>
+        <p>
+          The guarantee is real. At the end of 90 days, if you don't believe Corviz has paid for itself, tell me and I refund the £99 the same day. No forms, no disputes. Your call.
+        </p>
+        <p>
+          If something comes up before day 90 — a change of circumstances, a sale, anything — email me at <a href="mailto:jack@getcorviz.com">jack@getcorviz.com</a> and we'll sort it out. I'm not going to make this difficult for you.
+        </p>
+        <p>
+          The goal of the pilot is to make it worth continuing. If it isn't, I'd rather know that and learn from it than keep money I haven't earned.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Jack sign-off ── -->
+    <div class="sign-off">
+      <div class="jack-avatar" aria-hidden="true">J</div>
+      <div class="sign-off-body">
+        <strong>Jack</strong><br>
+        Founder, Corviz · South Queensferry, Edinburgh<br>
+        <a href="mailto:jack@getcorviz.com">jack@getcorviz.com</a><br>
+        <br>
+        I answer every message myself. Welcome to the pilot.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; 2025 Corviz &nbsp;·&nbsp;
+      <a href="https://getcorviz.com">getcorviz.com</a> &nbsp;·&nbsp;
+      <a href="https://getcorviz.com/privacy">Privacy</a>
+    </p>
+  </footer>
+
+  <script>
+    // Populate founding member number from URL parameter
+    // Usage: /thankyou?member=3 → "Founding Member #3 of 10"
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var member = params.get('member');
+      var badge = document.getElementById('member-badge');
+      if (member && /^\d+$/.test(member)) {
+        badge.textContent = 'Founding Member #' + member + ' of 10';
+      }
+    })();
+
+    // Intake form async submit
+    var intakeForm = document.getElementById('intake-form');
+    var intakeBtn = document.getElementById('intake-submit-btn');
+    var intakeSuccess = document.getElementById('intake-success');
+
+    intakeForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      var system = document.getElementById('garage-system').value;
+      var count = document.getElementById('customer-count').value;
+      if (!system || !count) return;
+
+      intakeBtn.textContent = 'Sending…';
+      intakeBtn.disabled = true;
+
+      try {
+        var formData = new FormData(intakeForm);
+        await fetch(intakeForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+      } catch(err) {
+        // Show success regardless — the submission likely went through
+      }
+
+      intakeForm.style.display = 'none';
+      intakeSuccess.classList.add('visible');
+    });
+  </script>
+
+</body>
+</html>

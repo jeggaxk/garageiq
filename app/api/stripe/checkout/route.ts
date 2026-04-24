@@ -14,7 +14,6 @@ export async function POST(request: Request) {
   if (!plan || !(plan in PLANS)) {
     return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
   }
-  const isAnnual = billing === 'annual'
 
   const { data: garage } = await supabase
     .from('garages')
@@ -26,9 +25,7 @@ export async function POST(request: Request) {
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
-  // Reuse existing Stripe customer or create one
   let stripeCustomerId = garage.stripe_customer_id
-
   if (!stripeCustomerId) {
     const customer = await stripe.customers.create({
       email: user.email!,
@@ -36,7 +33,6 @@ export async function POST(request: Request) {
       metadata: { garage_id: garage.id, owner_id: user.id },
     })
     stripeCustomerId = customer.id
-
     await supabase
       .from('garages')
       .update({ stripe_customer_id: stripeCustomerId })
@@ -44,25 +40,34 @@ export async function POST(request: Request) {
   }
 
   const planConfig = PLANS[plan as keyof typeof PLANS]
-  const priceId = isAnnual ? planConfig.annualPriceId : planConfig.priceId
+
+  // Pilot is a one-time £99 payment — activates the 90-day period
+  if (plan === 'pilot') {
+    const session = await stripe.checkout.sessions.create({
+      customer: stripeCustomerId,
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [{ price: planConfig.priceId, quantity: 1 }],
+      success_url: `${appUrl}/dashboard?pilot=started`,
+      cancel_url: `${appUrl}/signup`,
+      metadata: { garage_id: garage.id, plan: 'pilot' },
+    })
+    return NextResponse.json({ url: session.url })
+  }
+
+  // Recurring subscriptions (founding, solo, pro)
+  const isAnnual = billing === 'annual'
+  const priceId = planConfig.priceId
 
   const session = await stripe.checkout.sessions.create({
     customer: stripeCustomerId,
     mode: 'subscription',
     payment_method_types: ['card'],
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
+    line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${appUrl}/settings?upgraded=true`,
     cancel_url: `${appUrl}/settings`,
     subscription_data: {
       metadata: { garage_id: garage.id },
-      trial_end: garage.trial_ends_at
-        ? Math.floor(new Date(garage.trial_ends_at).getTime() / 1000)
-        : undefined,
     },
     metadata: { garage_id: garage.id, plan },
   })

@@ -16,7 +16,6 @@ export async function POST(request: Request) {
 
   let userId: string
 
-  // Try to create the user
   const { data: userData, error: createError } = await adminClient.auth.admin.createUser({
     email,
     password,
@@ -24,7 +23,6 @@ export async function POST(request: Request) {
   })
 
   if (createError) {
-    // If user already exists from a previous failed attempt, find and update them
     if (createError.message?.toLowerCase().includes('already registered') || createError.message?.toLowerCase().includes('already been registered')) {
       const { data: existingUsers } = await adminClient.auth.admin.listUsers()
       const existingUser = existingUsers?.users?.find((u) => u.email === email)
@@ -33,7 +31,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: createError.message }, { status: 400 })
       }
 
-      // Confirm their email and update password in case it changed
       const { data: updatedUser, error: updateError } = await adminClient.auth.admin.updateUserById(
         existingUser.id,
         { email_confirm: true, password }
@@ -53,7 +50,6 @@ export async function POST(request: Request) {
     userId = userData.user.id
   }
 
-  // Check if garage already exists for this user
   const { data: existingGarage } = await adminClient
     .from('garages')
     .select('id')
@@ -67,7 +63,7 @@ export async function POST(request: Request) {
       owner_name: ownerName || null,
       email,
       phone: phone || null,
-      plan: 'trial',
+      plan: 'pilot',
     })
 
     if (garageError) {
@@ -75,32 +71,32 @@ export async function POST(request: Request) {
     }
   }
 
-  // Send welcome email (non-blocking — don't fail signup if this errors)
+  // Welcome email — sent before payment, so keep it brief
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://getcorviz.com'
   sendEmail({
     to: email,
-    subject: `Welcome to Corviz, ${ownerName || garageName}!`,
+    subject: `Almost there, ${ownerName || garageName} — one step left`,
     text: `Hi ${ownerName || 'there'},
 
-Welcome to Corviz — you're all set!
+Your Corviz account is set up. Complete your payment on the next screen to activate your 90-day pilot.
 
-Your 60-day free trial has started. Here's how to get the most out of it:
+Once active, here's how to get going:
 
-1. Add your customers — upload a CSV export from your existing system, or add them manually.
+1. Import your customers — upload a CSV from your garage system, or add them manually.
    ${appUrl}/customers
 
-2. Turn on your automations — MOT reminders, service follow-ups, and win-back messages run on autopilot once enabled.
+2. Turn on automations — MOT reminders, service follow-ups, and win-back messages run on autopilot.
    ${appUrl}/automations
 
-3. Customise your message templates — make the messages sound like they come from your garage.
-   ${appUrl}/messages
+3. Fill in your garage details — your name, phone number, and Google review link go into every message.
+   ${appUrl}/settings
 
 Most garages are up and running within 10 minutes.
 
-If you have any questions just reply to this email.
+Any questions — just reply to this email.
 
 The Corviz team`,
-  }).catch(() => {}) // fire and forget
+  }).catch(() => {})
 
   return NextResponse.json({ success: true })
 }

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refund Confirmed | Corviz</title>
+  <meta name="description" content="Your Corviz refund has been processed. Thank you for trying the pilot.">
+  <link rel="canonical" href="https://getcorviz.com/refund-confirmed">
+  <meta name="robots" content="noindex, nofollow">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://getcorviz.com/#organisation",
+    "name": "Corviz",
+    "url": "https://getcorviz.com"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0F1C2E;
+      --navy-mid: #1E3A5F;
+      --gray-dark: #374151;
+      --gray-mid: #6B7280;
+      --gray-light: #E5E7EB;
+      --gray-subtle: #F9FAFB;
+      --amber: #B45309;
+      --amber-dark: #92400E;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+      --blue-bg: #EFF6FF;
+      --blue-border: #BFDBFE;
+      --blue-text: #1E40AF;
+      --bg: #FAFAF7;
+      --white: #FFFFFF;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      padding: 20px 24px;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-light);
+      background: var(--white);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--amber); }
+
+    /* ── Layout ── */
+    main {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 52px 24px 72px;
+    }
+
+    /* ── Confirmation block ── */
+    .confirm-block {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .confirm-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--blue-bg);
+      border: 2px solid var(--blue-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .confirm-block h1 {
+      font-size: clamp(1.625rem, 5vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .confirm-block p {
+      font-size: 1rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* ── Refund detail strip ── */
+    .refund-strip {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 0.9375rem;
+      color: var(--blue-text);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .refund-strip strong {
+      color: var(--navy);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--gray-light);
+      margin: 0 0 48px;
+    }
+
+    /* ── Prose section ── */
+    .prose {
+      font-size: 1rem;
+      color: var(--gray-dark);
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    .prose p {
+      margin-bottom: 16px;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* ── Feedback section ── */
+    .section-heading {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 0.9375rem;
+      color: var(--gray-mid);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .feedback-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 48px;
+    }
+
+    .question-block {
+      margin-bottom: 22px;
+    }
+
+    .question-block:last-of-type {
+      margin-bottom: 28px;
+    }
+
+    .question-block label {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .question-hint {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .question-block textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--navy);
+      background: var(--bg);
+      border: 1.5px solid var(--gray-light);
+      border-radius: 8px;
+      outline: none;
+      resize: vertical;
+      min-height: 88px;
+      line-height: 1.6;
+      transition: border-color 0.15s ease;
+    }
+
+    .question-block textarea:focus {
+      border-color: var(--amber);
+      background: var(--white);
+    }
+
+    .question-block textarea::placeholder {
+      color: #9CA3AF;
+    }
+
+    .feedback-submit {
+      display: block;
+      width: 100%;
+      height: 52px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      min-height: 44px;
+    }
+
+    .feedback-submit:hover { background: var(--navy-mid); }
+
+    .feedback-submit:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    .feedback-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .skip-link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      font-size: 0.875rem;
+      color: var(--gray-mid);
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      padding: 4px;
+      font-family: inherit;
+    }
+
+    .skip-link:hover { color: var(--navy); }
+
+    .skip-link:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ── Feedback success ── */
+    .feedback-success {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .feedback-success.visible { display: block; }
+
+    .feedback-success p {
+      font-size: 0.9375rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+    }
+
+    .feedback-success strong { color: var(--navy); }
+
+    /* ── Data note ── */
+    .data-note {
+      background: var(--gray-subtle);
+      border: 1px solid var(--gray-light);
+      border-radius: 10px;
+      padding: 18px 20px;
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      line-height: 1.65;
+      margin-bottom: 48px;
+    }
+
+    .data-note strong { color: var(--navy); }
+
+    .data-note a {
+      color: var(--amber);
+      text-decoration: underline;
+    }
+
+    /* ── Sign-off ── */
+    .sign-off {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .jack-avatar {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--white);
+    }
+
+    .sign-off-body {
+      font-size: 0.9375rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+    }
+
+    .sign-off-body strong { color: var(--navy); }
+
+    .sign-off-body a {
+      color: var(--amber);
+      text-decoration: underline;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      margin-top: 60px;
+      padding: 20px 24px;
+      border-top: 1px solid var(--gray-light);
+      text-align: center;
+    }
+
+    .site-footer p {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+    }
+
+    .site-footer a {
+      color: var(--gray-mid);
+      text-decoration: underline;
+    }
+
+    .site-footer a:hover { color: var(--navy); }
+
+    @media (max-width: 480px) {
+      main { padding: 36px 16px 56px; }
+      .feedback-card { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="https://getcorviz.com" class="logo" aria-label="Corviz — back to main site">Cor<span>viz</span></a>
+  </header>
+
+  <main>
+
+    <!-- ── Confirmation ── -->
+    <div class="confirm-block">
+      <div class="confirm-icon" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="#1D4ED8"/>
+        </svg>
+      </div>
+      <h1>Refund confirmed.</h1>
+      <p>
+        £99 back in your account within 3 to 5 working days, depending on your bank. No forms, no questions — as promised.
+      </p>
+    </div>
+
+    <div class="refund-strip" role="note">
+      <strong>What to expect:</strong> The refund appears on your statement as a Corviz or Stripe payment reversal. If it hasn't arrived after 5 working days, email <a href="mailto:jack@getcorviz.com" style="color: var(--blue-text);">jack@getcorviz.com</a> and I'll chase it.
+    </div>
+
+    <!-- ── Note from Jack ── -->
+    <div class="prose">
+      <p>
+        No hard feelings. The pilot was designed to be risk-free and that means honouring the refund when it's asked for, without making it difficult.
+      </p>
+      <p>
+        If the timing was wrong, or something came up, or it just wasn't the right fit — that's a legitimate outcome. I'd rather know about it than not.
+      </p>
+      <p>
+        One favour, if you're willing: three honest questions below. You don't have to answer all of them. Even one answer helps me understand what to fix.
+      </p>
+    </div>
+
+    <hr class="divider" aria-hidden="true">
+
+    <!-- ── Feedback form ── -->
+    <section aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading" class="section-heading">Three questions — all optional</h2>
+      <p class="section-sub">No agenda. I'm not going to try to sell you back in. I want to understand what didn't work.</p>
+
+      <div class="feedback-card">
+        <div id="feedback-body">
+
+          <!--
+            INTEGRATION NOTE:
+            Replace form action with your form handler (Formspree, Netlify Forms, or API route).
+            Responses should notify Jack directly — these are high-value inputs.
+          -->
+          <form
+            id="feedback-form"
+            action="YOUR_FORM_HANDLER_ENDPOINT"
+            method="POST"
+            novalidate
+          >
+            <input type="hidden" name="type" value="refund-feedback">
+
+            <div class="question-block">
+              <label for="q1">What didn't work?</label>
+              <p class="question-hint">Was it the reminders themselves, the data quality, the timing, the setup — or something else?</p>
+              <textarea
+                id="q1"
+                name="q1_what_didnt_work"
+                placeholder="Anything that comes to mind…"
+              ></textarea>
+            </div>
+
+            <div class="question-block">
+              <label for="q2">Was there a moment you decided it wasn't going to work out?</label>
+              <p class="question-hint">If so, when was it — and what happened?</p>
+              <textarea
+                id="q2"
+                name="q2_decision_moment"
+                placeholder="e.g. Day 3, when the first batch came back with fewer bookings than I expected."
+              ></textarea>
+            </div>
+
+            <div class="question-block">
+              <label for="q3">Is there anything I could have done differently?</label>
+              <p class="question-hint">Onboarding, the first batch, the check-ins, the product — anything.</p>
+              <textarea
+                id="q3"
+                name="q3_could_have_done"
+                placeholder="Be direct — it's genuinely useful."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="feedback-submit" id="feedback-btn">
+              Send feedback
+            </button>
+          </form>
+
+          <button class="skip-link" id="skip-btn" type="button">
+            Skip — no feedback to give
+          </button>
+
+        </div>
+
+        <div class="feedback-success" id="feedback-success" role="status" aria-live="polite">
+          <p><strong>Thank you.</strong> That's genuinely useful. I'll read it and take it seriously.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Data note ── -->
+    <div class="data-note" role="note">
+      <strong>Your customer data:</strong> It has been deleted from the Corviz system. If you'd like a copy of your exported customer list before it's gone, email <a href="mailto:jack@getcorviz.com">jack@getcorviz.com</a> and I'll send it over.
+    </div>
+
+    <!-- ── Sign-off ── -->
+    <div class="sign-off">
+      <div class="jack-avatar" aria-hidden="true">J</div>
+      <div class="sign-off-body">
+        <strong>Jack</strong><br>
+        Founder, Corviz · South Queensferry, Edinburgh<br>
+        <a href="mailto:jack@getcorviz.com">jack@getcorviz.com</a>
+        <br><br>
+        If circumstances change, the pilot is still at <a href="https://getcorviz.com">getcorviz.com</a>. The door stays open.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; 2025 Corviz &nbsp;·&nbsp;
+      <a href="https://getcorviz.com">getcorviz.com</a>
+    </p>
+  </footer>
+
+  <script>
+    var feedbackForm = document.getElementById('feedback-form');
+    var feedbackBtn = document.getElementById('feedback-btn');
+    var skipBtn = document.getElementById('skip-btn');
+    var feedbackBody = document.getElementById('feedback-body');
+    var feedbackSuccess = document.getElementById('feedback-success');
+
+    function showSuccess() {
+      feedbackBody.style.display = 'none';
+      feedbackSuccess.classList.add('visible');
+    }
+
+    feedbackForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      feedbackBtn.textContent = 'Sending…';
+      feedbackBtn.disabled = true;
+
+      try {
+        await fetch(feedbackForm.action, {
+          method: 'POST',
+          body: new FormData(feedbackForm),
+          headers: { 'Accept': 'application/json' }
+        });
+      } catch(err) {
+        // Show success regardless
+      }
+
+      showSuccess();
+    });
+
+    skipBtn.addEventListener('click', function() {
+      showSuccess();
+    });
+  </script>
+
+</body>
+</html>

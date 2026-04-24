@@ -1,0 +1,241 @@
+
+CORVIZ STRATEGY BRIEF — PLAN 1
+Prepared for: Marketing agent handoff
+Date of brief: [Insert date when you hand this off]
+Plan horizon: 90 days from handoff date
+Founder: Jack, based in South Queensferry, Edinburgh
+Product: Corviz — automated customer retention tool for independent UK MOT and service garages
+URL: getcorviz.com
+
+1. MARKET AND SUB-NICHE
+Proven mass market: The UK independent garage market. 30,000+ independent garages operating across the UK, the majority of which do MOT testing and general servicing. A mature, proven market with clear existing demand for retention tooling — not a category that needs to be invented.
+Sub-niche to own: Small independent MOT + servicing garages (2-4 staff, single-site, owner-operator led), 3-7 years into current ownership, growth-minded. Conservatively 15,000-20,000 UK garages fit this profile. This is the sub-niche Corviz will aim to own before expanding to any adjacent or broader market.
+Why this sub-niche: The 12-month MOT cycle provides a predictable, legally-mandated rhythm that Corviz's reminder engine is built around. The DVLA MOT history API provides a verifiable data backbone for MOT expiry dates, which is the most important single data point in the product. The economic case (one recovered MOT pays for four months of Corviz) is trivially provable. The competitive gap is real — existing garage management systems have weak bundled reminder functionality that owners have given up on, which is a much stronger competitive position than creating demand in a segment where the category does not yet exist.
+
+2. EXACT CUSTOMER DEFINITION
+The Corviz avatar, in specific detail:
+An owner-operator of a 2-4 person independent garage that does MOT testing and servicing, based in the UK, 3-7 years into running their current business. They have 300-1,500 customers on their books stored in a basic garage management system (MAM, GA4, Autowork Online, or HBS) whose reminder functionality they have largely given up on. They see customers slipping away year on year and it frustrates them. They are actively trying to grow the business and have spent money before on things like Google presence, signage, and marketing. They are comfortable with monthly subscription costs and have a professional identity that extends beyond the workshop — they might run an Instagram for the business, attend local trade events, or be active in garage owner Facebook groups. They make buying decisions alone, quickly, and based on whether the person selling to them seems genuine and competent. They have 10-20 minutes of engagement available for onboarding in the first week if it is easy and the next step is always clear.
+Physical picture: Tidy reception area. Google Reviews sticker on the door. Facebook handle on the website. Well-kept forecourt. Professional but not corporate.
+Who Corviz is explicitly not for (say no to these):
+
+Solo owner-operators with under 300 customers
+Mid-sized operations of 5+ staff (already served by garage management system features)
+Multi-site or franchise operations (different buying process, different needs)
+Specialist workshops (bodywork, performance, diagnostics-only) — different customer cycles
+Fast-fit, tyres, exhausts, batteries — transactional rather than relationship-driven
+
+Operational rule: Turn away prospects who do not match the avatar, politely and warmly, even when they are ready to pay. The purity of the first 10 founding members matters more than the revenue.
+
+3. TIER AND POSITIONING
+Tier: Premium-but-accessible. Corviz is positioned as the best-in-class retention tool for the defined avatar — not the cheapest, not the most feature-rich, not the most flexible. The most trusted, the most personal, and the most aligned with how small independent MOT garages actually run.
+Brand attributes:
+
+Founder-led, not faceless
+Plain-spoken and direct, never corporate or apologetic
+Trade-appropriate, not Silicon Valley
+Specific in language, avoiding generic business-speak
+Confident in pricing, never apologising for cost
+Refuses to be all things to all people — clarity about who it is for is part of the premium signal
+Warmth through specificity, not through softness
+
+Voice: "Hi, Jack here" — first name only, direct, plain-spoken. Warmth expressed through specific references to the avatar's reality, not through adjectives. The founder is visible throughout every touchpoint.
+
+4. PRICING ARCHITECTURE
+Concierge pilot offer: £99 one-time for a 90-day pilot including full product access plus personal founder-led onboarding, DVLA cross-check of customer list, first batch approval flow, direct WhatsApp access to Jack, weekly check-ins, and a written 90-day review.
+The "you decide" refund guarantee: If at the end of 90 days the customer does not believe Corviz has paid for itself, they get a full refund. No forms, no disputes, no evidence required. The customer decides.
+Post-pilot founding member rate: £39/month for life. First 10 founding members only. Rate locked forever — no price increases ever for founding members.
+Standard rate (customers 11+): £79/month. Will rise to £99/month in months 6-12 once case studies exist. Will rise to £129/month in year 2+.
+Annual options: Founding members offered £390/year (10 months at £39 with 2 months free) as an explicit upgrade at day 75 of pilot. Standard customers offered £790/year equivalent. Annual pricing is never an auto-renewal default — it is always an opt-in choice made by the customer.
+The core pricing principle: Corviz competes on value and trust, never on price. Any prospect who says "too expensive" is having a value conversation, not a price conversation, and the answer is never a discount.
+What is explicitly not on the pricing roadmap: Pro tiers, Multi-site tiers, starter plans, free-forever plans, freemium entry. Do not let the marketing agent or product roadmap drift back toward these.
+
+5. PRODUCT READINESS STATUS
+Status: Not yet ready to scale. In active remediation.
+What is being built during Plan 1 (days 1-60):
+Data reliability features:
+
+DVLA MOT history API integration. Every reminder is cross-checked against DVLA MOT history records before sending. Specifically, this achieves three things: (1) it verifies that the MOT expiry date in the garage's CSV matches DVLA records, flagging any disagreements for owner review; (2) it catches customers who have already renewed their MOT elsewhere since their last visit to the garage, so those customers are excluded from reminders; (3) it confirms that the vehicle is still active (not SORNed, exported, or scrapped), so reminders only go to current, road-going vehicles.
+Phone number handling. Two layers of protection. First, format validation on CSV import catches typos, malformed numbers, and obviously invalid entries before they enter the system. Second, first-send delivery monitoring via TextMagic flags any reminders that fail to deliver (dead numbers, network issues, reassigned numbers) and surfaces them in the dashboard for owner review. HLR lookups for active-status verification are on the roadmap but not in scope for Plan 1.
+CSV upload with validation report. On-screen summary showing total customers imported, valid numbers, malformed numbers, duplicates removed, MOT dates in the next 28 days, and any DVLA flags requiring owner resolution.
+First batch preview and approval flow. No reminders fire without explicit owner approval of the first batch. Owner sees the exact messages, to whom, and at what time, and can edit the template or approve with one click. After the first batch, daily preview emails summarise upcoming sends.
+
+Attribution and learning features:
+
+"Log a booking" button per customer. When a customer calls, walks in, or books online and mentions a Corviz reminder, the owner taps one button to log the booking against that customer. Tracks date sent, date booked, and service type.
+Dashboard widget showing total bookings and estimated revenue. Owner sets an average job value once in settings; the widget displays running totals throughout the pilot as proof of ROI.
+
+Async onboarding assets:
+
+Welcome video (3 minutes, generic, used for every customer)
+CSV export tutorial videos for the top three garage management systems used by the avatar (90 seconds each)
+Loom review template for the personal post-CSV-upload walkthrough video
+Email templates for the full welcome sequence (welcome, CSV review delivery, first batch confirmation, weekly results, day 30 review, day 60 case study request, day 90 decision point)
+WhatsApp message templates for day 1, day 3, day 7, day 14, day 30, day 60, day 90 check-ins
+Physical welcome pack (handwritten card, branded pen, printed "First 90 Days" one-pager, padded envelope)
+
+What the marketing agent needs to know: The product is being built in parallel with marketing work. Marketing copy can assume these capabilities exist as of pilot launch (day 45-60), but all marketing is currently speaking to a pre-proof product. The guarantee and risk-reversal mechanics are doing the heavy lifting in the absence of case studies.
+What marketing should describe accurately (not overclaim):
+When the marketing agent writes about Corviz's data reliability features, they should be specific. Accurate phrasing includes:
+
+"Every reminder is cross-checked against DVLA before sending — if the MOT's already been renewed elsewhere, we catch it."
+"Jack reviews your customer list personally before anything goes out. Any date disagreements with DVLA are flagged for your confirmation."
+"Phone numbers are validated before sending. If any fail to deliver, they're flagged in your dashboard."
+
+Inaccurate phrasing to avoid:
+
+Generic "data reliability guaranteed" or "data verified" claims that imply more than is delivered
+Any suggestion that DVLA verifies phone numbers, addresses, or customer contact details (it does not)
+Any claim that Corviz verifies customer contact details are current (phone numbers are format-checked and delivery-monitored; they are not verified against the current owner of the number)
+
+What marketing should NOT claim until it is true:
+
+"Trusted by [X] garages" or similar volume claims
+Any specific testimonials or named customer references
+"Industry-leading" or comparable superlatives that require proof
+Specific aggregate results across a customer base that does not yet exist
+
+The marketing agent's job is to make the offer compelling on structure, guarantee, and founder credibility today, with hooks prepared for named case studies to be inserted as they emerge.
+
+6. PRIMARY CONSTRAINT
+The primary constraint is proof. Corviz has zero validated paying customers. No case study exists. No documented result is available to reference.
+Classification: Proof constraint, manifesting tactically as product readiness issues and outbound conversion weakness in the absence of social proof.
+First action to address it: Run the first paid concierge pilot to documented completion. This is the singular purpose of Plan 1. Everything else is in service of it.
+Strategic filter for every marketing decision: Does this action help secure or deliver the first successful pilot and produce a documented case study? If yes, do it. If no, defer it.
+
+7. SCALING MOVE
+Chosen move: Narrower. Execute fully against the defined avatar. Generate the data (via the first 10 founding member pilots) that will inform the next narrowing move at the 6-month mark.
+Explicitly deferred: Up market, down market, adjacent verticals, broader market definition. All are real future opportunities but none is the right move for Plan 1.
+Operational discipline required: Say no to every prospect who does not fit the avatar, even when they are ready to pay. The first 10 founding members must all match. If fewer than 10 qualifying prospects respond, the answer is to improve targeting — not to take unqualified customers.
+
+8. THE VALUE EQUATION
+The offer must win across all four variables for the avatar at the stated price.
+Outcome: Recovered lapsed customer bookings, trackable in real-time throughout the pilot, backed by the "you decide" refund guarantee. Marketing should translate the financial outcome into the emotional one — the relief of stopping the slow drift of regular customers to competitors, not just the arithmetic of recovered revenue.
+Certainty: Won today through risk-reversal mechanics — the guarantee, DVLA cross-check on MOT dates, phone number validation and delivery monitoring, first-batch approval step, founder WhatsApp access, and concierge onboarding. Won tomorrow through named case studies with specific numbers. Copy structure must accommodate the transition from today's story to tomorrow's as case studies accumulate.
+Speed: Under 72 hours from signup to active reminders firing. First replies and bookings visible in week one. Full documented outcome within 90 days. This is dramatically faster than any comparable alternative (marketing agencies, Facebook ads, new garage management systems) — marketing should position Corviz on this speed advantage explicitly.
+Effort: 10-15 minutes of owner time across the full 90-day setup. Zero ongoing effort once running. The concierge model shifts thinking work from customer to founder. Async format eliminates scheduling overhead. Marketing should be as explicit about what the owner does NOT have to do (no phone calls, no live training, no weekly meetings) as what is included.
+
+9. COMPETITIVE POSITIONING
+The direct competitive landscape:
+
+Garage management system bundled reminders (MAM, GA4, Autowork Online, HBS) — existing, weak, ignored by owners. The primary category to win against.
+Dedicated retention tools (MOTLink, Remindlo, MOT Manager, similar) — compete on features and volume, lack personality and founder engagement.
+Doing nothing — still the most common "competitor" in the avatar segment.
+
+Corviz's competitive wedge:
+
+Founder-led, direct access (no helpdesk, no sales team, no account managers)
+DVLA cross-check on every reminder's MOT date (protects the garage's reputation by never sending reminders for MOTs already done elsewhere)
+Concierge onboarding by the founder personally (no competitor offers this at £39/month)
+Plain-spoken, trade-appropriate tone (most competitors sound like corporate SaaS)
+"You decide" refund guarantee (no competitor offers this level of risk reversal)
+
+What marketing should never do:
+
+Compete on price against bundled reminders (they are effectively free)
+Compete on feature count against dedicated retention tools
+Attack competitors by name
+Claim to be the "only" or the "first" of anything that is not literally true
+
+What marketing should do:
+
+Position Corviz as a fundamentally different kind of product — a founder-led service, not a SaaS tool
+Make the founder (Jack) visible in every piece of marketing
+Lean heavily on trust signals (guarantee, DVLA cross-check, founder access, physical welcome pack, first-batch approval step)
+Use specificity as a competitive weapon
+
+
+10. FOUNDER CONTEXT (IMPORTANT FOR MARKETING AGENT)
+Jack has social anxiety and does not do live video calls or cold phone calls. This is a permanent operating constraint, not a temporary limitation. All Corviz customer interaction is structured around async channels:
+
+Recorded videos (welcome video, Loom walkthroughs)
+Written communication (email, WhatsApp messages)
+Voice notes only where absolutely necessary
+
+Implications for marketing:
+
+All outreach channels must be async-compatible (letters, email, social DMs, written content)
+No campaigns that require live events, phone outreach, or booking prospect calls
+The marketing should emphasise async onboarding as a customer benefit — many independent garage owners will prefer this format over live calls regardless
+The founder-visibility aspect of the brand happens through written founder voice and recorded video, not through live appearances
+
+This is not a weakness to hide. It is a feature of the Corviz model to be embraced and communicated as such.
+
+11. THE 90-DAY GOAL (PLAN 1)
+One paid pilot customer, fully onboarded with DVLA-verified first batch firing within 72 hours, actively 30+ days into their 90-day pilot by day 90 of Plan 1, with early documented results (reminders fired, replies received, bookings logged via attribution system).
+Supporting milestones:
+
+Product capabilities built and tested by day 45
+Async onboarding assets complete by day 45
+First pilot customer closed by day 45-60 (latest day 75)
+First batch DVLA-verified and fired within 72 hours of signup
+30+ days of active pilot data logged by day 90
+Weekly WhatsApp check-ins maintained throughout
+
+The test of success at day 90: Do you have one real garage paying for Corviz, actively in their pilot, with working attribution data, and a founder-customer relationship in good health?
+
+12. GO-TO-MARKET CHANNELS (CONFIRMED AND PRIORITISED)
+Primary channel — direct mail letters (Edinburgh initial, expanding UK-wide if conversion validates):
+
+Updated copy reflecting £99 pilot and "you decide" guarantee
+Targeting refined against the avatar (2-4 staff MOT + servicing, 3-7 year tenure, digital presence)
+Budget: £600-900 for 200-300 letters in the next 2-4 weeks
+Cialdini-informed (reciprocity, social proof, scarcity, unity)
+
+Secondary channel — warm introductions:
+
+Founder to make a "who do I know who knows a garage owner" list (10+ people minimum)
+Ask the list for specific introductions to independent MOT garage owners
+
+Secondary channel — content creator outreach:
+
+DMs to UK garage owners on YouTube, Instagram, TikTok with smaller audiences (500-5,000 followers)
+Offer free or reduced-rate pilot in exchange for honest feedback and optional feature on their channel
+
+Tertiary channel — community participation:
+
+Genuine (non-spammy) participation in 2-3 UK garage Facebook groups, the IGA forum, GarageWire comments
+Building familiarity before any promotional activity
+
+Explicitly deferred until after Plan 1:
+
+Google Search Ads
+Paid social media ads
+Motor trade newsletter sponsorships
+Garage management software partnership conversations
+Any channel that requires proof to convert at acceptable cost
+
+
+13. WHAT THE MARKETING AGENT SHOULD PRODUCE
+The marketing agent is not asked to revisit any strategic decisions in this brief. Every element above is locked. The marketing agent's job is to execute against this strategy with best-in-class marketing craft.
+Expected deliverables from the marketing agent:
+
+Brand voice guide — a written document codifying the direct, plain-spoken, trade-appropriate voice. Examples of what is on-brand and off-brand. Suitable for briefing any future copywriter, designer, or content creator.
+Letter campaign copy — the updated physical outreach letter with the £99 pilot offer, "you decide" guarantee, founding member scarcity, and clear QR-code CTA. Multiple variants for A/B testing if volume supports it.
+Landing page copy audit and revisions — review the current getcorviz.com page against this brief and produce copy revisions where needed. The structural elements (hero, problem, ROI calculator, how it works, guarantee, pricing card, FAQ, final CTA) should largely stand; focus on voice, specificity, avatar fit, and accurate description of what DVLA cross-check actually does.
+Email sequences — welcome sequence for signups, nurture sequence for lead magnet (the "5 Ways UK Garages Lose £20,000+" guide), and a 90-day post-pilot sequence for customers who did not convert to ongoing subscription.
+Lead magnet content — the "5 Ways UK Garages Lose £20,000+" guide actually written and produced as a PDF, matching the brand voice. Not just a landing page reference.
+Social media strategy for founder-visibility — how Jack can build presence in UK garage communities without live video or cold calls. Written posts, recorded Loom snippets, case study stories once they exist, behind-the-scenes founder content.
+Case study template — a format for how Corviz case studies will be structured when the first customer completes their pilot. Ready to drop in named garage, numbers, quote, and photo at day 90.
+90-day marketing plan — week-by-week breakdown of what gets produced, what gets sent, what gets measured.
+
+
+14. WHAT THE MARKETING AGENT SHOULD NOT DO
+
+Do not revisit pricing architecture. It is locked.
+Do not revisit the avatar definition or tier positioning. They are locked.
+Do not add Pro tier, Multi-site tier, or freemium options to the landing page or any marketing.
+Do not recommend live video content, webinars, or phone-based outreach strategies. The founder does not do these.
+Do not recommend broader market positioning. Corviz is narrow by deliberate choice.
+Do not fabricate testimonials, inflate customer counts, or claim results that have not been delivered yet.
+Do not recommend competitor attacks by name.
+Do not use stock photography of generic corporate settings, handshakes, or multi-ethnic groups in open-plan offices. Real imagery or none.
+Do not soften the "you decide" guarantee into something hedged. "Your call. No forms, no disputes" is the exact language. It stays.
+Do not overstate what DVLA cross-check provides. It verifies MOT dates and catches already-renewed vehicles; it does not verify phone numbers, addresses, or customer contact details. Copy must be specific and accurate.
+
+
+15. STRATEGIC HANDOFF STATEMENT
+This brief is the foundation for all Corviz marketing activity for the next 90 days. Everything in it has been deliberated, pressure-tested, and locked in sequence — product readiness, constraint identification, avatar definition, tier positioning, pricing architecture, value equation, scaling move, and 90-day goal.
+The marketing agent inherits this brief and produces the craft work. The strategy work is done. At day 90, the founder returns to strategy to define Plan 2 based on actual outcomes.
+Any question that arises during the next 90 days that challenges the strategic foundation — "should we offer a cheaper tier," "should we go after multi-site operators," "should we abandon the pilot model for a free trial" — should be escalated back to strategy, not resolved within the marketing workstream. The strategic decisions here are not suggestions. They are the operating parameters for the next 90 days.
+
+End of brief.

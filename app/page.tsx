@@ -68,54 +68,19 @@ function EmailCaptureForm({ source, dark = true }: { source: string; dark?: bool
   )
 }
 
-const plans = [
-  { key: 'solo',  label: 'Solo',       price: 79,  maxCustomers: 500,  sliderMax: 500  },
-  { key: 'pro',   label: 'Pro',        price: 149, maxCustomers: 2000, sliderMax: 2000 },
-  { key: 'multi', label: 'Multi-site', price: 249, maxCustomers: null, sliderMax: 5000 },
-] as const
-
-type PlanKey = typeof plans[number]['key']
-
 function ROICalculator() {
-  const [planKey, setPlanKey] = useState<PlanKey>('solo')
   const [customers, setCustomers] = useState(200)
 
-  const plan = plans.find((p) => p.key === planKey)!
-
-  const capped = Math.min(customers, plan.sliderMax)
-
-  const lapsedCustomers = Math.round(capped * 0.40)
+  const lapsedCustomers = Math.round(customers * 0.40)
   const recovered = Math.round(lapsedCustomers * 0.35)
   const revenue = recovered * 165
-  const annualCost = plan.price * 12
+  const annualCost = 39 * 12  // founding member rate
   const roi = Math.round((revenue / annualCost) * 100)
-
-  function handlePlanChange(key: PlanKey) {
-    setPlanKey(key)
-    const newPlan = plans.find((p) => p.key === key)!
-    if (customers > newPlan.sliderMax) setCustomers(newPlan.sliderMax)
-  }
 
   return (
     <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100">
       <h3 className="text-2xl font-bold text-navy-900 mb-2">See your potential return</h3>
-      <p className="text-gray-500 mb-5">Choose your plan and move the slider to match your customer base</p>
-
-      {/* Plan selector */}
-      <div className="flex gap-1 p-1 bg-gray-100 rounded-xl mb-6">
-        {plans.map((p) => (
-          <button
-            key={p.key}
-            onClick={() => handlePlanChange(p.key)}
-            className={`flex-1 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-              planKey === p.key ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            {p.label}
-            <span className="block text-xs font-normal mt-0.5 opacity-70">£{p.price}/mo</span>
-          </button>
-        ))}
-      </div>
+      <p className="text-gray-500 mb-5">Move the slider to match your customer base</p>
 
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
@@ -125,15 +90,15 @@ function ROICalculator() {
         <input
           type="range"
           min={50}
-          max={plan.sliderMax}
-          step={50}
+          max={500}
+          step={25}
           value={customers}
           onChange={(e) => setCustomers(Number(e.target.value))}
           className="w-full h-2 bg-gray-200 rounded-full cursor-pointer accent-amber-500"
         />
         <div className="flex justify-between text-xs text-gray-500 mt-1">
           <span>50</span>
-          <span>{plan.maxCustomers ? plan.maxCustomers.toLocaleString() : '5,000+'}</span>
+          <span>500</span>
         </div>
       </div>
 
@@ -157,7 +122,7 @@ function ROICalculator() {
 
       <div className="p-4 bg-navy-900 rounded-xl flex items-center justify-between">
         <div>
-          <p className="text-white font-semibold">{plan.label} plan — £{plan.price}/mo</p>
+          <p className="text-white font-semibold">Founding member — £39/mo</p>
           <p className="text-white/75 text-sm">
             Your ROI: <span className="text-cta-500 font-bold">{roi}% return</span> on your annual spend
           </p>
@@ -166,7 +131,7 @@ function ROICalculator() {
           href="/signup"
           className="flex-shrink-0 bg-cta-500 text-navy-900 font-semibold px-4 py-2 rounded-lg text-sm hover:bg-cta-400 transition-colors"
         >
-          Start free →
+          Start pilot →
         </Link>
       </div>
     </div>
@@ -175,7 +140,6 @@ function ROICalculator() {
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly')
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
@@ -198,7 +162,7 @@ export default function LandingPage() {
               href="/signup"
               className="bg-cta-500 text-navy-900 text-sm font-semibold px-4 py-2 rounded-lg hover:bg-cta-400 transition-colors"
             >
-              Start free trial
+              Start your 90-day pilot
             </Link>
           </div>
           <button
@@ -216,7 +180,7 @@ export default function LandingPage() {
                 className="flex-1 text-center bg-cta-500 text-navy-900 text-sm font-semibold px-4 py-2.5 rounded-lg"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Start free trial
+                Start your 90-day pilot
               </Link>
               <Link
                 href="/login"
@@ -243,7 +207,7 @@ export default function LandingPage() {
             <div className="text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cta-500/10 border border-cta-500/20 rounded-full mb-6">
                 <span className="w-1.5 h-1.5 bg-cta-500 rounded-full" />
-                <span className="text-cta-500 text-xs font-medium">60-day free trial · No card required</span>
+                <span className="text-cta-500 text-xs font-medium">90-day pilot · £99 · Full refund guarantee</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 Stop losing customers to garages{' '}
@@ -260,7 +224,7 @@ export default function LandingPage() {
                   href="/signup"
                   className="inline-flex items-center justify-center gap-2 bg-cta-500 text-navy-900 font-bold px-6 py-3.5 rounded-xl hover:bg-cta-400 transition-colors text-base"
                 >
-                  Start free 60-day trial <ArrowRight size={18} />
+                  Start your 90-day pilot — £99 <ArrowRight size={18} />
                 </Link>
                 <a
                   href="#features"
@@ -270,7 +234,7 @@ export default function LandingPage() {
                 </a>
               </div>
               <p className="text-white/60 text-sm mt-4">
-                No credit card required · Setup in under 10 minutes · Cancel anytime
+                Setup in under 10 minutes · Full refund if it doesn't pay for itself
               </p>
             </div>
 
@@ -278,7 +242,6 @@ export default function LandingPage() {
             <div className="hidden lg:block">
               <div className="bg-navy-800 rounded-2xl p-4 border border-navy-700 shadow-2xl">
                 <div className="bg-white rounded-xl overflow-hidden">
-                  {/* Mock dashboard */}
                   <div className="flex">
                     <div className="w-44 bg-navy-900 p-3 min-h-64">
                       <div className="flex items-center gap-2 mb-4 px-1">
@@ -456,13 +419,13 @@ export default function LandingPage() {
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">The Corviz Guarantee</h2>
               <p className="text-white/75 text-lg mb-6 max-w-2xl mx-auto leading-relaxed">
-                Try Corviz free for 60 days — no credit card required. If you don't win back at least one lapsed customer in that time, you never pay a penny. Not a reduced rate. Nothing.
+                90-day guarantee — if you don't believe Corviz has paid for itself at the end of 90 days, full refund, your call, no disputes.
               </p>
               <div className="grid sm:grid-cols-3 gap-4 mb-8 text-left">
                 {[
-                  { title: '60-day free trial', body: 'Solo plan features, up to 500 customers. No card needed to start.' },
-                  { title: 'Zero setup risk', body: "Up and running in under 10 minutes. We'll help if you get stuck." },
-                  { title: 'Cancel anytime', body: 'No contracts, no lock-in. Cancel in two clicks if it\'s not for you.' },
+                  { title: 'Paid 90-day pilot', body: 'All automations active from day one. £99 upfront — no monthly commitment during the pilot.' },
+                  { title: 'Concierge setup', body: 'We personally help you get set up. Upload your customer list and I\'ll send you a tailored walkthrough video within 24 hours.' },
+                  { title: 'You decide', body: 'At 90 days, if you don\'t think it paid for itself — just ask. Full refund, no questions, no disputes.' },
                 ].map((item) => (
                   <div key={item.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
@@ -473,153 +436,80 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
-              <Link href="/signup" className="inline-flex items-center gap-2 bg-cta-500 text-navy-900 font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg">
-                Claim your free trial <ArrowRight size={20} />
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
+
       {/* Pricing */}
       <section id="pricing" className="py-20 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Simple, transparent pricing</h2>
-            <p className="text-gray-500 text-lg mb-6">Start free for 60 days. Cancel anytime.</p>
-            {/* Billing toggle */}
-            <div className="inline-flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
-              <button
-                onClick={() => setBillingPeriod('monthly')}
-                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'monthly' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-600 hover:text-gray-800'}`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setBillingPeriod('annual')}
-                className={`text-sm font-medium px-4 py-1.5 rounded-lg transition-colors ${billingPeriod === 'annual' ? 'bg-white text-navy-900 shadow-sm' : 'text-gray-600 hover:text-gray-800'}`}
-              >
-                Annual <span className="text-green-600 text-xs font-semibold ml-1">2 months free</span>
-              </button>
-            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-3">Founding Member Pilot</h2>
+            <p className="text-gray-500 text-lg">Limited to the first 5 garages. Personally onboarded by Jack.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                name: 'Solo',
-                monthly: { price: '£79', period: '/month' },
-                annual: { price: '£790', period: '/year' },
-                description: 'Perfect for single-bay independents',
-                features: [
-                  'Up to 500 customers',
-                  'SMS + email reminders',
-                  'All 4 automations',
-                  'Google review requests',
-                  'Message templates',
-                  'Message analytics',
-                  'Email support',
-                ],
-                cta: 'Start free trial',
-                popular: false,
-              },
-              {
-                name: 'Pro',
-                monthly: { price: '£149', period: '/month' },
-                annual: { price: '£1,490', period: '/year' },
-                description: 'For established independent garages',
-                features: [
-                  'Up to 2,000 customers',
-                  'SMS + email reminders',
-                  'All 4 automations',
-                  'Custom message templates',
-                  'Priority support',
-                  'Message analytics',
-                ],
-                cta: 'Start free trial',
-                popular: true,
-              },
-              {
-                name: 'Multi-site',
-                monthly: { price: '£249', period: '/month' },
-                annual: { price: '£2,490', period: '/year' },
-                description: 'For groups and franchises',
-                features: [
-                  'Unlimited customers',
-                  'Multiple locations',
-                  'All Pro features',
-                  'Dedicated account manager',
-                  'Custom onboarding',
-                  'Phone support',
-                ],
-                cta: 'Contact us',
-                popular: false,
-              },
-            ].map((plan) => {
-              const pricing = billingPeriod === 'annual' ? plan.annual : plan.monthly
-              return (
-              <div
-                key={plan.name}
-                className={`rounded-2xl p-6 border text-center md:text-left ${
-                  plan.popular
-                    ? 'bg-navy-900 border-navy-700 shadow-xl shadow-navy-900/20'
-                    : 'bg-white border-gray-100 shadow-sm'
-                }`}
-              >
-                {plan.popular && (
-                  <span className="inline-block bg-cta-500 text-navy-900 text-xs font-bold px-3 py-1 rounded-full mb-4">
-                    Most popular
-                  </span>
-                )}
-                <h3 className={`text-xl font-bold mb-1 ${plan.popular ? 'text-white' : 'text-navy-900'}`}>
-                  {plan.name}
-                </h3>
-                <p className={`text-sm mb-4 ${plan.popular ? 'text-white/75' : 'text-gray-500'}`}>
-                  {plan.description}
-                </p>
-                <div className="flex items-end gap-1 mb-1 justify-center md:justify-start">
-                  <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-navy-900'}`}>
-                    {pricing.price}
-                  </span>
-                  <span className={`text-sm mb-1.5 ${plan.popular ? 'text-white/75' : 'text-gray-500'}`}>
-                    {pricing.period}
-                  </span>
-                </div>
-                {billingPeriod === 'annual' && (
-                  <p className={`text-xs mb-5 ${plan.popular ? 'text-green-400' : 'text-green-600'}`}>
-                    Save 2 months vs monthly
-                  </p>
-                )}
-                {billingPeriod === 'monthly' && <div className="mb-5" />}
-                <ul className="space-y-2.5 mb-6 w-full">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2.5 justify-center md:justify-start">
-                      <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        plan.popular ? 'bg-cta-500/20' : 'bg-green-100'
-                      }`}>
-                        <Check size={10} className={plan.popular ? 'text-cta-500' : 'text-green-600'} />
-                      </div>
-                      <span className={`text-sm ${plan.popular ? 'text-navy-200' : 'text-gray-600'}`}>
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/signup"
-                  className={`block text-center font-semibold px-4 py-2.5 rounded-xl transition-colors ${
-                    plan.popular
-                      ? 'bg-cta-500 text-navy-900 hover:bg-cta-400'
-                      : 'bg-navy-900 text-white hover:bg-navy-800'
-                  }`}
-                >
-                  {plan.cta}
-                </Link>
+
+          {/* Single pilot card */}
+          <div className="bg-navy-900 rounded-2xl p-8 border border-navy-700 shadow-xl shadow-navy-900/20">
+            {/* Price */}
+            <div className="text-center mb-6">
+              <div className="flex items-end justify-center gap-2 mb-1">
+                <span className="text-6xl font-bold text-white">£99</span>
               </div>
-            )})}
+              <p className="text-white/60 text-sm">One-time, covers your full 90-day pilot</p>
+            </div>
+
+            {/* Inclusions */}
+            <ul className="space-y-3 mb-6">
+              {[
+                'Full access to Corviz for 90 days',
+                'Personal onboarding — Jack reviews your customer list and sends a tailored walkthrough video within 24 hours of signup',
+                'Direct WhatsApp access to Jack for the full pilot',
+                'DVLA cross-check on every reminder before it sends',
+                'Your first batch reviewed and approved by you before anything fires',
+                'Weekly results and a dedicated monthly review',
+              ].map((feature) => (
+                <li key={feature} className="flex items-start gap-3">
+                  <div className="w-4 h-4 rounded-full bg-cta-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check size={10} className="text-cta-500" />
+                  </div>
+                  <span className="text-sm text-navy-200 leading-snug">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Guarantee box */}
+            <div className="border border-cta-500/30 bg-cta-500/5 rounded-xl p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <Shield size={18} className="text-cta-500 flex-shrink-0 mt-0.5" />
+                <p className="text-white/80 text-sm leading-relaxed">
+                  If at the end of 90 days you don't believe Corviz has paid for itself, tell me, and you get a full refund.{' '}
+                  <span className="text-white font-semibold">Your call. No forms, no disputes.</span>
+                </p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <Link
+              href="/signup"
+              className="block text-center font-bold px-6 py-3.5 rounded-xl bg-cta-500 text-navy-900 hover:bg-cta-400 transition-colors text-base"
+            >
+              Start my 90-day pilot — £99
+            </Link>
+            <p className="text-center text-white/40 text-xs mt-3 leading-relaxed">
+              After your pilot, continue at founding member pricing — £39/month for life.{' '}
+              Standard pricing after the first 5 founding members is £79/month.
+            </p>
           </div>
-          <p className="text-center text-gray-500 text-sm mt-6">
-            All plans include a 60-day free trial. No credit card required to start.
-          </p>
+
+          {/* What happens after */}
+          <div className="mt-8 text-center">
+            <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-3">What happens after the pilot</h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              After your 90-day pilot, you continue with Corviz at <strong className="text-navy-900">£39/month for life</strong> as a founding member — no price increases, no surprise charges. This founding member rate is available only to the first 5 garages. After that, Corviz is £79/month.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -645,12 +535,12 @@ export default function LandingPage() {
                 a: 'Messages are sent from your garage name and use the customer\'s first name — they feel personal, not robotic. Most customers simply see a helpful reminder from a garage they trust.',
               },
               {
-                q: 'What happens when my free trial ends?',
-                a: 'Your automations will pause until you choose a plan. The trial runs on Solo plan limits — up to 500 customers and all four automations. We\'ll remind you before the trial ends so you\'re never caught off guard. There\'s no pressure and no automatic charge.',
+                q: 'How does the 90-day refund guarantee work?',
+                a: 'At the end of your 90-day pilot, if you don\'t believe Corviz has paid for itself — just reply to your welcome email and ask for a refund. We\'ll return the full £99. No forms, no disputes, no questions. Your call.',
               },
               {
                 q: 'Can I customise the messages?',
-                a: 'Custom message templates are available on the Pro and Multi-site plans. On the Solo plan and during your trial, you use our professionally written default templates which include your garage name, phone number, and the customer\'s details automatically.',
+                a: 'During the pilot your messages use our professionally written default templates, which include your garage name, phone number, and the customer\'s details automatically. Custom templates are available on higher plans.',
               },
               {
                 q: 'Does this work alongside my existing garage software?',
@@ -658,7 +548,7 @@ export default function LandingPage() {
               },
               {
                 q: 'How does Corviz know when an MOT is due?',
-                a: 'We calculate the MOT due date based on the last MOT date you provide when importing customers. MOTs renew annually, so if a customer\'s last MOT was 14 May 2025, we\'ll send a reminder around 14 April 2026.',
+                a: 'We calculate the MOT due date based on the last MOT date you provide when importing customers. We also cross-reference with the DVLA to keep dates accurate — if a customer has renewed elsewhere, we update their record automatically.',
               },
               {
                 q: 'Is my customer data safe?',
@@ -691,14 +581,14 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 bg-navy-900">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Start recovering customers today</h2>
-          <p className="text-white/75 text-lg mb-8">60-day free trial. No card needed. Set up in under 10 minutes.</p>
+          <p className="text-white/75 text-lg mb-8">Paid 90-day pilot with full refund guarantee. Set up in under 10 minutes.</p>
           <Link
             href="/signup"
             className="inline-flex items-center gap-2 bg-cta-500 text-navy-900 font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
           >
-            Claim your free trial <ArrowRight size={20} />
+            Start your 90-day pilot — £99 <ArrowRight size={20} />
           </Link>
-          <p className="text-white/60 text-sm mt-4">No credit card required · Cancel anytime</p>
+          <p className="text-white/60 text-sm mt-4">Full refund if it doesn't pay for itself · Cancel anytime after pilot</p>
         </div>
       </section>
 

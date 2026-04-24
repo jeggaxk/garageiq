@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { runDailyAutomations, sendTrialExpiryEmails } from '@/lib/automation'
+import { runDailyAutomations } from '@/lib/automation'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -12,7 +12,6 @@ export async function GET(request: Request) {
   }
 
   try {
-    await sendTrialExpiryEmails([168, 48, 24])
     const result = await runDailyAutomations()
     return NextResponse.json({
       success: true,

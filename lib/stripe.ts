@@ -8,11 +8,26 @@ export function getStripe() {
 }
 
 export const PLANS = {
+  // £99 one-time payment, activates 90-day pilot period
+  pilot: {
+    name: '90-Day Pilot',
+    price: 9900,
+    priceId: process.env.STRIPE_PILOT_PRICE_ID || '',
+    description: '90-day concierge pilot with full refund guarantee',
+    features: ['All automations', 'Up to 500 customers', 'Direct founder support', 'Full refund if not satisfied'],
+  },
+  // Founding member monthly rate (first 5 garages)
+  founding: {
+    name: 'Founding Member',
+    price: 3900,
+    priceId: process.env.STRIPE_FOUNDING_PRICE_ID || '',
+    description: 'Locked-in founding rate for life',
+    features: ['Up to 500 customers', 'SMS + email reminders', 'All 4 automations', 'Google review requests'],
+  },
   solo: {
     name: 'Solo',
     price: 7900,
     priceId: process.env.STRIPE_SOLO_PRICE_ID || '',
-    annualPriceId: process.env.STRIPE_SOLO_ANNUAL_PRICE_ID || '',
     description: 'Perfect for single-bay garages',
     features: ['Up to 500 customers', 'SMS + email reminders', 'All 4 automations', 'Google review requests'],
   },
@@ -20,16 +35,7 @@ export const PLANS = {
     name: 'Pro',
     price: 14900,
     priceId: process.env.STRIPE_PRO_PRICE_ID || '',
-    annualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
     description: 'For established independent garages',
     features: ['Up to 2,000 customers', 'SMS + email reminders', 'All 4 automations', 'Custom message templates', 'Priority support'],
-  },
-  multi: {
-    name: 'Multi-site',
-    price: 24900,
-    priceId: process.env.STRIPE_MULTI_PRICE_ID || '',
-    annualPriceId: process.env.STRIPE_MULTI_ANNUAL_PRICE_ID || '',
-    description: 'For garage groups and franchises',
-    features: ['Unlimited customers', 'Multiple garage locations', 'All Pro features', 'Dedicated account manager'],
   },
 } as const

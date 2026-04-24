@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Guide: How UK Garages Lose £20,000 a Year | Corviz</title>
+  <meta name="description" content="Free guide reveals 5 ways UK independent garages lose thousands in lapsed customers each year — and what the DVLA database shows about every one. 15-minute read, instant access.">
+  <link rel="canonical" href="https://getcorviz.com/guide">
+  <meta property="og:title" content="Free Guide: How UK Garages Lose £20,000 a Year | Corviz">
+  <meta property="og:description" content="5 ways UK independent garages lose thousands in lapsed customers each year — and what the DVLA shows about every one.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://getcorviz.com/guide">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://getcorviz.com/#organisation",
+        "name": "Corviz",
+        "url": "https://getcorviz.com",
+        "description": "Automated customer retention tool for UK independent MOT and servicing garages",
+        "founder": {
+          "@type": "Person",
+          "name": "Jack",
+          "jobTitle": "Founder"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://getcorviz.com/guide#webpage",
+        "url": "https://getcorviz.com/guide",
+        "name": "Free Guide: How UK Garages Lose £20,000 a Year",
+        "description": "Free guide revealing 5 ways UK independent garages lose thousands in lapsed customers each year.",
+        "isPartOf": { "@id": "https://getcorviz.com/#organisation" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0F1C2E;
+      --navy-mid: #1E3A5F;
+      --gray-dark: #374151;
+      --gray-mid: #6B7280;
+      --gray-light: #E5E7EB;
+      --amber: #B45309;
+      --amber-dark: #92400E;
+      --amber-bg: #FFFBEB;
+      --amber-border: #FDE68A;
+      --bg: #FAFAF7;
+      --white: #FFFFFF;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--navy);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray-light);
+      background: var(--white);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--amber);
+    }
+
+    .header-link {
+      font-size: 0.875rem;
+      color: var(--gray-mid);
+      text-decoration: none;
+    }
+
+    .header-link:hover {
+      color: var(--navy);
+    }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    /* ── Label above heading ── */
+    .guide-label {
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 4px;
+      padding: 4px 10px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Hero ── */
+    .hero h1 {
+      font-size: clamp(1.75rem, 5vw, 2.375rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    .hero-subhead {
+      font-size: 1.0625rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    /* ── Optin form card ── */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(15, 28, 46, 0.06);
+    }
+
+    .form-card-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .form-card-subtext {
+      font-size: 0.875rem;
+      color: var(--gray-mid);
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      font-size: 1rem;
+      color: var(--navy);
+      background: var(--bg);
+      border: 1.5px solid var(--gray-light);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.15s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--amber);
+      background: var(--white);
+    }
+
+    .form-group input::placeholder {
+      color: #9CA3AF;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      height: 52px;
+      margin-top: 20px;
+      padding: 0 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--amber);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+      min-height: 44px;
+    }
+
+    .submit-btn:hover {
+      background: var(--amber-dark);
+    }
+
+    .submit-btn:active {
+      transform: scale(0.99);
+    }
+
+    .submit-btn:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    .privacy-note {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* ── What's inside ── */
+    .inside-section {
+      margin-top: 48px;
+    }
+
+    .section-label {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 16px;
+    }
+
+    .inside-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .inside-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9375rem;
+      color: var(--gray-dark);
+      line-height: 1.5;
+    }
+
+    .inside-item-num {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--amber);
+      margin-top: 1px;
+    }
+
+    .inside-item-text strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* ── DVLA credibility strip ── */
+    .dvla-strip {
+      margin-top: 40px;
+      padding: 18px 20px;
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-left: 4px solid var(--amber);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+    }
+
+    .dvla-strip strong {
+      color: var(--navy);
+    }
+
+    /* ── About Jack ── */
+    .about-jack {
+      margin-top: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .jack-avatar {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .jack-text {
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+    }
+
+    .jack-text strong {
+      color: var(--navy);
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      margin-top: 60px;
+      padding: 24px;
+      border-top: 1px solid var(--gray-light);
+      text-align: center;
+    }
+
+    .site-footer p {
+      font-size: 0.8125rem;
+      color: var(--gray-mid);
+    }
+
+    .site-footer a {
+      color: var(--gray-mid);
+      text-decoration: underline;
+    }
+
+    .site-footer a:hover {
+      color: var(--navy);
+    }
+
+    /* ── Success state ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 28px 20px;
+    }
+
+    .form-success.visible {
+      display: block;
+    }
+
+    .form-success-icon {
+      width: 52px;
+      height: 52px;
+      background: #D1FAE5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .form-success h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .form-success p {
+      font-size: 0.9375rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      main {
+        padding: 28px 16px 48px;
+      }
+
+      .form-card {
+        padding: 20px 16px;
+      }
+
+      .about-jack {
+        flex-direction: row;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home">Cor<span>viz</span></a>
+    <a href="https://getcorviz.com" class="header-link">Back to main site</a>
+  </header>
+
+  <main>
+
+    <div class="hero">
+      <span class="guide-label">Free guide — 15-minute read</span>
+
+      <h1>5 ways a UK garage loses <em>£20,000 a year</em> — and what the DVLA database says about every one</h1>
+
+      <p class="hero-subhead">
+        The customers who don't come back aren't lost. They're just not being contacted at the right time, with the right information. This guide breaks down exactly where the money goes — with numbers you can run against your own customer list.
+      </p>
+    </div>
+
+    <!--
+      INTEGRATION NOTE:
+      Replace the form action attribute below with your email service provider's
+      form endpoint (ConvertKit, Mailchimp, ActiveCampaign, etc.).
+      The hidden input "redirect" controls where the user lands after opt-in.
+      The JavaScript below handles the async submit and success state.
+    -->
+    <div class="form-card" id="optin-card">
+
+      <div id="form-fields">
+        <p class="form-card-heading">Get the free guide</p>
+        <p class="form-card-subtext">Enter your details below. You'll get it in your inbox straight away.</p>
+
+        <form
+          id="optin-form"
+          action="YOUR_ESP_FORM_ENDPOINT"
+          method="POST"
+          novalidate
+        >
+          <!-- Replace YOUR_ESP_FORM_ENDPOINT with your email provider's form URL -->
+          <input type="hidden" name="redirect" value="https://getcorviz.com/offer">
+
+          <div class="form-group">
+            <label for="first-name">Your first name</label>
+            <input
+              type="text"
+              id="first-name"
+              name="first_name"
+              autocomplete="given-name"
+              placeholder="Dave"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email_address"
+              autocomplete="email"
+              placeholder="dave@yourgarage.co.uk"
+              required
+            >
+          </div>
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Send me the free guide
+          </button>
+
+          <p class="privacy-note">
+            No spam. One email with the guide, then a short follow-up series. Unsubscribe any time.
+          </p>
+        </form>
+      </div>
+
+      <div class="form-success" id="form-success" role="status" aria-live="polite">
+        <div class="form-success-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 13l4 4L19 7" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2>Check your inbox</h2>
+        <p>The guide is on its way. If it doesn't arrive in a few minutes, check your spam folder.</p>
+      </div>
+
+    </div>
+
+    <section class="inside-section" aria-labelledby="inside-heading">
+      <p class="section-label" id="inside-heading">What's in the guide</p>
+
+      <ul class="inside-list">
+        <li class="inside-item">
+          <span class="inside-item-num" aria-hidden="true">1</span>
+          <span class="inside-item-text">
+            <strong>The reminder that didn't fire.</strong>
+            Why garage management system reminders fail — and how much it costs per month when they do.
+          </span>
+        </li>
+        <li class="inside-item">
+          <span class="inside-item-num" aria-hidden="true">2</span>
+          <span class="inside-item-text">
+            <strong>The reminder that fired with wrong data.</strong>
+            What happens when a customer gets a reminder for an MOT they already renewed elsewhere — and why it damages the relationship.
+          </span>
+        </li>
+        <li class="inside-item">
+          <span class="inside-item-num" aria-hidden="true">3</span>
+          <span class="inside-item-text">
+            <strong>The customer who moved and you never knew.</strong>
+            Lapsed contact details, undelivered messages, and the revenue that walks quietly out the door.
+          </span>
+        </li>
+        <li class="inside-item">
+          <span class="inside-item-num" aria-hidden="true">4</span>
+          <span class="inside-item-text">
+            <strong>The customer who came back once and then didn't.</strong>
+            The follow-up gap that turns a one-off booking into a lost customer — and how to close it.
+          </span>
+        </li>
+        <li class="inside-item">
+          <span class="inside-item-num" aria-hidden="true">5</span>
+          <span class="inside-item-text">
+            <strong>The customer who got a better offer from a mailbox marketer.</strong>
+            Why silence from your garage is a competing offer — and what actually stops it.
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <aside class="dvla-strip" role="note">
+      <strong>A note on the DVLA angle:</strong> Each way includes what the DVLA MOT database shows about that exact failure — real data on MOTs already renewed elsewhere, vehicles that have gone off the road, and date mismatches that should never reach a customer's phone.
+    </aside>
+
+    <div class="about-jack">
+      <div class="jack-avatar" aria-hidden="true">J</div>
+      <p class="jack-text">
+        Written by <strong>Jack</strong>, founder of Corviz. Built in South Queensferry after watching the same problem in every garage I looked at — customers drifting away, reminders firing blind, and nobody connecting the dots to revenue.
+        <br><br>
+        Questions? Email <a href="mailto:jack@getcorviz.com" style="color: var(--amber); text-decoration: underline;">jack@getcorviz.com</a> — I answer every one.
+      </p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; 2025 Corviz &nbsp;·&nbsp;
+      <a href="https://getcorviz.com">getcorviz.com</a> &nbsp;·&nbsp;
+      <a href="https://getcorviz.com/privacy">Privacy</a>
+    </p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('optin-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formFields = document.getElementById('form-fields');
+    const successState = document.getElementById('form-success');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('first-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!name || !email) return;
+
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        // Show success state regardless of specific ESP response shape
+        formFields.style.display = 'none';
+        successState.classList.add('visible');
+
+      } catch (err) {
+        // Fallback: show success state anyway — the form may have submitted
+        formFields.style.display = 'none';
+        successState.classList.add('visible');
+      }
+    });
+  </script>
+
+</body>
+</html>
