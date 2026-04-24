@@ -43,6 +43,7 @@
 
     :root {
       --navy: #0F1C2E;
+      --navy-mid: #1E3A5F;
       --gray-dark: #374151;
       --gray-mid: #6B7280;
       --gray-light: #E5E7EB;
@@ -67,10 +68,12 @@
       min-height: 100vh;
     }
 
-    /* ── Minimal header ── */
+    /* ── Header ── */
     .site-header {
       padding: 20px 24px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       border-bottom: 1px solid var(--gray-light);
       background: var(--white);
     }
@@ -84,6 +87,14 @@
     }
 
     .logo span { color: var(--amber); }
+
+    .header-link {
+      font-size: 0.875rem;
+      color: var(--gray-mid);
+      text-decoration: none;
+    }
+
+    .header-link:hover { color: var(--navy); }
 
     /* ── Layout ── */
     main {
@@ -188,7 +199,7 @@
       width: 100%;
       height: 54px;
       margin-top: 22px;
-      background: var(--amber);
+      background: #F5A01A;
       color: var(--white);
       font-size: 1.0625rem;
       font-weight: 700;
@@ -200,7 +211,7 @@
       min-height: 44px;
     }
 
-    .submit-btn:hover { background: var(--amber-dark); }
+    .submit-btn:hover { background: #d9880f; }
 
     .submit-btn:focus-visible {
       outline: 3px solid var(--amber);
@@ -320,7 +331,8 @@
 <body>
 
   <header class="site-header">
-    <a href="https://getcorviz.com" class="logo" aria-label="Corviz — back to main site">Cor<span>viz</span></a>
+    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home">Cor<span>viz</span></a>
+    <a href="https://getcorviz.com" class="header-link">Back to main site</a>
   </header>
 
   <main>
