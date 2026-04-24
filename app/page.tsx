@@ -1,16 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
   Car,
   Wrench,
   Star,
-  UserCheck,
   Check,
   ArrowRight,
   Upload,
-  Phone,
   TrendingUp,
   Zap,
   Menu,
@@ -135,6 +133,14 @@ function ROICalculator() {
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [founderCount, setFounderCount] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch('/api/founding-member-count')
+      .then((r) => r.json())
+      .then((d) => setFounderCount(d.count ?? 0))
+      .catch(() => setFounderCount(0))
+  }, [])
 
   return (
     <div className="bg-white font-sans">
@@ -220,15 +226,15 @@ export default function LandingPage() {
                 >
                   Start your 90-day pilot — £99 <ArrowRight size={18} />
                 </Link>
-                <a
-                  href="#features"
+                <Link
+                  href="/guide-optin"
                   className="inline-flex items-center justify-center gap-2 border border-navy-700 text-white px-6 py-3.5 rounded-xl hover:bg-navy-800 transition-colors text-base"
                 >
-                  See how it works
-                </a>
+                  Or read the £20,000 guide first
+                </Link>
               </div>
               <p className="text-white/60 text-sm mt-4">
-                Setup in under 10 minutes · Full refund if it doesn't pay for itself
+                Concierge setup from the founder · Full refund if it doesn't pay for itself
               </p>
             </div>
 
@@ -330,7 +336,7 @@ export default function LandingPage() {
                   '£85 per recovered car: £55 MOT + £30 average advisory fix-on',
                   'Typical garages are missing 8 to 15 customers per month',
                   'First reminders fire within 72 hours of signup',
-                  'Setup time: under 10 minutes',
+                  'Concierge setup from the founder',
                 ].map((point) => (
                   <li key={point} className="flex items-center gap-3 text-gray-700">
                     <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0"><Check size={12} className="text-green-600" /></div>
@@ -348,14 +354,14 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Up and running in 10 minutes</h2>
-            <p className="text-gray-500 text-lg">No technical knowledge needed. No ongoing management required.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">How it works</h2>
+            <p className="text-gray-500 text-lg">Concierge onboarding. You upload your customer list. I handle the rest.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { step: '1', title: 'Import your customers', description: 'Upload a CSV from your existing system, or add customers manually. We support all common formats.', icon: Upload },
-              { step: '2', title: 'Turn on automations', description: 'Toggle on the automations you want. Customise the message text with your garage name, phone, and Google review link.', icon: Zap },
-              { step: '3', title: 'Watch customers return', description: "Corviz runs every morning. You'll see messages going out, customers booking, and revenue coming in.", icon: TrendingUp },
+              { step: '1', title: 'Upload your customer list', description: 'Export a CSV from your existing system, or I help you if it\'s on paper. Takes 5 minutes.', icon: Upload },
+              { step: '2', title: 'Jack reviews your list personally', description: 'Within 24 hours I send you a tailored walkthrough video. I cross-check your MOT dates against DVLA, flag any issues, and show you the first batch of reminders ready to go.', icon: Zap },
+              { step: '3', title: 'Approve and launch', description: 'You approve the first batch with one click. Reminders start sending automatically. I stay on WhatsApp throughout your pilot.', icon: TrendingUp },
             ].map((step) => {
               const Icon = step.icon
               return (
@@ -376,7 +382,7 @@ export default function LandingPage() {
       <section id="features" className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Four automations that run while you work</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">Three automations that run while you work</h2>
             <p className="text-gray-500 text-lg">Set them up once. They run every morning at 9am, automatically.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
@@ -384,7 +390,6 @@ export default function LandingPage() {
               { icon: Car, color: 'bg-blue-500', title: 'MOT reminders', description: 'Sent 4 weeks before MOT due date via SMS and email. Customers book with you before they even think about looking elsewhere.', example: '"Hi Sarah, your AB12 CDE MOT is due in 4 weeks. Book now at Smith\'s Auto — call us on 01234 567890 or visit our website to book."' },
               { icon: Wrench, color: 'bg-orange-500', title: 'Service follow-ups', description: '11 months after their last service, your customers get a friendly nudge. Most will book without thinking twice.', example: '"Hi Mark, it\'s been almost a year since your last service at Smith\'s Auto. Book your Ford Focus in now — call 01234 567890."' },
               { icon: Star, color: 'bg-cta-500', title: 'Google review requests', description: 'Sent 24 hours after every visit. More reviews mean higher ranking in local search — more customers finding you first.', example: '"Hi James, thanks for visiting Smith\'s Auto today. If you\'re happy, a quick Google review would mean a lot: [link]"' },
-              { icon: UserCheck, color: 'bg-purple-500', title: 'Win-back campaigns', description: "Customers who haven't visited in 12+ months get a personalised message with a free health check offer.", example: '"Hi Emma, we haven\'t seen your VW Golf in a while! Come in for a free 10-point vehicle health check — call us to arrange."' },
             ].map((feature) => {
               const Icon = feature.icon
               return (
@@ -418,7 +423,7 @@ export default function LandingPage() {
               <div className="grid sm:grid-cols-3 gap-4 mb-8 text-left">
                 {[
                   { title: 'Paid 90-day pilot', body: 'All automations active from day one. £99 upfront — no monthly commitment during the pilot.' },
-                  { title: 'Concierge setup', body: 'We personally help you get set up. Upload your customer list and I\'ll send you a tailored walkthrough video within 24 hours.' },
+                  { title: 'Concierge setup', body: 'I personally help you get set up. Upload your customer list and I\'ll send you a tailored walkthrough video within 24 hours.' },
                   { title: 'You decide', body: 'At 90 days, if you don\'t think it paid for itself — just ask. Full refund, no questions, no disputes.' },
                 ].map((item) => (
                   <div key={item.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
@@ -459,7 +464,7 @@ export default function LandingPage() {
                   'Doing MOTs and servicing',
                   '300 to 1,500 customers on the books',
                   '3 to 7 years under current ownership',
-                  'Using MAM, GA4, Autowork Online, HBS, or similar',
+                  'Using garage management software or working from spreadsheets',
                   'Frustrated watching customers drift away year on year',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
@@ -508,6 +513,11 @@ export default function LandingPage() {
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-3">Founding Member Pilot</h2>
             <p className="text-gray-500 text-lg">Limited to the first 10 garages. Personally onboarded by Jack.</p>
+            {founderCount !== null && founderCount > 0 && (
+              <p className="mt-3 text-sm font-medium text-amber-700 bg-amber-50 border border-amber-200 rounded-full inline-block px-4 py-1.5">
+                {founderCount} of 10 founding member spots secured. When they're gone, the rate rises to £79/month.
+              </p>
+            )}
           </div>
 
           {/* Single pilot card */}
@@ -584,11 +594,11 @@ export default function LandingPage() {
             {[
               {
                 q: 'Do my customers need to opt in to receive messages?',
-                a: 'Under UK PECR, the "soft opt-in" rule allows you to contact existing customers about similar services — such as MOT reminders and service follow-ups — without a separate opt-in, provided they were given a chance to opt out when you first collected their details. You are responsible for ensuring your customer list is compliant with this rule. If you are unsure, we recommend seeking independent legal advice.',
+                a: 'Under UK PECR, the "soft opt-in" rule allows you to contact existing customers about similar services — such as MOT reminders and service follow-ups — without a separate opt-in, provided they were given a chance to opt out when you first collected their details. You are responsible for ensuring your customer list is compliant with this rule. If you are unsure, I recommend seeking independent legal advice.',
               },
               {
                 q: 'What if I don\'t have a customer list?',
-                a: 'Most garage management systems (Garage Hive, TechMan, Motasoft etc.) let you export a customer list as a CSV — usually found under a "Reports" or "Export" section. If your records are on paper, you can add customers manually one by one directly in Corviz.',
+                a: 'Most independent garages run on a mix of paper, spreadsheets, and legacy software. On your onboarding I\'ll walk you through how to export from any system — or if you\'re fully on paper, we\'ll start with your most recent customers and build from there.',
               },
               {
                 q: 'Will customers know the message is automated?',
@@ -596,7 +606,7 @@ export default function LandingPage() {
               },
               {
                 q: 'How does the 90-day refund guarantee work?',
-                a: 'At the end of your 90-day pilot, if you don\'t believe Corviz has paid for itself — just reply to your welcome email and ask for a refund. We\'ll return the full £99. No forms, no disputes, no questions. Your call.',
+                a: 'If at the end of 90 days you don\'t believe Corviz has paid for itself, email me or message me on WhatsApp. I\'ll refund you in full. No forms, no disputes, no \'prove it\' required. Your call.',
               },
               {
                 q: 'Can I customise the messages?',
@@ -608,11 +618,11 @@ export default function LandingPage() {
               },
               {
                 q: 'How does Corviz know when an MOT is due?',
-                a: 'We calculate the MOT due date based on the last MOT date you provide when importing customers. We also cross-reference with the DVLA to keep dates accurate — if a customer has renewed elsewhere, we update their record automatically.',
+                a: 'I calculate the MOT due date based on the last MOT date you provide when importing customers. I also cross-reference with the DVLA to keep dates accurate — if a customer has renewed elsewhere, I update their record automatically.',
               },
               {
                 q: 'Is my customer data safe?',
-                a: 'Your data is stored securely in the EU on Supabase infrastructure. We never share or sell your customer data to third parties. We act as a data processor — you remain the data controller. Full details are in our Privacy Policy.',
+                a: 'Your data is stored securely in the EU on Supabase infrastructure. I never share or sell your customer data to third parties. I act as a data processor — you remain the data controller. Full details are in our Privacy Policy.',
               },
             ].map((faq, i) => (
               <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -659,7 +669,7 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 bg-navy-900">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Start recovering customers today</h2>
-          <p className="text-white/75 text-lg mb-8">Paid 90-day pilot with full refund guarantee. Set up in under 10 minutes.</p>
+          <p className="text-white/75 text-lg mb-8">Paid 90-day pilot with full refund guarantee. Concierge setup from the founder.</p>
           <Link
             href="/signup"
             className="inline-flex items-center gap-2 bg-cta-500 text-navy-900 font-bold px-8 py-4 rounded-xl hover:bg-cta-400 transition-colors text-lg"
@@ -697,7 +707,7 @@ export default function LandingPage() {
           <div className="flex gap-6">
             <a href="/privacy" className="text-navy-300 text-xs hover:text-white transition-colors">Privacy</a>
             <a href="/terms" className="text-navy-300 text-xs hover:text-white transition-colors">Terms</a>
-            <a href="mailto:hello@corviz.co.uk" className="text-navy-300 text-xs hover:text-white transition-colors">Contact</a>
+            <a href="mailto:jack@getcorviz.com" className="text-navy-300 text-xs hover:text-white transition-colors">Contact</a>
           </div>
         </div>
       </footer>
