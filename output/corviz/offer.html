@@ -139,14 +139,15 @@
     }
 
     .logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--navy);
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: -0.02em;
     }
 
-    .logo span { color: var(--amber); }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
 
     .header-link {
       font-size: 0.875rem;
@@ -452,7 +453,7 @@
       display: block;
       width: 100%;
       padding: 16px 24px;
-      background: #D97706;
+      background: var(--amber);
       color: var(--white);
       font-size: 1rem;
       font-weight: 700;
@@ -466,7 +467,7 @@
       line-height: 1.4;
     }
 
-    .cta-btn:hover { background: var(--amber); }
+    .cta-btn:hover { background: var(--amber-dark); }
 
     .cta-btn:focus-visible {
       outline: 3px solid #FCD34D;
@@ -656,7 +657,9 @@
 <body>
 
   <header class="site-header">
-    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home">Cor<span>viz</span></a>
+    <a href="https://getcorviz.com" class="logo" aria-label="Corviz home">
+      <img src="/corviz-logo-transparent.png" alt="Corviz">
+    </a>
     <a href="https://getcorviz.com" class="header-link">Back to main site</a>
   </header>
 
