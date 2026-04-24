@@ -30,10 +30,6 @@ export async function PATCH(request: Request) {
     .from('garages').select('id, plan').eq('owner_id', user.id).single()
   if (!garage) return NextResponse.json({ error: 'Garage not found' }, { status: 404 })
 
-  if (!['pro', 'multi'].includes(garage.plan)) {
-    return NextResponse.json({ error: 'Custom templates require a Pro or Multi plan' }, { status: 403 })
-  }
-
   const { id, body, subject } = await request.json()
 
   const { data: template, error } = await supabase

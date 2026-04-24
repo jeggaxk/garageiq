@@ -600,7 +600,7 @@ export default function LandingPage() {
               },
               {
                 q: 'Can I customise the messages?',
-                a: 'During the pilot your messages use our professionally written default templates, which include your garage name, phone number, and the customer\'s details automatically. Custom templates are available on higher plans.',
+                a: 'Yes. You get a default template out of the box — it auto-fills your garage name, your phone number, and the customer\'s details so the reminder reads like it came from you, not a robot. If you want to change the wording, you can — every template is editable in your dashboard before the batch fires.',
               },
               {
                 q: 'Does this work alongside my existing garage software?',
